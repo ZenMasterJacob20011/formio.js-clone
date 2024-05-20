@@ -1,19 +1,25 @@
 import TextField from "./components/TextField.js";
+import {Form} from "./Form.js";
 
 export default class Formio {
     /**
      * creates a form and displays renders it in the htmlElement
      * @param {HTMLElement} htmlElement
-     * @param {{components: Component[]}} formJSON
+     * @param {{components: object[]}} formJSON
      */
     static createForm(htmlElement, formJSON) {
+        const componentsClassList = []
 
-        htmlElement.innerHTML = this.renderTemplate(formJSON.components)
+        for (const componentJSON of formJSON.components) {
+            componentsClassList.push(this.convertObjectToClass(componentJSON))
+        }
+        const form = new Form(componentsClassList)
+        htmlElement.innerHTML = form.render()
     }
 
     /**
      *
-     * @param {Component[]} components
+     * @param {object[]} components
      * @return {string} an html template string
      */
     static renderTemplate(components) {
@@ -28,5 +34,15 @@ export default class Formio {
         })
         form += "</div>"
         return form
+    }
+
+    /**
+     * Converts the component.type to its class object representation
+     * @param {object} componentJSON
+     */
+    static convertObjectToClass(componentJSON) {
+        if (componentJSON.type === 'textfield') {
+            return new TextField(componentJSON)
+        }
     }
 }
