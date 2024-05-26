@@ -1,4 +1,4 @@
-import Formio from "./src/Formio.js";
+import Formio from "./Formio";
 
 Formio.createForm(document.getElementById('formio'), {
     components: [

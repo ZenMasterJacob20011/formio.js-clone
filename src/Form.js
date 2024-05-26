@@ -1,5 +1,3 @@
-import {Formio} from "./index";
-
 class Form{
     /**
      *
