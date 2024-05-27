@@ -1,25 +1,22 @@
 import Component from "./_classes/Component.js";
+import Template from "../Template";
 
 export default class TextField extends Component {
-    constructor(schema) {
-        super(schema);
-        this.type = 'textfield';
-        this.label = 'Text Field'
-        this.key = 'textfield';
-
+    /**
+     * creates a new textfield component
+     * @param {string} type
+     * @param {string} key
+     */
+    constructor(type, key) {
+        super(type, key);
     }
 
-
-    render() {
-        return super.render(`
-            <div class="component">
-                <div>
-                    <label class="form-label">${this.label}</label>
-                </div>
-                <div>
-                    <input type="text" class="form-control">
-                </div>
-            </div>
-        `)
+    /**
+     * return the html of the textfield component
+     * @param {string} html
+     * @return {string}
+     */
+    render(html) {
+        return super.render(Template.renderTemplate('textfield', this))
     }
 }

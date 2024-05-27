@@ -1,13 +1,35 @@
-class Form{
+export class Form {
     /**
-     *
-     * @param {Component[]} components
+     * @param {HTMLElement} htmlContainer
+     * @param {object[]} components
+     * @param {object?} options
      */
-    constructor(components) {
+    constructor(htmlContainer, components, options) {
+        this.htmlContainer = htmlContainer
         this.components = components
+        this.options = options || {}
     }
 
-    render(){
+    /**
+     * will render the components into the container
+     * @param {object[]} components
+     */
+    set setForm(components) {
+        this.createForm(components)
+    }
+
+    /**
+     * sets the inner html for the container htmlElement
+     */
+    createForm() {
+        this.components.map((component)=>{
+
+        })
+
+        this.htmlContainer.innerHTML =
+    }
+
+    render() {
         this.components.forEach()
     }
 }
