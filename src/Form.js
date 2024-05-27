@@ -1,12 +1,13 @@
+import Components from "./components/_classes/Components";
+
 export class Form {
     /**
      * @param {HTMLElement} htmlContainer
      * @param {object[]} components
      * @param {object?} options
      */
-    constructor(htmlContainer, components, options) {
+    constructor(htmlContainer, options) {
         this.htmlContainer = htmlContainer
-        this.components = components
         this.options = options || {}
     }
 
@@ -20,16 +21,18 @@ export class Form {
 
     /**
      * sets the inner html for the container htmlElement
+     * @param {object[]} components
      */
-    createForm() {
-        this.components.map((component)=>{
-
+    createForm(components) {
+        const classComponents = components.map((component)=>{
+            return Components.createComponent(component)
         })
+        let formContainer = '<div class="form">'
 
-        this.htmlContainer.innerHTML =
-    }
-
-    render() {
-        this.components.forEach()
+        classComponents.forEach((classComponent) => {
+            formContainer += classComponent.render()
+        })
+        formContainer += "</div>"
+        this.htmlContainer.innerHTML = formContainer
     }
 }

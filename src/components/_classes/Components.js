@@ -14,10 +14,10 @@ export default class Components {
      * @param {object} component
      * @return {Component || undefined}
      */
-    static createComponent(component) {
+    static createComponent(component, options, data) {
         const componentType = component.type.toLowerCase()
 
-        return this.components[componentType](componentType, component.key);
+        return new this.components[componentType](component, options, data);
 
     }
 }

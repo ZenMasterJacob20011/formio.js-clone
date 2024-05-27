@@ -7,6 +7,10 @@ Formio.createForm(document.getElementById('formio'), {
             key: 'firstName',
             placeholder: 'Enter your first name.',
             input: true
+        },
+        {
+            type: 'button',
+            key: 'button',
         }
     ]
 })

@@ -1,12 +1,29 @@
+import _ from 'lodash'
+
 export default class Component {
+
+    static schema(...sources) {
+        return _.merge({
+            placeholder: ''
+        }, ...sources)
+    }
+
     /**
      *
-     * @param {string} type
-     * @param {string} key
+     * @param {object} component
+     * @param {object} options
+     * @param {object} data
      */
-    constructor(type, key) {
-        this.type = type
-        this.key = key
+    constructor(component, options, data) {
+        this.component = this.mergeSchema(component || {})
+    }
+
+    get defaultSchema(){
+        return Component.schema()
+    }
+
+    mergeSchema(component) {
+        return _.defaultsDeep(component, this.defaultSchema)
     }
 
     /**

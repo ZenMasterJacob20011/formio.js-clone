@@ -1,14 +1,29 @@
-import Component from "./_classes/Component.js";
 import Template from "../Template";
+import Input from "./_classes/Input";
 
-export default class TextField extends Component {
+export default class TextField extends Input {
+
+    static schema(...extend){
+        return Input.schema({
+            label: 'Text Field',
+            key: 'textField',
+            type: 'textfield'
+        },...extend)
+    }
+
     /**
      * creates a new textfield component
-     * @param {string} type
-     * @param {string} key
+     * @param {object} component
+     * @param {object} options
+     * @param {object} data
      */
-    constructor(type, key) {
-        super(type, key);
+    constructor(component, options, data) {
+        super(component, options, data);
+    }
+
+
+    get defaultSchema() {
+        return TextField.schema();
     }
 
     /**
@@ -17,6 +32,6 @@ export default class TextField extends Component {
      * @return {string}
      */
     render(html) {
-        return super.render(Template.renderTemplate('textfield', this))
+        return super.render(Template.renderTemplate('textfield', this.component))
     }
 }
