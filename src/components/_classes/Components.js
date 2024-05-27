@@ -1,11 +1,13 @@
 import TextField from "../TextField";
 import Button from "../Button";
+import TextArea from "../TextArea";
 
 export default class Components {
 
     static components = {
         'textfield': TextField,
-        'button': Button
+        'button': Button,
+        'textarea': TextArea
     }
 
 
