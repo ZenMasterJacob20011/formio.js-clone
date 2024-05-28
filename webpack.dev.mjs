@@ -1,9 +1,10 @@
 import path from 'path'
 import HtmlWebpackPlugin from "html-webpack-plugin";
-
 const __dirname = import.meta.dirname
 export default {
-    entry: './src/index.js',
+    entry: {
+        "main": './src/index.js'
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
@@ -22,7 +23,7 @@ export default {
         rules: [
             {
                 test: /\.css$/i,
-                use: ['style-loader','css-loader']
+                use: ['style-loader', 'css-loader']
             }
         ]
     }
