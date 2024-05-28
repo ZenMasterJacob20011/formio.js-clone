@@ -1,5 +1,5 @@
-import Template from "../Template";
-import Input from "./_classes/Input";
+import Template from '../Template';
+import Input from './_classes/Input';
 
 export default class TextField extends Input {
 
@@ -31,7 +31,7 @@ export default class TextField extends Input {
      * @param {string} html
      * @return {string}
      */
-    render(html) {
+    render() {
         return super.render(Template.renderTemplate('textfield', this.component))
     }
 }

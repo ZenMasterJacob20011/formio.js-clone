@@ -1,5 +1,4 @@
-import Component from "./Component";
-import Field from "./Field";
+import Field from './Field';
 
 export default class Input extends Field {
 

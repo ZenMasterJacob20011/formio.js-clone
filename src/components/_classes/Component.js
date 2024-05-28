@@ -1,6 +1,7 @@
 import _ from 'lodash'
 
 export default class Component {
+    _data;
 
     static schema(...sources) {
         return _.merge({
@@ -15,6 +16,8 @@ export default class Component {
      * @param {object} data
      */
     constructor(component, options, data) {
+        this._options = options;
+        this._data = data;
         this.component = this.mergeSchema(component || {})
     }
 

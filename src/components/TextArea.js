@@ -1,13 +1,13 @@
-import Input from "./_classes/Input";
-import Template from "../Template";
+import Input from './_classes/Input';
+import Template from '../Template';
 
 export default class TextArea extends Input {
 
     static schema(...extend) {
         return Input.schema({
-            label: "Text Area",
-            key: "textArea",
-            type: "textarea"
+            label: 'Text Area',
+            key: 'textArea',
+            type: 'textarea'
         }, ...extend)
     }
 
@@ -15,7 +15,7 @@ export default class TextArea extends Input {
         super(component, options, data);
     }
 
-    render(html) {
+    render() {
         return super.render(Template.renderTemplate('textarea', this.component));
     }
 

@@ -1,4 +1,4 @@
-import Components from "./components/_classes/Components";
+import Components from './components/_classes/Components';
 
 export class Form {
     /**
@@ -24,7 +24,7 @@ export class Form {
      * @param {object[]} components
      */
     createForm(components) {
-        const classComponents = components.map((component)=>{
+        const classComponents = components.map((component) => {
             return Components.createComponent(component)
         })
         let formContainer = '<div class="form">'
@@ -32,7 +32,7 @@ export class Form {
         classComponents.forEach((classComponent) => {
             formContainer += classComponent.render()
         })
-        formContainer += "</div>"
+        formContainer += '</div>'
         this.htmlContainer.innerHTML = formContainer
     }
 }

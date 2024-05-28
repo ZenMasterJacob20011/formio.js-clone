@@ -1,5 +1,5 @@
-import Component from "./_classes/Component";
-import Template from "../Template";
+import Component from './_classes/Component';
+import Template from '../Template';
 
 export default class Button extends Component {
 
@@ -20,7 +20,7 @@ export default class Button extends Component {
         return Button.schema();
     }
 
-    render(html) {
+    render() {
         return super.render(Template.renderTemplate('button', this.component));
     }
 }
