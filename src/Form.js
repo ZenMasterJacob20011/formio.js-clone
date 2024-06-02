@@ -1,9 +1,9 @@
 import Components from './components/_classes/Components';
+import Inputmask from 'inputmask';
 
 export class Form {
     /**
      * @param {HTMLElement} htmlContainer
-     * @param {object[]} components
      * @param {object?} options
      */
     constructor(htmlContainer, options) {
@@ -24,15 +24,24 @@ export class Form {
      * @param {object[]} components
      */
     createForm(components) {
+        /** @type {Component[]}*/
+        let componentsWithInputMasks = []
         const classComponents = components.map((component) => {
-            return Components.createComponent(component)
+            return Components.createComponent(component, {}, {})
         })
         let formContainer = '<div class="form">'
 
         classComponents.forEach((classComponent) => {
             formContainer += classComponent.render()
+            if (classComponent.component.inputMask) {
+                componentsWithInputMasks.push(classComponent)
+            }
         })
         formContainer += '</div>'
         this.htmlContainer.innerHTML = formContainer
+        componentsWithInputMasks.forEach((component) => {
+            let inputMask = new Inputmask(component.component.inputMask)
+            inputMask.mask(component.getId())
+        })
     }
 }
