@@ -1,4 +1,4 @@
-import textfieldtemplate from './textfieldtemplate';
-import buttontemplate from './buttontemplate';
-import textareatemplate from './textareatemplate';
-export default {textfieldtemplate, buttontemplate, textareatemplate}
+import input from './input'
+import button from './button';
+import label from './label'
+export default {button, input, label}

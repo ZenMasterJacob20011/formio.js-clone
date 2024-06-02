@@ -1,4 +1,5 @@
 import Field from './Field';
+import Template from '../../templates/Template';
 
 export default class Input extends Field {
 
@@ -16,5 +17,10 @@ export default class Input extends Field {
      */
     constructor(component, options, data) {
         super(component, options, data);
+    }
+
+
+    render() {
+        return super.render(Template.renderTemplate('input', this));
     }
 }

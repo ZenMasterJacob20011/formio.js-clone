@@ -1,5 +1,4 @@
 import Input from './_classes/Input';
-import Template from '../Template';
 
 export default class TextArea extends Input {
 
@@ -13,10 +12,6 @@ export default class TextArea extends Input {
 
     constructor(component, options, data) {
         super(component, options, data);
-    }
-
-    render() {
-        return super.render(Template.renderTemplate('textarea', this.component));
     }
 
     get defaultSchema() {
