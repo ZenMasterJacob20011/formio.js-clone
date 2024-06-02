@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import {getRandomComponentId} from '../../utils/utils';
 
 export default class Component {
 
@@ -18,14 +19,22 @@ export default class Component {
         this._options = options;
         this._data = data;
         this.component = this.mergeSchema(component || {})
+        this.component._id = getRandomComponentId()
     }
 
-    get defaultSchema(){
+    get defaultSchema() {
         return Component.schema()
     }
 
+    get id() {
+        return this.component._id
+    }
 
-
+    /**
+     *
+     * @param {object} component
+     * @return {object}
+     */
     mergeSchema(component) {
         return _.defaultsDeep(component, this.defaultSchema)
     }
