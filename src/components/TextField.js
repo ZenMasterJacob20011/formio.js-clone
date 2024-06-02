@@ -1,4 +1,3 @@
-import Template from '../Template';
 import Input from './_classes/Input';
 
 export default class TextField extends Input {
@@ -24,14 +23,5 @@ export default class TextField extends Input {
 
     get defaultSchema() {
         return TextField.schema();
-    }
-
-    /**
-     * return the html of the textfield component
-     * @param {string} html
-     * @return {string}
-     */
-    render() {
-        return super.render(Template.renderTemplate('textfield', this.component))
     }
 }

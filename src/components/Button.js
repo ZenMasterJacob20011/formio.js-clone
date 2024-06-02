@@ -1,5 +1,5 @@
 import Component from './_classes/Component';
-import Template from '../Template';
+import Template from '../templates/Template';
 
 export default class Button extends Component {
 
