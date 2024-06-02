@@ -1,7 +1,6 @@
 import _ from 'lodash'
 
 export default class Component {
-    _data;
 
     static schema(...sources) {
         return _.merge({
@@ -24,6 +23,8 @@ export default class Component {
     get defaultSchema(){
         return Component.schema()
     }
+
+
 
     mergeSchema(component) {
         return _.defaultsDeep(component, this.defaultSchema)
