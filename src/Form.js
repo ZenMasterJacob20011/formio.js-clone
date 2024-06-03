@@ -41,7 +41,7 @@ export class Form {
         this.htmlContainer.innerHTML = formContainer
         componentsWithInputMasks.forEach((component) => {
             let inputMask = new Inputmask(component.component.inputMask)
-            inputMask.mask(component.getId())
+            inputMask.mask(document.getElementById(component.id))
         })
     }
 }
