@@ -2,6 +2,7 @@ import TextField from '../TextField';
 import Button from '../Button';
 import TextArea from '../TextArea';
 import Number from '../Number';
+import Password from '../Password';
 
 export default class Components {
 
@@ -9,7 +10,8 @@ export default class Components {
         'textfield': TextField,
         'button': Button,
         'textarea': TextArea,
-        'number': Number
+        'number': Number,
+        'password': Password
     }
 
 
