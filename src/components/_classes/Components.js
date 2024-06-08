@@ -4,6 +4,7 @@ import TextArea from '../TextArea';
 import Number from '../Number';
 import Password from '../Password';
 import Checkbox from '../Checkbox';
+import Selectboxes from '../Selectboxes';
 
 export default class Components {
 
@@ -13,7 +14,8 @@ export default class Components {
         'textarea': TextArea,
         'number': Number,
         'password': Password,
-        'checkbox': Checkbox
+        'checkbox': Checkbox,
+        'selectboxes': Selectboxes
     };
 
 
