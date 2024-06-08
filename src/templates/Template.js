@@ -1,4 +1,4 @@
-import templates from './index'
+import templates from './index';
 
 export default class Template {
     /**
@@ -7,7 +7,7 @@ export default class Template {
      * @return (ctx:object)=>string
      */
     static getTemplate(templateName) {
-        return templates[`${templateName}`]
+        return templates[`${templateName}`];
     }
 
     /**
@@ -16,12 +16,9 @@ export default class Template {
      * @param {object} ctx
      */
     static renderTemplate(templateName, ctx) {
-        let template = ''
-        const fn = this.getTemplate(templateName)
-        if (ctx.component.label) {
-            template += this.getTemplate('label')(ctx.component)
-        }
-        template += fn(ctx.component)
-        return template
+        let template = '';
+        const fn = this.getTemplate(templateName);
+        template += fn(ctx.component);
+        return template;
     }
 }

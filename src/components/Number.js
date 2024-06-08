@@ -7,7 +7,7 @@ export default class Number extends Input {
             type: 'number',
             key: 'number',
             inputMask: '[0-9].*'
-        },...extend)
+        },...extend);
     }
 
     get defaultSchema() {

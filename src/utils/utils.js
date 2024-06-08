@@ -1,3 +1,3 @@
 export function getRandomComponentId() {
-    return ('' + Math.random()).substring(2,9)
+    return ('' + Math.random()).substring(2,9);
 }

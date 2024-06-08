@@ -7,7 +7,7 @@ export default class TextArea extends Input {
             label: 'Text Area',
             key: 'textArea',
             type: 'textarea'
-        }, ...extend)
+        }, ...extend);
     }
 
     constructor(component, options, data) {

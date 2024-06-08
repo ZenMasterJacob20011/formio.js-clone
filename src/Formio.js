@@ -8,7 +8,7 @@ export default class Formio {
      * @param {object?} options
      */
     static createForm(htmlElement, components, options) {
-        const form = new Form(htmlElement, options)
-        form.setForm = components.components
+        const form = new Form(htmlElement, options);
+        form.setForm = components.components;
     }
 }
