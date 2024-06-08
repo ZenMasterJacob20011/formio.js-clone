@@ -7,7 +7,7 @@ export default class TextField extends Input {
             label: 'Text Field',
             key: 'textField',
             type: 'textfield'
-        },...extend)
+        },...extend);
     }
 
     /**

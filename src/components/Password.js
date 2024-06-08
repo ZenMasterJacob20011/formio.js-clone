@@ -6,7 +6,7 @@ export default class Password extends TextField {
             type: 'password',
             key: 'password',
             label: 'Password'
-        }, ...extend)
+        }, ...extend);
     }
 
     constructor(component, data, options) {

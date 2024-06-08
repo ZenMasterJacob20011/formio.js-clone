@@ -7,5 +7,5 @@ export default function (ctx) {
         <div class="component">
             <button type="button" class="btn btn-primary">${ctx.label}</button>
         </div>
-    `
+    `;
 }

@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import _ from 'lodash';
 import {getRandomComponentId} from '../../utils/utils';
 
 export default class Component {
@@ -6,7 +6,7 @@ export default class Component {
     static schema(...sources) {
         return _.merge({
             placeholder: ''
-        }, ...sources)
+        }, ...sources);
     }
 
     /**
@@ -18,16 +18,16 @@ export default class Component {
     constructor(component, options, data) {
         this._options = options;
         this._data = data;
-        this.component = this.mergeSchema(component || {})
-        this.component._id = getRandomComponentId()
+        this.component = this.mergeSchema(component || {});
+        this.component._id = getRandomComponentId();
     }
 
     get defaultSchema() {
-        return Component.schema()
+        return Component.schema();
     }
 
     get id() {
-        return this.component._id
+        return this.component._id;
     }
 
     /**
@@ -36,7 +36,7 @@ export default class Component {
      * @return {object}
      */
     mergeSchema(component) {
-        return _.defaultsDeep(component, this.defaultSchema)
+        return _.defaultsDeep(component, this.defaultSchema);
     }
 
     /**
@@ -45,6 +45,6 @@ export default class Component {
      * @return {string}
      */
     render(html) {
-        return html
+        return html;
     }
 }

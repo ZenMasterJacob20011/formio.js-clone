@@ -7,8 +7,8 @@ export class Form {
      * @param {object?} options
      */
     constructor(htmlContainer, options) {
-        this.htmlContainer = htmlContainer
-        this.options = options || {}
+        this.htmlContainer = htmlContainer;
+        this.options = options || {};
     }
 
     /**
@@ -16,7 +16,7 @@ export class Form {
      * @param {object[]} components
      */
     set setForm(components) {
-        this.createForm(components)
+        this.createForm(components);
     }
 
     /**
@@ -25,23 +25,23 @@ export class Form {
      */
     createForm(components) {
         /** @type {Component[]}*/
-        let componentsWithInputMasks = []
+        let componentsWithInputMasks = [];
         const classComponents = components.map((component) => {
-            return Components.createComponent(component, {}, {})
-        })
-        let formContainer = '<div class="form">'
+            return Components.createComponent(component, {}, {});
+        });
+        let formContainer = '<div class="form">';
 
         classComponents.forEach((classComponent) => {
-            formContainer += classComponent.render()
+            formContainer += classComponent.render();
             if (classComponent.component.inputMask) {
-                componentsWithInputMasks.push(classComponent)
+                componentsWithInputMasks.push(classComponent);
             }
-        })
-        formContainer += '</div>'
-        this.htmlContainer.innerHTML = formContainer
+        });
+        formContainer += '</div>';
+        this.htmlContainer.innerHTML = formContainer;
         componentsWithInputMasks.forEach((component) => {
-            let inputMask = new Inputmask(component.component.inputMask)
-            inputMask.mask(document.getElementById(component.id))
-        })
+            let inputMask = new Inputmask(component.component.inputMask);
+            inputMask.mask(document.getElementById(component.id));
+        });
     }
 }

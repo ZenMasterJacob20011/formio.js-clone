@@ -3,6 +3,7 @@ import Button from '../Button';
 import TextArea from '../TextArea';
 import Number from '../Number';
 import Password from '../Password';
+import Checkbox from '../Checkbox';
 
 export default class Components {
 
@@ -11,8 +12,9 @@ export default class Components {
         'button': Button,
         'textarea': TextArea,
         'number': Number,
-        'password': Password
-    }
+        'password': Password,
+        'checkbox': Checkbox
+    };
 
 
     /**
@@ -21,7 +23,7 @@ export default class Components {
      * @return {Component || undefined}
      */
     static createComponent(component, options, data) {
-        const componentType = component.type.toLowerCase()
+        const componentType = component.type.toLowerCase();
 
         return new this.components[componentType](component, options, data);
 

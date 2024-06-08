@@ -8,7 +8,7 @@ export default class Button extends Component {
             label: 'submit',
             type: 'button',
             key: 'button',
-        },...extend)
+        },...extend);
     }
 
     constructor(component, options, data) {

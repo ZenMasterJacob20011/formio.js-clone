@@ -6,7 +6,7 @@ export default class Input extends Field {
     static schema(...extend) {
         return Field.schema({
             input: true,
-        }, ...extend)
+        }, ...extend);
     }
 
     /**
