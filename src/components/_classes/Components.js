@@ -5,6 +5,7 @@ import Number from '../Number';
 import Password from '../Password';
 import Checkbox from '../Checkbox';
 import Selectboxes from '../Selectboxes';
+import Select from '../Select';
 
 export default class Components {
 
@@ -15,7 +16,8 @@ export default class Components {
         'number': Number,
         'password': Password,
         'checkbox': Checkbox,
-        'selectboxes': Selectboxes
+        'selectboxes': Selectboxes,
+        'select': Select
     };
 
 
