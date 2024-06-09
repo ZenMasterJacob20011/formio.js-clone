@@ -6,6 +6,7 @@ import Password from '../Password';
 import Checkbox from '../Checkbox';
 import Selectboxes from '../Selectboxes';
 import Select from '../Select';
+import Radio from '../Radio';
 
 export default class Components {
 
@@ -17,7 +18,8 @@ export default class Components {
         'password': Password,
         'checkbox': Checkbox,
         'selectboxes': Selectboxes,
-        'select': Select
+        'select': Select,
+        'radio': Radio
     };
 
 
