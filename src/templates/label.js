@@ -1,3 +1,3 @@
 export default function (ctx){
-    return `<label class="form-label" for="${ctx._id}">${ctx.label}</label>`;
+    return `<label class="form-label" for="${ctx.component._id}">${ctx.component.label}</label>`;
 }

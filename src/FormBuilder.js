@@ -1,4 +1,5 @@
 import Template from './templates/Template';
+import Button from './components/Button';
 
 export default class FormBuilder {
 
@@ -25,6 +26,14 @@ export default class FormBuilder {
      * renders the form builder
      */
     render() {
-        return Template.renderTemplate('formbuilder', this);
+        const submitButton = new Button({},{},{});
+        return Template.renderTemplate('formbuilder', {
+            formbuildersidebar: Template.renderTemplate('formbuildersidebar', {
+
+            }),
+            form: Template.renderTemplate('formbuilderform', {
+                submitButton: submitButton.render()
+            })
+        });
     }
 }

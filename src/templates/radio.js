@@ -1,9 +1,9 @@
 export default function (ctx) {
     let theHTML = '';
-    for (const value of ctx.values) {
+    for (const value of ctx.component.values) {
         theHTML += `<div class="form-check">
-                        <input class="form-check-input" name="${ctx._id}" type="radio" id="${ctx._id + value.value}">
-                        <label class="form-check-label" for="${ctx._id + value.value}">${value.label}</label>
+                        <input class="form-check-input" name="${ctx.component._id}" type="radio" id="${ctx.component._id + value.component.value}">
+                        <label class="form-check-label" for="${ctx.component._id + value.component.value}">${value.component.label}</label>
                     </div>`;
     }
     return theHTML;

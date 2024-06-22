@@ -7,6 +7,12 @@ export default class Template {
      * @return (ctx:object)=>string
      */
     static getTemplate(templateName) {
+        if (!templates[`${templateName}`]){
+            console.warn(`Template: ${templateName} not found`);
+            return ()=>{
+              return '';
+            };
+        }
         return templates[`${templateName}`];
     }
 
@@ -18,7 +24,7 @@ export default class Template {
     static renderTemplate(templateName, ctx) {
         let template = '';
         const fn = this.getTemplate(templateName);
-        template += fn(ctx.component);
+        template += fn(ctx);
         return template;
     }
 }
