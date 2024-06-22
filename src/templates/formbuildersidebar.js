@@ -1,5 +1,5 @@
 import '../formbuilder.css';
-export default function (ctx) {
+export default function () {
     return `
         <div class="formcomponents">
             <input placeholder="Search field(s)" type="search" name="searchcomponent" id="searchcomponent" class="form-control builder-sidebar-search">
