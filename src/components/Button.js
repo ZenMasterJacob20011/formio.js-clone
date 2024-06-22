@@ -21,6 +21,6 @@ export default class Button extends Component {
     }
 
     render() {
-        return super.render(Template.renderTemplate('button', this.component));
+        return super.render(Template.renderTemplate('button', this));
     }
 }

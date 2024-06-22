@@ -1,10 +1,10 @@
 export default function (ctx) {
     return `
-            <label for="${ctx._id}">${ctx.label}</label>
-            <${ctx.type === 'textarea' ? 'textarea' : 'input'} 
+            <label for="${ctx.component._id}">${ctx.component.label}</label>
+            <${ctx.component.type === 'textarea' ? 'textarea' : 'input'} 
             class="form-control" 
-            id="${ctx._id}" 
-            type="${ctx.type}"
-            placeholder="${ctx.placeholder}">
-            ${ctx.type === 'textarea' ? '</textarea>' : ''}`;
+            id="${ctx.component._id}" 
+            type="${ctx.component.type}"
+            placeholder="${ctx.component.placeholder}">
+            ${ctx.component.type === 'textarea' ? '</textarea>' : ''}`;
 }
