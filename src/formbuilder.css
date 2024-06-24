@@ -1,7 +1,14 @@
-span.form-component{
+span.form-component {
     margin-top: 0.5em;
 }
 
-.builder-sidebar-search{
+.builder-sidebar-search {
     margin-bottom: 0.5em;
+}
+
+.drag-and-drop-alert {
+    text-align: center;
+    background-color: rgb(209, 236, 241);
+    padding: 12px 20px 12px 20px;
+    margin-bottom: 16px;
 }

@@ -4,8 +4,6 @@
  */
 export default function (ctx) {
     return `
-        <div class="component">
             <button type="button" class="btn btn-primary">${ctx.component.label}</button>
-        </div>
     `;
 }

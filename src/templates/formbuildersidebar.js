@@ -10,13 +10,13 @@ export default function () {
                     </h2>
                     <div id="collapseBasic" class="accordion-collapse collapse show" data-bs-parent="#formBuilderSidebar">
                         <div class="accordion-body">
-                            <span class="btn btn-primary form-component d-block">
+                            <span class="btn btn-primary form-component d-block" data-type="textfield">
                                 Text Field
                             </span>
-                            <span class="btn btn-primary form-component d-block">
+                            <span class="btn btn-primary form-component d-block" data-type="textarea">
                                 Text Area
                             </span>
-                            <span class="btn btn-primary form-component d-block">
+                            <span class="btn btn-primary form-component d-block" data-type="number">
                                 Number
                             </span>
                             <span class="btn btn-primary form-component d-block">
