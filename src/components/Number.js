@@ -6,6 +6,7 @@ export default class Number extends Input {
         return Input.schema({
             type: 'number',
             key: 'number',
+            label: 'Number',
             inputMask: '[0-9].*'
         },...extend);
     }

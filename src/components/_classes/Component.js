@@ -45,6 +45,6 @@ export default class Component {
      * @return {string}
      */
     render(html) {
-        return html;
+        return `<div class="component">${html}</div>`;
     }
 }

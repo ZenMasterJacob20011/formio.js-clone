@@ -5,7 +5,7 @@ export default class Button extends Component {
 
     static schema(...extend){
         return Component.schema({
-            label: 'submit',
+            label: 'Submit',
             type: 'button',
             key: 'button',
         },...extend);

@@ -9,8 +9,8 @@ export default class Formio {
      * @param {object?} options
      */
     static createForm(htmlElement, components, options) {
-        const form = new Form(htmlElement, options);
-        form.setForm = components.components;
+        const form = new Form(htmlElement, components.components, options);
+        form.createForm();
     }
 
     /**
@@ -19,10 +19,11 @@ export default class Formio {
      * @param {object} data
      * @param {object} options
      */
-    static builder(htmlElement, data, options){
+    static builder(htmlElement, data, options) {
         Formio._data = data;
         Formio._options = options;
-        const formBuilder = new FormBuilder(htmlElement, options);
+        const formContainer = document.createElement('div');
+        const formBuilder = new FormBuilder(htmlElement, options, new Form(formContainer, [{type: 'button'}]));
         formBuilder.setBuilder = data;
     }
 
