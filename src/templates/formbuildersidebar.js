@@ -19,22 +19,22 @@ export default function () {
                             <span class="btn btn-primary form-component d-block" data-type="number">
                                 Number
                             </span>
-                            <span class="btn btn-primary form-component d-block">
+                            <span class="btn btn-primary form-component d-block" data-type="password">
                                 Password
                             </span>
-                            <span class="btn btn-primary form-component d-block">
+                            <span class="btn btn-primary form-component d-block" data-type="checkbox">
                                 Checkbox
                             </span>
-                            <span class="btn btn-primary form-component d-block">
+                            <span class="btn btn-primary form-component d-block" data-type="selectboxes">
                                 Select Boxes
                             </span>
-                            <span class="btn btn-primary form-component d-block">
+                            <span class="btn btn-primary form-component d-block" data-type="select">
                                 Select
                             </span>
-                            <span class="btn btn-primary form-component d-block">
+                            <span class="btn btn-primary form-component d-block" data-type="radio">
                                 Radio
                             </span>
-                            <span class="btn btn-primary form-component d-block">
+                            <span class="btn btn-primary form-component d-block" data-type="button">
                                 Button
                             </span>
                         </div>
