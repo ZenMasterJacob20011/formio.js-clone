@@ -28,17 +28,23 @@ export default class FormBuilder {
     }
 
     attach() {
+        let currentDragComponent = undefined;
         dragula([document.querySelector('.accordion-body'), document.querySelector('.form')], {
             moves: (el, container, handle) => {
                 return !handle.classList.contains('drag-and-drop-alert');
             }
-        }).on('drop', (el) => {
-            console.log(el);
+        }).on('dragend', (el) => {
             const component = {
                 type: el.getAttribute('data-type')
             };
-            this.form.addComponent(component, this.getComponentPosition(el));
+            this.form.addComponent(currentDragComponent || component, this.getComponentPosition(el));
             this.createBuilder();
+        }).on('drag', (el) => {
+            if (el.classList.contains('component')) {
+                const componentPosition = this.getComponentPosition(el);
+                currentDragComponent = this.form.components[componentPosition];
+                this.form.removeComponent(componentPosition);
+            }
         });
     }
 
@@ -52,7 +58,7 @@ export default class FormBuilder {
         });
     }
 
-    redraw(){
+    redraw() {
         this.htmlContainer.innerHTML = this.render();
     }
 
