@@ -45,6 +45,6 @@ export default class Component {
      * @return {string}
      */
     render(html) {
-        return `<div class="component">${html}</div>`;
+        return `<div class="component formio-component-${this.component.type}" id="${this.id}">${html}</div>`;
     }
 }

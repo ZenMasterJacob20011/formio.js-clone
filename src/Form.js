@@ -1,5 +1,5 @@
 import Components from './components/_classes/Components';
-import Inputmask from 'inputmask';
+import Inputmask from 'inputmask/lib/inputmask.js';
 
 export class Form {
     /**
@@ -15,6 +15,7 @@ export class Form {
         } else {
             this.components = [];
         }
+        this._components = components;
     }
 
     /**
@@ -46,6 +47,24 @@ export class Form {
     addComponent(component, position) {
         this.components.splice(position, 0, component);
     }
+
+    /**
+     * Removes a component at a position
+     * @param {number} position
+     */
+    removeComponent(position){
+        this.components.splice(position, 1);
+    }
+
+    get components() {
+        return this._components;
+    }
+
+
+    set components(value) {
+        this._components = value;
+    }
+
 
     redraw() {
         this.createForm(this.components);
