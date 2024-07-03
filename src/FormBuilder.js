@@ -32,6 +32,9 @@ export default class FormBuilder {
         dragula([document.querySelector('.accordion-body'), document.querySelector('.form')], {
             moves: (el, container, handle) => {
                 return !handle.classList.contains('drag-and-drop-alert');
+            },
+            accepts: (el, target) => {
+                return target !== document.querySelector('.accordion-body');
             }
         }).on('dragend', (el) => {
             const component = {
