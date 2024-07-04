@@ -33,15 +33,21 @@ export default class FormBuilder {
             moves: (el, container, handle) => {
                 return !handle.classList.contains('drag-and-drop-alert');
             },
+            copy: (el, source)=>{
+                return source === document.querySelector('.accordion-body');
+            },
             accepts: (el, target) => {
                 return target !== document.querySelector('.accordion-body');
             }
-        }).on('dragend', (el) => {
-            const component = {
-                type: el.getAttribute('data-type')
-            };
-            this.form.addComponent(currentDragComponent || component, this.getComponentPosition(el));
-            this.createBuilder();
+        }).on('drop', (el, container) => {
+            console.log(container);
+            if (container) {
+                const component = {
+                    type: el.getAttribute('data-type')
+                };
+                this.form.addComponent(currentDragComponent || component, this.getComponentPosition(el));
+                this.createBuilder();
+            }
         }).on('drag', (el) => {
             if (el.classList.contains('component')) {
                 const componentPosition = this.getComponentPosition(el);
