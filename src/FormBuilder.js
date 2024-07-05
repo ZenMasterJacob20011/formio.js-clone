@@ -27,6 +27,7 @@ export default class FormBuilder {
 
     attach() {
         let currentDragComponent = undefined;
+        let currentDragComponentPosition = undefined;
         dragula([document.querySelector('.accordion-body'), document.querySelector('.form')], {
             moves: (el, container, handle) => {
                 return !handle.classList.contains('drag-and-drop-alert');
@@ -38,19 +39,21 @@ export default class FormBuilder {
                 return target !== document.querySelector('.accordion-body');
             }
         }).on('drop', (el, container) => {
-            console.log(container);
             if (container) {
                 const component = {
                     type: el.getAttribute('data-type')
                 };
+                console.log(currentDragComponentPosition);
+                if (currentDragComponentPosition !== undefined) {
+                    this.form.removeComponent(currentDragComponentPosition);
+                }
                 this.form.addComponent(currentDragComponent || component, this.getComponentPosition(el));
                 this.createBuilder();
             }
         }).on('drag', (el) => {
             if (el.classList.contains('component')) {
-                const componentPosition = this.getComponentPosition(el);
-                currentDragComponent = this.form.components[componentPosition];
-                this.form.removeComponent(componentPosition);
+                currentDragComponentPosition = this.getComponentPosition(el);
+                currentDragComponent = this.form.components[currentDragComponentPosition];
             }
         });
     }
