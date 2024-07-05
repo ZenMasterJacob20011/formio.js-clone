@@ -1,11 +1,11 @@
 import Components from './components/_classes/Components';
 import Inputmask from 'inputmask/lib/inputmask.js';
-
-export class Form {
+import Component from './components/_classes/Component';
+export default class Form {
     /**
-     * @param {HTMLElement} htmlContainer
-     * @param {object[]?} components
-     * @param {object?} options
+     * @param {HTMLElement} htmlContainer the container the form will go into
+     * @param {object[]?} components the components of the form
+     * @param {object?} options options for the form
      */
     constructor(htmlContainer, components, options) {
         this.htmlContainer = htmlContainer;
@@ -41,8 +41,8 @@ export class Form {
 
     /**
      * Adds a component to the form
-     * @param component
-     * @param position
+     * @param {object} component the component to be added
+     * @param {number} position the position to add it to
      */
     addComponent(component, position) {
         this.components.splice(position, 0, component);
@@ -50,7 +50,7 @@ export class Form {
 
     /**
      * Removes a component at a position
-     * @param {number} position
+     * @param {number} position the position of the component to remove
      */
     removeComponent(position){
         this.components.splice(position, 1);

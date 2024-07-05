@@ -1,3 +1,8 @@
+/**
+ * renders checkbox template
+ * @param {object} ctx the context
+ * @returns {string} the html template
+ */
 export default function(ctx){
     return `
         <div class="form-check">

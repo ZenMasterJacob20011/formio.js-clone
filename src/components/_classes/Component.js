@@ -10,10 +10,10 @@ export default class Component {
     }
 
     /**
-     *
-     * @param {object} component
-     * @param {object} options
-     * @param {object} data
+     * creates a new component
+     * @param {object} component the component json
+     * @param {object} options options
+     * @param {object} data data
      */
     constructor(component, options, data) {
         this._options = options;
@@ -31,9 +31,9 @@ export default class Component {
     }
 
     /**
-     *
-     * @param {object} component
-     * @return {object}
+     * f
+     * @param {object} component the component to merge
+     * @returns {object} the merged component object
      */
     mergeSchema(component) {
         return _.defaultsDeep(component, this.defaultSchema);
@@ -41,8 +41,8 @@ export default class Component {
 
     /**
      * return the html of a component
-     * @param {string} html
-     * @return {string}
+     * @param {string} html the html to be wrapped
+     * @returns {string} the html to be rendered
      */
     render(html) {
         return `<div class="component formio-component-${this.component.type}" id="${this.id}">${html}</div>`;

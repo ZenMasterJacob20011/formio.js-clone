@@ -11,9 +11,9 @@ export default class Input extends Field {
 
     /**
      *
-     * @param {object} component
-     * @param {object} options
-     * @param {object} data
+     * @param {object} component the json schema of the component
+     * @param {object} options component options
+     * @param {object} data component data
      */
     constructor(component, options, data) {
         super(component, options, data);

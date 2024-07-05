@@ -1,3 +1,8 @@
+/**
+ * renders select template
+ * @param {object} ctx the context
+ * @returns {string} the html template
+ */
 export default function (ctx) {
     return `
         <label for="${ctx.component._id}">${ctx.component.label}</label>

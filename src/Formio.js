@@ -1,12 +1,12 @@
-import {Form} from './Form';
+import Form from './Form';
 import FormBuilder from './FormBuilder';
 
 export default class Formio {
     /**
      * creates a form and displays renders it in the htmlElement
-     * @param {HTMLElement} htmlElement
-     * @param {object} components
-     * @param {object?} options
+     * @param {HTMLElement} htmlElement the container to put the form into
+     * @param {object[]} components the components of the form
+     * @param {object?} options options for the form
      */
     static createForm(htmlElement, components, options) {
         const form = new Form(htmlElement, components.components, options);
@@ -15,9 +15,9 @@ export default class Formio {
 
     /**
      * creates a form builder
-     * @param {HTMLElement} htmlElement
-     * @param {object} data
-     * @param {object} options
+     * @param {HTMLElement} htmlElement the container element for the form builder
+     * @param {object} data the data for the form builder
+     * @param {object} options options for the form builder
      */
     static builder(htmlElement, data, options) {
         Formio._data = data;

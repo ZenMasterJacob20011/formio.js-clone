@@ -1,6 +1,7 @@
 /**
- * function for creating the html for button
- * @param {object} ctx
+ * renders button template
+ * @param {object} ctx the context
+ * @returns {string} the html template
  */
 export default function (ctx) {
     return `
