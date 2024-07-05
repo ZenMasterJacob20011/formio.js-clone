@@ -1,15 +1,13 @@
 import Template from './templates/Template';
 import 'dragula/dist/dragula.min.css';
 import dragula from 'dragula';
-
+import Form from './Form';
 export default class FormBuilder {
-
     /**
      * Constructor for form builder
-     * @param {HTMLElement} htmlContainer
-     * @param {object} options
-     * @param {Form} form
-     * @param {HTMLElement} formarea
+     * @param {HTMLElement} htmlContainer the container for the form builder
+     * @param {object} options options for the builder
+     * @param {Form} form current state of the form builder form
      */
     constructor(htmlContainer, options, form) {
         this.htmlContainer = htmlContainer;
@@ -59,6 +57,7 @@ export default class FormBuilder {
 
     /**
      * renders the form builder
+     * @returns {string} the html of the form builder
      */
     render() {
         return Template.renderTemplate('formbuilder', {
@@ -73,8 +72,8 @@ export default class FormBuilder {
 
     /**
      * get the position of a component in the form builder
-     * @param {HTMLElement} el
-     * @return {number}
+     * @param {HTMLElement} el the html element to find
+     * @returns {number} the position of the component
      */
     getComponentPosition(el) {
         const componentContainer = document.querySelector('.form').children;

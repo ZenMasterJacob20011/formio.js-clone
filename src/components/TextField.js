@@ -12,9 +12,9 @@ export default class TextField extends Input {
 
     /**
      * creates a new textfield component
-     * @param {object} component
-     * @param {object} options
-     * @param {object} data
+     * @param {object} component the json schema of the component
+     * @param {object} options component options
+     * @param {object} data component data
      */
     constructor(component, options, data) {
         super(component, options, data);

@@ -1,3 +1,8 @@
+/**
+ * renders form builder form container template
+ * @param {object} ctx the context
+ * @returns {string} the html template
+ */
 export default function(ctx){
     return `
         <div class="builder-components">

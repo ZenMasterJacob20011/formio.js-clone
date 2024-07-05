@@ -1,4 +1,8 @@
 import '../formbuilder.css';
+/**
+ * renders form builder sidebar template
+ * @returns {string} the html template
+ */
 export default function () {
     return `
         <div class="formcomponents">
