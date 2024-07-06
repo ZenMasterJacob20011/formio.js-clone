@@ -1,6 +1,6 @@
 import Inputmask from 'inputmask/lib/inputmask.js';
 import Component from './components/_classes/Component';
-import Components from "./components/_classes/Components";
+import Components from './components/_classes/Components';
 
 export default class Form {
     /**
