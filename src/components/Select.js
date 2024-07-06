@@ -6,7 +6,19 @@ export default class Select extends Field {
         return Field.schema({
             label: 'Select',
             key: 'select',
-            type: 'select'
+            type: 'select',
+            data: {
+                values: [
+                    {
+                        label: 'a',
+                        value: 'a'
+                    },
+                    {
+                        label: 'b',
+                        value: 'b'
+                    }
+                ]
+            }
         }, ...extend);
     }
 
