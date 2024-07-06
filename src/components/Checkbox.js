@@ -1,9 +1,9 @@
-import Input from './_classes/Input';
 import Template from '../templates/Template';
+import Field from './_classes/Field';
 
-export default class Checkbox extends Input {
+export default class Checkbox extends Field {
     static schema(...extend) {
-        return Input.schema({
+        return Field.schema({
             type: 'checkbox',
             key: 'checkbox',
             label: 'checkbox'
@@ -19,6 +19,6 @@ export default class Checkbox extends Input {
     }
 
     render(){
-        return Template.renderTemplate('checkbox', this);
+        return super.render(Template.renderTemplate('checkbox', this));
     }
 }
