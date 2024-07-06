@@ -7,7 +7,7 @@ export default class Selectboxes extends Input {
             type: 'selectboxes',
             label: 'selectboxes',
             key: 'selectboxes',
-            values: [{label: 'a', value: 'a'}]
+            values: [{label: 'a', value: 'a'}, {label: 'b', value: 'b'}]
         }, ...extend);
     }
 

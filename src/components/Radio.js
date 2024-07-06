@@ -6,7 +6,17 @@ export default class Radio extends Input {
         return Input.schema({
             type: 'radio',
             key: 'radio',
-            label: 'Radio'
+            label: 'Radio',
+            values: [
+                {
+                    label: 'a',
+                    value: 'a'
+                },
+                {
+                    label: 'b',
+                    value: 'b'
+                }
+            ]
         }, ...extend);
     }
     constructor(component, data, options) {
