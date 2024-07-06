@@ -1,4 +1,5 @@
 import checkboxTemplate from './checkbox';
+import _ from 'lodash';
 
 /**
  * renders selectboxes template
@@ -8,7 +9,8 @@ import checkboxTemplate from './checkbox';
 export default function (ctx) {
     let theHTML = `<div id="${ctx.component._id}" class="selectboxes">`;
     for (const value of ctx.component.values) {
-        value._id = ctx.component._id + value.value;
+        _.set(value, 'component._id', ctx.component._id + value.value);
+        _.set(value, 'component.label', value.label);
         theHTML += checkboxTemplate(value);
     }
     theHTML += '</div>';

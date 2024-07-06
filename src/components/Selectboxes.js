@@ -6,7 +6,8 @@ export default class Selectboxes extends Input {
         return Input.schema({
             type: 'selectboxes',
             label: 'selectboxes',
-            key: 'selectboxes'
+            key: 'selectboxes',
+            values: [{label: 'a', value: 'a'}]
         }, ...extend);
     }
 
