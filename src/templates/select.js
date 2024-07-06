@@ -5,8 +5,8 @@
  */
 export default function (ctx) {
     return `
-        <label for="${ctx.component._id}">${ctx.component.label}</label>
-        <select id="${ctx.component._id}" class="form-select">
+        <label for="${ctx.component._id}-select">${ctx.component.label}</label>
+        <select id="${ctx.component._id}-select" class="form-select">
             ${function(){
                 let theHTML = '';
                 for(const value of ctx.component.data.values){

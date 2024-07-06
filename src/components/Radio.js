@@ -1,9 +1,9 @@
-import Input from './_classes/Input';
 import Template from '../templates/Template';
+import Field from './_classes/Field';
 
-export default class Radio extends Input {
+export default class Radio extends Field {
     static schema(...extend) {
-        return Input.schema({
+        return Field.schema({
             type: 'radio',
             key: 'radio',
             label: 'Radio',
@@ -24,7 +24,7 @@ export default class Radio extends Input {
     }
 
     render(){
-        return Template.renderTemplate('radio', this);
+        return super.render(Template.renderTemplate('radio', this));
     }
 
     get defaultSchema(){

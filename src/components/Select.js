@@ -31,6 +31,6 @@ export default class Select extends Field {
     }
 
     render(){
-        return Template.renderTemplate('select', this);
+        return super.render(Template.renderTemplate('select', this));
     }
 }
