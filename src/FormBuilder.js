@@ -43,11 +43,10 @@ export default class FormBuilder {
                 const component = {
                     type: el.getAttribute('data-type')
                 };
-                console.log(currentDragComponentPosition);
-                if (currentDragComponentPosition !== undefined) {
+                if (el.classList.contains('component')) {
                     this.form.removeComponent(currentDragComponentPosition);
                 }
-                this.form.addComponent(currentDragComponent || component, this.getComponentPosition(el));
+                this.form.addComponent(component || currentDragComponent, this.getComponentPosition(el));
                 this.createBuilder();
             }
         }).on('drag', (el) => {
