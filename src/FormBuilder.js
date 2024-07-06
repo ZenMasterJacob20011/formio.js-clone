@@ -40,9 +40,9 @@ export default class FormBuilder {
             }
         }).on('drop', (el, container) => {
             if (container) {
-                const component = {
+                const component = el.getAttribute('data-type') ? {
                     type: el.getAttribute('data-type')
-                };
+                } : undefined;
                 if (el.classList.contains('component')) {
                     this.form.removeComponent(currentDragComponentPosition);
                 }
