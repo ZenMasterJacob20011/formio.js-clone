@@ -1,9 +1,9 @@
-import Input from './_classes/Input';
 import Template from '../templates/Template';
+import Field from './_classes/Field';
 
-export default class Selectboxes extends Input {
+export default class Selectboxes extends Field {
     static schema(...extend) {
-        return Input.schema({
+        return Field.schema({
             type: 'selectboxes',
             label: 'selectboxes',
             key: 'selectboxes',
@@ -16,7 +16,7 @@ export default class Selectboxes extends Input {
     }
 
     render() {
-        return Template.renderTemplate('selectboxes', this);
+        return super.render(Template.renderTemplate('selectboxes', this));
     }
 
     get defaultSchema() {
