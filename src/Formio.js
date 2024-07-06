@@ -1,16 +1,18 @@
 import Form from './Form';
 import FormBuilder from './FormBuilder';
+import Components from './components/_classes/Components';
+import Button from './components/Button';
 
 export default class Formio {
     /**
      * creates a form and displays renders it in the htmlElement
      * @param {HTMLElement} htmlElement the container to put the form into
-     * @param {object[]} components the components of the form
+     * @param {{components: object[]}} form the components of the form
      * @param {object?} options options for the form
      */
-    static createForm(htmlElement, components, options) {
-        const form = new Form(htmlElement, components.components, options);
-        form.createForm();
+    static createForm(htmlElement, form, options) {
+        const formClass = new Form(htmlElement, Components.convertComponentArrayToClassArray(form.components), options);
+        formClass.createForm();
     }
 
     /**
@@ -23,7 +25,7 @@ export default class Formio {
         Formio._data = data;
         Formio._options = options;
         const formContainer = document.createElement('div');
-        const formBuilder = new FormBuilder(htmlElement, options, new Form(formContainer, [{type: 'button'}]));
+        const formBuilder = new FormBuilder(htmlElement, options, new Form(formContainer, [new Button()]));
         formBuilder.setBuilder = data;
     }
 

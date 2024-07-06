@@ -1,10 +1,11 @@
-import Components from './components/_classes/Components';
 import Inputmask from 'inputmask/lib/inputmask.js';
 import Component from './components/_classes/Component';
+import Components from "./components/_classes/Components";
+
 export default class Form {
     /**
      * @param {HTMLElement} htmlContainer the container the form will go into
-     * @param {object[]?} components the components of the form
+     * @param {Component[]?} components the components of the form
      * @param {object?} options options for the form
      */
     constructor(htmlContainer, components, options) {
@@ -22,12 +23,8 @@ export default class Form {
      * sets the inner html for the container htmlElement
      */
     createForm() {
-        /** @type {Component[]}*/
         let componentsWithInputMasks = [];
-        const classComponents = this.components.map((component) => {
-            return Components.createComponent(component, {}, {});
-        });
-        classComponents.forEach((classComponent) => {
+        this.components.forEach((classComponent) => {
             if (classComponent.component.inputMask) {
                 componentsWithInputMasks.push(classComponent);
             }
@@ -41,10 +38,14 @@ export default class Form {
 
     /**
      * Adds a component to the form
-     * @param {object} component the component to be added
+     * @param {object | Component} component the component to be added
      * @param {number} position the position to add it to
      */
     addComponent(component, position) {
+        if (Object.getPrototypeOf(component) === Object.prototype) {
+            this.components.splice(position, 0, Components.createComponent(component));
+            return;
+        }
         this.components.splice(position, 0, component);
     }
 
@@ -52,7 +53,7 @@ export default class Form {
      * Removes a component at a position
      * @param {number} position the position of the component to remove
      */
-    removeComponent(position){
+    removeComponent(position) {
         this.components.splice(position, 1);
     }
 
@@ -70,13 +71,10 @@ export default class Form {
         this.createForm(this.components);
     }
 
-    render(){
-        const classComponents = this.components.map((component) => {
-            return Components.createComponent(component, {}, {});
-        });
+    render() {
         let formContainer = '<div class="form">';
 
-        classComponents.forEach((classComponent) => {
+        this.components.forEach((classComponent) => {
             formContainer += classComponent.render();
         });
         formContainer += '</div>';
