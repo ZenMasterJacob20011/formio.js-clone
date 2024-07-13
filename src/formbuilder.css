@@ -12,3 +12,30 @@ span.form-component {
     padding: 12px 20px 12px 20px;
     margin-bottom: 16px;
 }
+
+.component-button-group{
+    position: absolute;
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: -12px;
+    right: 0;
+    z-index: 1000;
+}
+.builder-component:not(:hover) .component-button-group{
+    display: none;
+}
+.component-settings-button{
+    --bs-btn-font-size: 13px;
+    --bs-btn-padding-x: 2px;
+    --bs-btn-padding-y: 2px;
+    border-radius: 0;
+    box-shadow: rgba(48, 113, 169, 0.6) 0px 0px 10px 1px;
+    margin-top: 4px;
+    margin-right: 4px;
+}
+
+.builder-component{
+    position: relative;
+    min-height: 15px;
+    margin-bottom: 15px;
+}

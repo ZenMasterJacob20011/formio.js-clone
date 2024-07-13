@@ -1,7 +1,6 @@
 import Form from './Form';
 import FormBuilder from './FormBuilder';
 import Components from './components/_classes/Components';
-import Button from './components/Button';
 
 export default class Formio {
     /**
@@ -24,8 +23,7 @@ export default class Formio {
     static builder(htmlElement, data, options) {
         Formio._data = data;
         Formio._options = options;
-        const formContainer = document.createElement('div');
-        const formBuilder = new FormBuilder(htmlElement, options, new Form(formContainer, [new Button()]));
+        const formBuilder = new FormBuilder(htmlElement, options);
         formBuilder.setBuilder = data;
     }
 
