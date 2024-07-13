@@ -1,5 +1,6 @@
-import Field from './_classes/Field';
-import Template from '../templates/Template';
+import Field from '../_classes/field/Field';
+import Template from '../../templates/Template';
+import SelectForm from './Select.form';
 
 export default class Select extends Field {
     static schema(...extend) {
@@ -21,6 +22,8 @@ export default class Select extends Field {
             }
         }, ...extend);
     }
+
+    static builderInfo = SelectForm;
 
     constructor(component, data, options) {
         super(component, data, options);

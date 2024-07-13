@@ -1,5 +1,7 @@
-import Template from '../templates/Template';
-import Field from './_classes/Field';
+import Field from '../_classes/field/Field';
+import Template from '../../templates/Template';
+import SelectboxesForm from './Selectboxes.form';
+
 
 export default class Selectboxes extends Field {
     static schema(...extend) {
@@ -10,6 +12,8 @@ export default class Selectboxes extends Field {
             values: [{label: 'a', value: 'a'}, {label: 'b', value: 'b'}]
         }, ...extend);
     }
+
+    static builderInfo = SelectboxesForm;
 
     constructor(component, data, options) {
         super(component, data, options);

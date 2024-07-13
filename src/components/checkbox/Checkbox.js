@@ -1,5 +1,6 @@
-import Template from '../templates/Template';
-import Field from './_classes/Field';
+import Template from '../../templates/Template';
+import Field from '../_classes/field/Field';
+import CheckboxForm from './Checkbox.form';
 
 export default class Checkbox extends Field {
     static schema(...extend) {
@@ -9,6 +10,8 @@ export default class Checkbox extends Field {
             label: 'checkbox'
         }, ...extend);
     }
+
+    static builderInfo = CheckboxForm;
 
     constructor(component, data, options) {
         super(component, data, options);
