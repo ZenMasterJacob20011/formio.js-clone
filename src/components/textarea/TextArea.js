@@ -1,4 +1,6 @@
-import Input from './_classes/Input';
+
+import TextAreaForm from './TextArea.form';
+import Input from '../_classes/input/Input';
 
 export default class TextArea extends Input {
 
@@ -9,6 +11,8 @@ export default class TextArea extends Input {
             type: 'textarea'
         }, ...extend);
     }
+
+    static builderInfo = TextAreaForm;
 
     constructor(component, options, data) {
         super(component, options, data);

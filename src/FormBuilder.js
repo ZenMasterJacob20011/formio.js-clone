@@ -2,8 +2,8 @@ import Template from './templates/Template';
 import 'dragula/dist/dragula.min.css';
 import dragula from 'dragula';
 import Form from './Form';
-import Component from './components/_classes/Component';
-import Button from './components/Button';
+import Component from './components/_classes/component/Component';
+import Button from './components/button/Button';
 export default class FormBuilder extends Component{
     /**
      * Constructor for form builder
@@ -52,14 +52,14 @@ export default class FormBuilder extends Component{
                 const component = el.getAttribute('data-type') ? {
                     type: el.getAttribute('data-type')
                 } : undefined;
-                if (el.classList.contains('component')) {
+                if (el.classList.contains('component') || el.classList.contains('builder-component')) {
                     this.form.removeComponent(currentDragComponentPosition);
                 }
                 this.form.addComponent(component || currentDragComponent, this.getComponentPosition(el));
                 this.createBuilder();
             }
         }).on('drag', (el) => {
-            if (el.classList.contains('component')) {
+            if (el.classList.contains('component') || el.classList.contains('builder-component')) {
                 currentDragComponentPosition = this.getComponentPosition(el);
                 currentDragComponent = this.form.components[currentDragComponentPosition];
             }

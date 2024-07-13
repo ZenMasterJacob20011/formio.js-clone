@@ -1,11 +1,10 @@
 import Inputmask from 'inputmask/lib/inputmask.js';
-import Component from './components/_classes/Component';
-import Components from './components/_classes/Components';
+import Components from './components/_classes/components/Components';
 
 export default class Form {
     /**
      * @param {HTMLElement} htmlContainer the container the form will go into
-     * @param {Component[]?} components the components of the form
+     * @param {import('./components/_classes/component/Component').Component[]?} components the components of the form
      * @param {object?} options options for the form
      */
     constructor(htmlContainer, components, options) {
@@ -38,7 +37,7 @@ export default class Form {
 
     /**
      * Adds a component to the form
-     * @param {object | Component} component the component to be added
+     * @param {object | import('./components/_classes/component/Component.js').Component} component the component to be added
      * @param {number} position the position to add it to
      */
     addComponent(component, position) {

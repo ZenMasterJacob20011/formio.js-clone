@@ -1,4 +1,6 @@
-import Input from './_classes/Input';
+
+import TextFieldForm from './TextField.form';
+import Input from '../_classes/input/Input';
 
 export default class TextField extends Input {
 
@@ -9,6 +11,8 @@ export default class TextField extends Input {
             type: 'textfield'
         },...extend);
     }
+
+    static builderInfo = TextFieldForm;
 
     /**
      * creates a new textfield component

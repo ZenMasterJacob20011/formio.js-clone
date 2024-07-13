@@ -1,4 +1,6 @@
-import Input from './_classes/Input';
+import NumberForm from './Number.form';
+import Input from '../_classes/input/Input';
+
 
 export default class Number extends Input {
 
@@ -10,6 +12,7 @@ export default class Number extends Input {
             inputMask: '[0-9].*'
         },...extend);
     }
+    static builderInfo = NumberForm;
 
     get defaultSchema() {
         return Number.schema();

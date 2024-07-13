@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {getRandomComponentId} from '../../utils/utils';
+import {getRandomComponentId} from '../../../utils/utils';
 
 export default class Component {
 

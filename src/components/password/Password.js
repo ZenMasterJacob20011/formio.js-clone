@@ -1,4 +1,6 @@
-import TextField from './TextField';
+import TextField from '../textfield/TextField';
+import PasswordForm from './Password.form';
+
 
 export default class Password extends TextField {
     static schema(...extend) {
@@ -8,7 +10,7 @@ export default class Password extends TextField {
             label: 'Password'
         }, ...extend);
     }
-
+    static builderInfo = PasswordForm;
     constructor(component, data, options) {
         super(component, data, options);
     }

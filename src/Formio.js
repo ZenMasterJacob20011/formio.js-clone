@@ -1,6 +1,6 @@
 import Form from './Form';
 import FormBuilder from './FormBuilder';
-import Components from './components/_classes/Components';
+import Components from './components/_classes/components/Components';
 
 export default class Formio {
     /**

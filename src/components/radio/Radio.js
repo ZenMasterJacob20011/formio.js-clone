@@ -1,5 +1,7 @@
-import Template from '../templates/Template';
-import Field from './_classes/Field';
+import Field from '../_classes/field/Field';
+import Template from '../../templates/Template';
+import RadioForm from './Radio.form';
+
 
 export default class Radio extends Field {
     static schema(...extend) {
@@ -19,6 +21,9 @@ export default class Radio extends Field {
             ]
         }, ...extend);
     }
+
+    static builderInfo = RadioForm;
+
     constructor(component, data, options) {
         super(component, data, options);
     }

@@ -1,5 +1,6 @@
-import Component from './_classes/Component';
-import Template from '../templates/Template';
+import Component from '../_classes/component/Component';
+import Template from '../../templates/Template';
+import ButtonForm from './Button.form';
 
 export default class Button extends Component {
 
@@ -10,6 +11,7 @@ export default class Button extends Component {
             key: 'button',
         },...extend);
     }
+    static builderInfo = ButtonForm;
 
     constructor(component, options, data) {
         super(component, options, data);

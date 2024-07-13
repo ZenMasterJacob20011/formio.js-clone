@@ -1,5 +1,5 @@
-import Field from './Field';
-import Template from '../../templates/Template';
+import Field from '../field/Field';
+import Template from '../../../templates/Template';
 
 export default class Input extends Field {
 
