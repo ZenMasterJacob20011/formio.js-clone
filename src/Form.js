@@ -43,7 +43,7 @@ export default class Form {
      */
     addComponent(component, position) {
         if (Object.getPrototypeOf(component) === Object.prototype) {
-            this.components.splice(position, 0, Components.createComponent(component));
+            this.components.splice(position, 0, Components.createComponent(component, this.options));
             return;
         }
         this.components.splice(position, 0, component);

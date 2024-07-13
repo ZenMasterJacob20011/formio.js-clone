@@ -8,5 +8,6 @@ import radio from './radio';
 import formbuildersidebar from './formbuildersidebar';
 import formbuilder from './formbuilder';
 import formbuilderform from './formbuilderform';
+import builderComponent from './builderComponent';
 
-export default {button, input, label, checkbox, selectboxes, select, radio, formbuildersidebar, formbuilder, formbuilderform};
+export default {button, input, label, checkbox, selectboxes, select, radio, formbuildersidebar, formbuilder, formbuilderform, builderComponent};

@@ -2,17 +2,26 @@ import Template from './templates/Template';
 import 'dragula/dist/dragula.min.css';
 import dragula from 'dragula';
 import Form from './Form';
-export default class FormBuilder {
+import Component from './components/_classes/Component';
+import Button from './components/Button';
+export default class FormBuilder extends Component{
     /**
      * Constructor for form builder
      * @param {HTMLElement} htmlContainer the container for the form builder
      * @param {object} options options for the builder
-     * @param {Form} form current state of the form builder form
      */
-    constructor(htmlContainer, options, form) {
+    constructor(htmlContainer, options) {
+        super(null, options, null);
         this.htmlContainer = htmlContainer;
-        this._options = options;
-        this.form = form;
+        this.options = options || {};
+        this.options.hooks = this.options.hooks || {};
+        this.options.hooks.renderComponent = (html, component) => {
+            return Template.renderTemplate('builderComponent', {
+                html,
+                childComponent: component
+            });
+        };
+        this.form = new Form(document.createElement('div'), [new Button()], this.options);
     }
 
 

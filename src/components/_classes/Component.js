@@ -16,8 +16,8 @@ export default class Component {
      * @param {object} data data
      */
     constructor(component, options, data) {
-        this._options = options;
-        this._data = data;
+        this.options = options || {};
+        this.data = data;
         this.component = this.mergeSchema(component || {});
         this.component._id = getRandomComponentId();
     }
@@ -45,6 +45,16 @@ export default class Component {
      * @returns {string} the html to be rendered
      */
     render(html) {
-        return `<div class="component formio-component-${this.component.type}" id="${this.id}">${html}</div>`;
+        return this.hook('renderComponent', `<div class="component formio-component-${this.component.type}" id="${this.id}">${html}</div>`, this);
+    }
+
+    hook() {
+        const name = arguments[0];
+        if (this.options &&
+            this.options.hooks &&
+            this.options.hooks[name]) {
+            return this.options.hooks[name].apply(this, Array.prototype.slice.call(arguments, 1));
+        }
+        return arguments[1];
     }
 }
