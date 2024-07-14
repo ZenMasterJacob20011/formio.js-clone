@@ -72,7 +72,9 @@ export default class Form {
 
     render() {
         let formContainer = '<div class="form">';
-
+        if (this.options.builderMode && this.components.length <= 1) {
+            formContainer += '<div class="drag-and-drop-alert">Drag and Drop a form component</div>';
+        }
         this.components.forEach((classComponent) => {
             formContainer += classComponent.render();
         });

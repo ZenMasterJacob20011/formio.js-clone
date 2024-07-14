@@ -14,6 +14,7 @@ export default class FormBuilder extends Component{
         super(null, options, null);
         this.htmlContainer = htmlContainer;
         this.options = options || {};
+        this.options.builderMode = true;
         this.options.hooks = this.options.hooks || {};
         this.options.hooks.renderComponent = (html, component) => {
             return Template.renderTemplate('builderComponent', {
