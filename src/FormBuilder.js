@@ -3,8 +3,8 @@ import 'dragula/dist/dragula.min.css';
 import dragula from 'dragula';
 import Form from './Form';
 import Component from './components/_classes/component/Component';
-import Button from './components/button/Button';
-export default class FormBuilder extends Component{
+
+export default class FormBuilder extends Component {
     /**
      * Constructor for form builder
      * @param {HTMLElement} htmlContainer the container for the form builder
@@ -22,7 +22,7 @@ export default class FormBuilder extends Component{
                 childComponent: component
             });
         };
-        this.form = new Form(document.createElement('div'), [new Button()], this.options);
+        this.form = new Form(document.createElement('div'), [{type: 'button', label: 'submit'}], this.options);
     }
 
 
@@ -42,7 +42,7 @@ export default class FormBuilder extends Component{
             moves: (el, container, handle) => {
                 return !handle.classList.contains('drag-and-drop-alert');
             },
-            copy: (el, source)=>{
+            copy: (el, source) => {
                 return source === document.querySelector('.accordion-body');
             },
             accepts: (el, target) => {

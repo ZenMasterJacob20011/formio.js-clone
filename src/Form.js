@@ -4,18 +4,19 @@ import Components from './components/_classes/components/Components';
 export default class Form {
     /**
      * @param {HTMLElement} htmlContainer the container the form will go into
-     * @param {import('./components/_classes/component/Component').Component[]?} components the components of the form
+     * @param {object[]} components the components of the form
      * @param {object?} options options for the form
      */
     constructor(htmlContainer, components, options) {
         this.htmlContainer = htmlContainer;
         this.options = options || {};
+        let componentsClass = [];
         if (components) {
-            this.components = components;
-        } else {
-            this.components = [];
+            componentsClass = components.map((component) => {
+                return Components.createComponent(component, this.options);
+            });
         }
-        this._components = components;
+        this._components = componentsClass;
     }
 
     /**
