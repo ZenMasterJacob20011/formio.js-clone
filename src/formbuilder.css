@@ -39,3 +39,29 @@ span.form-component {
     min-height: 15px;
     margin-bottom: 15px;
 }
+
+.formio-dialog{
+    display: block;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.formio-dialog-contents{
+    background-color: rgb(240, 240, 240);
+    margin: 1% auto auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.formio-dialog-close{
+
+}

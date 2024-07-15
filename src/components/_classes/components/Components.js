@@ -8,6 +8,7 @@ import Selectboxes from '../../selectboxes/Selectboxes';
 import Select from '../../select/Select';
 import Radio from '../../radio/Radio';
 import baseEditForm from '../component/Component.form';
+
 export default class Components {
 
     static _baseEditForm = baseEditForm;
@@ -50,7 +51,16 @@ export default class Components {
         });
     }
 
-    static get baseEditForm(){
+    static get baseEditForm() {
         return this._baseEditForm;
+    }
+
+    /**
+     * gets builder info based on component type
+     * @param {string} componentType the type of component
+     * @returns {object} the class components builder info
+     */
+    static builderInfo(componentType) {
+        return Components.components[componentType].builderInfo();
     }
 }
