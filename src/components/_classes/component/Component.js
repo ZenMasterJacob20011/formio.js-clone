@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import {getRandomComponentId} from '../../../utils/utils';
+import builderInfo from './Component.form';
 
 export default class Component {
 
@@ -8,6 +9,8 @@ export default class Component {
             placeholder: ''
         }, ...sources);
     }
+
+    static builderInfo = builderInfo;
 
     /**
      * creates a new component
@@ -20,6 +23,7 @@ export default class Component {
         this.data = data;
         this.component = this.mergeSchema(component || {});
         this.component._id = getRandomComponentId();
+        this.refs = {};
     }
 
     get defaultSchema() {
@@ -48,6 +52,24 @@ export default class Component {
         return this.hook('renderComponent', `<div class="component formio-component-${this.component.type}" id="${this.id}">${html}</div>`, this);
     }
 
+    redraw() {
+        this.render();
+        this.attach(this.element);
+    }
+
+    /**
+     * attaches functions to component element
+     * @param {HTMLElement} element the element to attach to
+     */
+    attach(element) {
+        this.loadRefs(element, {
+            messageContainer: 'single',
+        });
+        this.hook('attachComponent', element, this);
+
+        this.element = element;
+    }
+
     hook() {
         const name = arguments[0];
         if (this.options &&
@@ -56,5 +78,16 @@ export default class Component {
             return this.options.hooks[name].apply(this, Array.prototype.slice.call(arguments, 1));
         }
         return arguments[1];
+    }
+
+    /**
+     * gives the class refs instance variable to access references
+     * @param {HTMLElement} element the element to get the references from
+     * @param {object} refs the list of references
+     */
+    loadRefs(element, refs) {
+        for (const ref in refs) {
+            this.refs[ref] = element.querySelector(`[ref='${ref}']`);
+        }
     }
 }

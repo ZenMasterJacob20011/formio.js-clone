@@ -1,13 +1,15 @@
 import Inputmask from 'inputmask/lib/inputmask.js';
 import Components from './components/_classes/components/Components';
+import Component from './components/_classes/component/Component';
 
-export default class Form {
+export default class Form extends Component {
     /**
      * @param {HTMLElement} htmlContainer the container the form will go into
      * @param {object[]} components the components of the form
      * @param {object?} options options for the form
      */
     constructor(htmlContainer, components, options) {
+        super({type: 'form'}, options, {});
         this.htmlContainer = htmlContainer;
         this.options = options || {};
         let componentsClass = [];
@@ -57,6 +59,10 @@ export default class Form {
         this.components.splice(position, 1);
     }
 
+    /**
+     * gets components
+     * @returns {Component[]} gets components
+     */
     get components() {
         return this._components;
     }
@@ -66,13 +72,23 @@ export default class Form {
         this._components = value;
     }
 
+    /**
+     * attaches event listeners to the form
+     * @param {HTMLElement} parentContainer the parent container
+     */
+    attach(parentContainer){
+        this.htmlContainer = parentContainer.querySelector('[ref="form"]');
+        this.components.forEach((classComponent, index) => {
+            classComponent.attach(this.htmlContainer.children.item(index));
+        });
+    }
 
     redraw() {
         this.createForm(this.components);
     }
 
     render() {
-        let formContainer = '<div class="form">';
+        let formContainer = '<div ref="form" class="form">';
         if (this.options.builderMode && this.components.length <= 1) {
             formContainer += '<div class="drag-and-drop-alert">Drag and Drop a form component</div>';
         }
