@@ -59,7 +59,11 @@ export default class FormBuilder extends Component {
                 if (el.classList.contains('component') || el.classList.contains('builder-component')) {
                     this.form.removeComponent(currentDragComponentPosition);
                 }
-                this.form.addComponent(component || currentDragComponent, this.getComponentPosition(el));
+                let componentPosition = this.getComponentPosition(el);
+                if (document.querySelector('.drag-and-drop-alert')){
+                    componentPosition = componentPosition - 1 < 0 ? 0 : 0;
+                }
+                this.form.addComponent(component || currentDragComponent, componentPosition);
                 this.createBuilder();
             }
         }).on('drag', (el) => {
