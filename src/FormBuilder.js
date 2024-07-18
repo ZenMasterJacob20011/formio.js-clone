@@ -108,8 +108,19 @@ export default class FormBuilder extends Component {
         if (component.refs.editComponent) {
             component.refs.editComponent.addEventListener('click', () => {
                 console.log('edit button has been clicked');
-                this.createModal(component);
-                // this.editComponent(component);
+                const builderForm = new Form(document.createElement('div'), Components.builderInfo(component.component.type).components, {});
+                const editFormContents = Template.renderTemplate('dialog', {
+                    dialogContents: Template.renderTemplate('buildereditform', {
+                        form: builderForm.render(),
+                        label: component.component.label
+                    })
+                });
+                const modal = this.createModal(editFormContents);
+                builderForm.attach(modal);
+                builderForm.submission = {
+                    data: component.component
+                };
+                this.attachEditForm(modal, component);
             });
         }
         if (component.refs.moveComponent) {
@@ -136,21 +147,16 @@ export default class FormBuilder extends Component {
 
     /**
      * Creates a modal edit form that will render edit form, attach listeners, and modify the component object, and then rerender on save
-     * @param {Component} component the component to be modified
+     * @param {string} modalContents the content to be inserted into the modal
+     * @returns {HTMLElement} the modal element
      */
-    createModal(component) {
+    createModal(modalContents) {
         // render the edit form
         let modal = document.createElement('div');
-        const builderForm = new Form(document.createElement('div'), Components.builderInfo(component.component.type).components, {});
-        modal.innerHTML = Template.renderTemplate('dialog', {
-            dialogContents: Template.renderTemplate('buildereditform', {
-                form: builderForm.render(),
-                label: component.component.label
-            })
-        });
+        modal.innerHTML = modalContents;
         document.body.appendChild(modal);
         this.attachModal(modal);
-        this.attachEditForm(modal, component);
+        return modal;
     }
 
     /**

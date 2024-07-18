@@ -7,16 +7,18 @@ export default function (){
         components: [
             {
                 type: 'textfield',
+                key: 'label',
                 label: 'Label',
             },
             {
                 type: 'textfield',
+                key: 'placeholder',
                 label: 'Placeholder',
                 placeholder: 'Placeholder'
             },
             {
                 type: 'textfield',
-                key: 'editKey',
+                key: 'key',
                 label: 'Property Name'
             }
         ]

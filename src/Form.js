@@ -1,6 +1,7 @@
 import Inputmask from 'inputmask/lib/inputmask.js';
 import Components from './components/_classes/components/Components';
 import Component from './components/_classes/component/Component';
+import _ from 'lodash';
 
 export default class Form extends Component {
     /**
@@ -72,11 +73,27 @@ export default class Form extends Component {
         this._components = value;
     }
 
+    set submission(data) {
+        this.setSubmission(data);
+    }
+
+    /**
+     * Go through each of the components and call set submission on each of them passing in the value/values as well
+     * @param {object} submission the submission object
+     */
+    setSubmission(submission) {
+        this._submission = submission;
+        this.components.forEach((component) => {
+            const value = _.get(submission.data, component.component.key);
+            component.setValue(value);
+        });
+    }
+
     /**
      * attaches event listeners to the form
      * @param {HTMLElement} parentContainer the parent container
      */
-    attach(parentContainer){
+    attach(parentContainer) {
         this.htmlContainer = parentContainer.querySelector('[ref="form"]');
         this.components.forEach((classComponent, index) => {
             classComponent.attach(this.htmlContainer.children.item(index));

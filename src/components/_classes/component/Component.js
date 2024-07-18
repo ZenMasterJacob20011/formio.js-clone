@@ -64,10 +64,21 @@ export default class Component {
     attach(element) {
         this.loadRefs(element, {
             messageContainer: 'single',
+            input: 'single'
         });
         this.hook('attachComponent', element, this);
 
         this.element = element;
+    }
+
+    /**
+     * sets the value for the component
+     * @param {number | string | object} value the value to be set
+     */
+    setValue(value){
+        this.dataValue = value;
+
+        this.refs.input.value = value;
     }
 
     hook() {
