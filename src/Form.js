@@ -77,6 +77,10 @@ export default class Form extends Component {
         this.setSubmission(data);
     }
 
+    get submission() {
+        return this.getSubmission();
+    }
+
     /**
      * Go through each of the components and call set submission on each of them passing in the value/values as well
      * @param {object} submission the submission object
@@ -87,6 +91,19 @@ export default class Form extends Component {
             const value = _.get(submission.data, component.component.key);
             component.setValue(value);
         });
+    }
+
+    /**
+     * Go through each of the components and create an object containing components property as key and components value
+     * as the value
+     * @returns {object} the submission value
+     */
+    getSubmission() {
+        let value = {data: {}, metadata: {}};
+        this.components.forEach((component) => {
+            value.data[component.component.key] = component.dataValue;
+        });
+        return value;
     }
 
     /**

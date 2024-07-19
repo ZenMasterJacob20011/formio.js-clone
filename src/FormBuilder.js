@@ -60,7 +60,7 @@ export default class FormBuilder extends Component {
                     this.form.removeComponent(currentDragComponentPosition);
                 }
                 let componentPosition = this.getComponentPosition(el);
-                if (document.querySelector('.drag-and-drop-alert')){
+                if (document.querySelector('.drag-and-drop-alert')) {
                     componentPosition = componentPosition - 1 < 0 ? 0 : 0;
                 }
                 this.form.addComponent(component || currentDragComponent, componentPosition);
@@ -108,19 +108,19 @@ export default class FormBuilder extends Component {
         if (component.refs.editComponent) {
             component.refs.editComponent.addEventListener('click', () => {
                 console.log('edit button has been clicked');
-                const builderForm = new Form(document.createElement('div'), Components.builderInfo(component.component.type).components, {});
+                const editForm = new Form(document.createElement('div'), Components.builderInfo(component.component.type).components, {});
                 const editFormContents = Template.renderTemplate('dialog', {
                     dialogContents: Template.renderTemplate('buildereditform', {
-                        form: builderForm.render(),
+                        form: editForm.render(),
                         label: component.component.label
                     })
                 });
                 const modal = this.createModal(editFormContents);
-                builderForm.attach(modal);
-                builderForm.submission = {
+                editForm.attach(modal);
+                editForm.submission = {
                     data: component.component
                 };
-                this.attachEditForm(modal, component);
+                this.attachEditForm(modal, component, editForm);
             });
         }
         if (component.refs.moveComponent) {
@@ -163,27 +163,35 @@ export default class FormBuilder extends Component {
      * attaches event listeners to edit form
      * @param {HTMLElement} element parent container for edit form
      * @param {Component} component the component being edited
+     * @param {Form} editForm the edit form
      */
-    attachEditForm(element, component) {
+    attachEditForm(element, component, editForm) {
         element.querySelector('[ref="saveButton"]').addEventListener('click', () => {
-
+            component.component = component.mergeSchema(editForm.submission.data);
+            this.createBuilder();
+            this.closeModal(element);
+            console.log('I just ran');
         });
         element.querySelector('[ref="cancelButton"]').addEventListener('click', () => {
 
         });
-        element.querySelector('[ref="removeButton"]').addEventListener('click', ()=>{
+        element.querySelector('[ref="removeButton"]').addEventListener('click', () => {
             this.removeComponent(component);
         });
     }
 
-    attachModal(modal){
-        window.addEventListener('click', (e)=>{
+    attachModal(modal) {
+        window.addEventListener('click', (e) => {
             console.log(e);
-            if(e.target.getAttribute('ref') === 'dialog' || e.target.getAttribute('ref') === 'dialogClose'){
+            if (e.target.getAttribute('ref') === 'dialog' || e.target.getAttribute('ref') === 'dialogClose') {
                 console.log('you clicked me');
-                modal.remove();
+                this.closeModal(modal);
             }
         });
+    }
+
+    closeModal(modal) {
+        modal.remove();
     }
 
     /**

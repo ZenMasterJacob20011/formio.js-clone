@@ -81,6 +81,15 @@ export default class Component {
         this.refs.input.value = value;
     }
 
+    get dataValue(){
+        this._dataValue = this.refs.input.value;
+        return this._dataValue;
+    }
+
+    set dataValue(value){
+        this._dataValue = value;
+    }
+
     hook() {
         const name = arguments[0];
         if (this.options &&
