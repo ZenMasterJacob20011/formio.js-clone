@@ -62,6 +62,10 @@ span.form-component {
     width: 80%;
 }
 
-.formio-dialog-close{
-
+.formio-dialog-close::before{
+    content: 'x';
+    color: #777;
+    font-size: 26px;
+    font-weight: 400;
+    font-family: "Helvetica", Arial, sans-serif;
 }
