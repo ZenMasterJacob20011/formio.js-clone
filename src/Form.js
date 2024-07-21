@@ -113,6 +113,9 @@ export default class Form extends Component {
     attach(parentContainer) {
         this.htmlContainer = parentContainer.querySelector('[ref="form"]');
         this.components.forEach((classComponent, index) => {
+            if (this.options.builderMode && this.components.length <= 1){
+                index++;
+            }
             classComponent.attach(this.htmlContainer.children.item(index));
         });
     }
