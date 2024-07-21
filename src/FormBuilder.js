@@ -177,6 +177,8 @@ export default class FormBuilder extends Component {
         });
         element.querySelector('[ref="removeButton"]').addEventListener('click', () => {
             this.removeComponent(component);
+            this.createBuilder();
+            this.closeModal(element);
         });
     }
 
@@ -201,11 +203,11 @@ export default class FormBuilder extends Component {
      */
     getComponentPosition(el) {
         if (el instanceof Component) {
-            this.form.components.forEach((component, i) => {
-                if (component === el) {
-                    return i;
-                }
-            });
+            let componentPosition = this.form.components.indexOf(el);
+            if (componentPosition === -1){
+                throw Error('Could not find component position');
+            }
+            return componentPosition;
         } else {
             const componentContainer = document.querySelector('.form').children;
             for (let i = 0; i < componentContainer.length; i++) {
@@ -214,7 +216,7 @@ export default class FormBuilder extends Component {
                 }
             }
         }
-        return -1;
+        throw Error('Could not find component position');
     }
 
     /**
