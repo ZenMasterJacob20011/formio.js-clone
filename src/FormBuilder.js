@@ -103,6 +103,7 @@ export default class FormBuilder extends Component {
         if (component.refs.removeComponent) {
             component.refs.removeComponent.addEventListener('click', () => {
                 this.removeComponent(component);
+                this.createBuilder();
             });
         }
         if (component.refs.editComponent) {
@@ -184,9 +185,7 @@ export default class FormBuilder extends Component {
 
     attachModal(modal) {
         window.addEventListener('click', (e) => {
-            console.log(e);
             if (e.target.getAttribute('ref') === 'dialog' || e.target.getAttribute('ref') === 'dialogClose') {
-                console.log('you clicked me');
                 this.closeModal(modal);
             }
         });
@@ -198,7 +197,7 @@ export default class FormBuilder extends Component {
 
     /**
      * get the position of a component in the form builder
-     * @param {HTMLElement | Component} el the html element to find
+     * @param {HTMLElement | Component} el the html element or component to find
      * @returns {number} the position of the component
      */
     getComponentPosition(el) {
