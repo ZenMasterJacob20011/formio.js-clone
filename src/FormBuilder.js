@@ -60,9 +60,6 @@ export default class FormBuilder extends Component {
                     this.form.removeComponent(currentDragComponentPosition);
                 }
                 let componentPosition = this.getComponentPosition(el);
-                if (document.querySelector('.drag-and-drop-alert')) {
-                    componentPosition = componentPosition - 1 < 0 ? 0 : 0;
-                }
                 this.form.addComponent(component || currentDragComponent, componentPosition);
                 this.createBuilder();
             }
@@ -203,15 +200,16 @@ export default class FormBuilder extends Component {
     getComponentPosition(el) {
         if (el instanceof Component) {
             let componentPosition = this.form.components.indexOf(el);
-            if (componentPosition === -1){
+            if (componentPosition === -1) {
                 throw Error('Could not find component position');
             }
             return componentPosition;
         } else {
-            const componentContainer = document.querySelector('.form').children;
+            let componentContainer = document.querySelector('.form').children;
+            const offset = componentContainer.item(0).classList.contains('drag-and-drop-alert') ? 1 : 0;
             for (let i = 0; i < componentContainer.length; i++) {
                 if (componentContainer[i] === el) {
-                    return i;
+                    return i - offset;
                 }
             }
         }
