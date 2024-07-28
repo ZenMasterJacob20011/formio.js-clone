@@ -10,6 +10,8 @@ import formbuilder from './formbuilder';
 import builderComponent from './builderComponent';
 import dialog from './dialog';
 import buildereditform from './builderEditForm';
+import components from './components';
+import tabs from './tabs';
 
 export default {
     button,
@@ -23,5 +25,7 @@ export default {
     formbuilder,
     builderComponent,
     dialog,
-    buildereditform
+    buildereditform,
+    components,
+    tabs
 };

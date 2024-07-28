@@ -1,6 +1,5 @@
 import Form from './Form';
 import FormBuilder from './FormBuilder';
-import Components from './components/_classes/components/Components';
 
 export default class Formio {
     /**
@@ -10,7 +9,7 @@ export default class Formio {
      * @param {object?} options options for the form
      */
     static createForm(htmlElement, form, options) {
-        const formClass = new Form(htmlElement, Components.convertComponentArrayToClassArray(form.components), options);
+        const formClass = new Form(htmlElement, form.components, options);
         formClass.createForm();
     }
 

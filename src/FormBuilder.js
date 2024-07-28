@@ -24,6 +24,8 @@ export default class FormBuilder extends Component {
             });
         };
         this.options.hooks.attachComponent = this.attachComponent.bind(this);
+        this.options.hooks.attachDragula = this.attachDragula.bind(this);
+        this.containers = [];
         this.form = new Form(document.createElement('div'), [{type: 'button', label: 'submit'}], this.options);
     }
 
@@ -33,43 +35,53 @@ export default class FormBuilder extends Component {
     }
 
     createBuilder() {
+        this.containers = [];
         this.redraw();
         this.attach();
     }
 
-    attach() {
-        this.form.attach(this.htmlContainer);
+    attach(element) {
+        element = element || this.htmlContainer;
+        this.form.attach(element);
         let currentDragComponent = undefined;
         let currentDragComponentPosition = undefined;
-        dragula([document.querySelector('.accordion-body'), document.querySelector('.form')], {
-            moves: (el, container, handle) => {
-                return !handle.classList.contains('drag-and-drop-alert');
+        let drake = dragula({
+            moves: (el) => {
+                return !el.classList.contains('no-drag');
             },
-            copy: (el, source) => {
-                return source === document.querySelector('.accordion-body');
+            copy: (el) => {
+                return el.classList.contains('drag-copy');
             },
             accepts: (el, target) => {
-                return target !== document.querySelector('.accordion-body');
+                console.log(target);
+                return !el.contains(target) && !target.classList.contains('no-drop');
             }
-        }).on('drop', (el, container) => {
-            if (container) {
+        });
+        document.querySelectorAll('.accordion-body').forEach((element) => {
+            drake.containers.push(element);
+        });
+        drake.containers.push(document.querySelector('.form'));
+        this.containers.forEach((container) => {
+            drake.containers.push(container);
+        });
+        drake.on('drop', (el, target, source) => {
+            if (target) {
                 const component = el.getAttribute('data-type') ? {
                     type: el.getAttribute('data-type')
                 } : undefined;
                 if (el.classList.contains('component') || el.classList.contains('builder-component')) {
-                    this.form.removeComponent(currentDragComponentPosition);
+                    source.formioContainer.splice(currentDragComponentPosition, 1);
                 }
-                let componentPosition = this.getComponentPosition(el);
-                this.form.addComponent(component || currentDragComponent, componentPosition);
+                let componentPosition = this.getComponentPosition(el, target);
+                target.formioContainer.splice(componentPosition, 0, component || currentDragComponent);
                 this.createBuilder();
             }
-        }).on('drag', (el) => {
+        }).on('drag', (el, source) => {
             if (el.classList.contains('component') || el.classList.contains('builder-component')) {
-                currentDragComponentPosition = this.getComponentPosition(el);
-                currentDragComponent = this.form.components[currentDragComponentPosition];
+                currentDragComponentPosition = this.getComponentPosition(el, source);
+                currentDragComponent = source.formioContainer[currentDragComponentPosition];
             }
         });
-
     }
 
     /**
@@ -144,6 +156,14 @@ export default class FormBuilder extends Component {
     }
 
     /**
+     * Adds a container to the list of containers for dragula
+     * @param {HTMLElement} container the container to be added
+     */
+    attachDragula(container) {
+        this.containers.push(container);
+    }
+
+    /**
      * Creates a modal edit form that will render edit form, attach listeners, and modify the component object, and then rerender on save
      * @param {string} modalContents the content to be inserted into the modal
      * @returns {HTMLElement} the modal element
@@ -193,19 +213,20 @@ export default class FormBuilder extends Component {
     }
 
     /**
-     * get the position of a component in the form builder
+     * get the position of a component in a container
      * @param {HTMLElement | Component} el the html element or component to find
+     * @param {HTMLElement | Component[]} container the list of elements or list of components
      * @returns {number} the position of the component
      */
-    getComponentPosition(el) {
+    getComponentPosition(el, container) {
         if (el instanceof Component) {
-            let componentPosition = this.form.components.indexOf(el);
+            let componentPosition = container.indexOf(el);
             if (componentPosition === -1) {
                 throw Error('Could not find component position');
             }
             return componentPosition;
         } else {
-            let componentContainer = document.querySelector('.form').children;
+            let componentContainer = container.children;
             const offset = componentContainer.item(0).classList.contains('drag-and-drop-alert') ? 1 : 0;
             for (let i = 0; i < componentContainer.length; i++) {
                 if (componentContainer[i] === el) {

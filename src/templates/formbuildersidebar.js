@@ -13,32 +13,32 @@ export default function () {
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBasic">Basic</button>
                     </h2>
                     <div id="collapseBasic" class="accordion-collapse collapse show" data-bs-parent="#formBuilderSidebar">
-                        <div class="accordion-body">
-                            <span class="btn btn-primary form-component d-block" data-type="textfield">
+                        <div class="accordion-body no-drop">
+                            <span class="btn btn-primary form-component d-block drag-copy" data-type="textfield">
                                 Text Field
                             </span>
-                            <span class="btn btn-primary form-component d-block" data-type="textarea">
+                            <span class="btn btn-primary form-component d-block drag-copy" data-type="textarea">
                                 Text Area
                             </span>
-                            <span class="btn btn-primary form-component d-block" data-type="number">
+                            <span class="btn btn-primary form-component d-block drag-copy" data-type="number">
                                 Number
                             </span>
-                            <span class="btn btn-primary form-component d-block" data-type="password">
+                            <span class="btn btn-primary form-component d-block drag-copy" data-type="password">
                                 Password
                             </span>
-                            <span class="btn btn-primary form-component d-block" data-type="checkbox">
+                            <span class="btn btn-primary form-component d-block drag-copy" data-type="checkbox">
                                 Checkbox
                             </span>
-                            <span class="btn btn-primary form-component d-block" data-type="selectboxes">
+                            <span class="btn btn-primary form-component d-block drag-copy" data-type="selectboxes">
                                 Select Boxes
                             </span>
-                            <span class="btn btn-primary form-component d-block" data-type="select">
+                            <span class="btn btn-primary form-component d-block drag-copy" data-type="select">
                                 Select
                             </span>
-                            <span class="btn btn-primary form-component d-block" data-type="radio">
+                            <span class="btn btn-primary form-component d-block drag-copy" data-type="radio">
                                 Radio
                             </span>
-                            <span class="btn btn-primary form-component d-block" data-type="button">
+                            <span class="btn btn-primary form-component d-block drag-copy" data-type="button">
                                 Button
                             </span>
                         </div>
@@ -59,8 +59,8 @@ export default function () {
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLayout">Layout</button>
                     </h2>
                     <div id="collapseLayout" class="accordion-collapse collapse" data-bs-parent="#formBuilderSidebar">
-                        <div class="accordion-body">
-                            <span>Test</span>
+                        <div class="accordion-body no-drop">
+                            <span class="btn btn-primary form-component d-block drag-copy" data-type="tabs">Tabs</span>
                         </div>
                     </div>
                   </div>
