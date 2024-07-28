@@ -1,31 +1,31 @@
 import Inputmask from 'inputmask/lib/inputmask.js';
 import Components from './components/_classes/components/Components';
-import Component from './components/_classes/component/Component';
 import _ from 'lodash';
 
-export default class Form extends Component {
+export default class Form{
     /**
      * @param {HTMLElement} htmlContainer the container the form will go into
      * @param {object[]} components the components of the form
      * @param {object?} options options for the form
      */
     constructor(htmlContainer, components, options) {
-        super({type: 'form'}, options, {});
         this.htmlContainer = htmlContainer;
         this.options = options || {};
-        let componentsClass = [];
-        if (components) {
-            componentsClass = components.map((component) => {
-                return Components.createComponent(component, this.options);
-            });
-        }
-        this._components = componentsClass;
+        delete this.options.attachComponent;
+        this._form = {};
+        this._form.components = components;
+        this.init();
+    }
+
+    init(){
+        this.components = Components.convertComponentArrayToClassArray(this._form.components, this.options);
     }
 
     /**
      * sets the inner html for the container htmlElement
      */
     createForm() {
+        this.init();
         let componentsWithInputMasks = [];
         this.components.forEach((classComponent) => {
             if (classComponent.component.inputMask) {
@@ -57,12 +57,12 @@ export default class Form extends Component {
      * @param {number} position the position of the component to remove
      */
     removeComponent(position) {
-        this.components.splice(position, 1);
+        this._form.components.splice(position, 1);
     }
 
     /**
      * gets components
-     * @returns {Component[]} gets components
+     * @returns {object[]} gets components
      */
     get components() {
         return this._components;
@@ -112,6 +112,7 @@ export default class Form extends Component {
      */
     attach(parentContainer) {
         this.htmlContainer = parentContainer.querySelector('[ref="form"]');
+        this.htmlContainer.formioContainer = this._form.components;
         this.components.forEach((classComponent, index) => {
             if (this.options.builderMode && this.components.length <= 1){
                 index++;
@@ -125,9 +126,10 @@ export default class Form extends Component {
     }
 
     render() {
+        this.init();
         let formContainer = '<div ref="form" class="form">';
         if (this.options.builderMode && this.components.length <= 1) {
-            formContainer += '<div class="drag-and-drop-alert">Drag and Drop a form component</div>';
+            formContainer += '<div class="drag-and-drop-alert no-drag">Drag and Drop a form component</div>';
         }
         this.components.forEach((classComponent) => {
             formContainer += classComponent.render();

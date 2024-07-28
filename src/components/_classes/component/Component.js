@@ -75,18 +75,18 @@ export default class Component {
      * sets the value for the component
      * @param {number | string | object} value the value to be set
      */
-    setValue(value){
+    setValue(value) {
         this.dataValue = value;
 
         this.refs.input.value = value;
     }
 
-    get dataValue(){
+    get dataValue() {
         this._dataValue = this.refs.input.value;
         return this._dataValue;
     }
 
-    set dataValue(value){
+    set dataValue(value) {
         this._dataValue = value;
     }
 
@@ -107,7 +107,15 @@ export default class Component {
      */
     loadRefs(element, refs) {
         for (const ref in refs) {
-            this.refs[ref] = element.querySelector(`[ref='${ref}']`);
+            if (refs[ref] === 'multiple') {
+                let htmlCollection = [];
+                element.querySelectorAll(`[ref='${ref}']`).forEach((item) => {
+                    htmlCollection.push(item);
+                });
+                this.refs[ref] = htmlCollection;
+            }else {
+                this.refs[ref] = element.querySelector(`[ref='${ref}']`);
+            }
         }
     }
 }

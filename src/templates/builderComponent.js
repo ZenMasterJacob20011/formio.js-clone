@@ -5,7 +5,7 @@
  */
 export default function (ctx) {
     return `
-        <div class="builder-component">
+        <div ref="dragComponent" class="builder-component">
             <div class="component-button-group">
                 <div ref="removeComponent" class="component-settings-button component-settings-button-remove btn btn-danger">
                     <i class="fa fa-remove"></i>

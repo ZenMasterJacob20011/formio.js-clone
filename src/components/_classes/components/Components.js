@@ -7,6 +7,7 @@ import Checkbox from '../../checkbox/Checkbox';
 import Selectboxes from '../../selectboxes/Selectboxes';
 import Select from '../../select/Select';
 import Radio from '../../radio/Radio';
+import Tabs from '../../tabs/Tabs';
 import baseEditForm from '../component/Component.form';
 
 export default class Components {
@@ -22,7 +23,8 @@ export default class Components {
         'checkbox': Checkbox,
         'selectboxes': Selectboxes,
         'select': Select,
-        'radio': Radio
+        'radio': Radio,
+        'tabs': Tabs
     };
 
 
@@ -43,11 +45,12 @@ export default class Components {
     /**
      * converts an array of component objects to an array of component classes
      * @param {object[]} components the array of component JSON
+     * @param {object} options options to be passed to each component created
      * @returns {import('../component/Component.js').Component[]} a list of class components
      */
-    static convertComponentArrayToClassArray(components) {
+    static convertComponentArrayToClassArray(components, options) {
         return components.map((component) => {
-            return Components.createComponent(component);
+            return Components.createComponent(component, options);
         });
     }
 
