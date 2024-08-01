@@ -63,7 +63,7 @@ export default class Components {
      * @param {string} componentType the type of component
      * @returns {object} the class components builder info
      */
-    static builderInfo(componentType) {
-        return Components.components[componentType].builderInfo();
+    static editInfo(componentType) {
+        return Components.components[componentType].editInfo();
     }
 }

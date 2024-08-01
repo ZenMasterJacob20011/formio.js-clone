@@ -11,7 +11,16 @@ export default class Checkbox extends Field {
         }, ...extend);
     }
 
-    static builderInfo = CheckboxForm;
+    static get builderInfo() {
+        return {
+            title: 'Checkbox',
+            group: 'basic',
+            icon: 'tbd',
+            schema: Checkbox.schema()
+        };
+    }
+
+    static editInfo = CheckboxForm;
 
     constructor(component, data, options) {
         super(component, data, options);
@@ -21,7 +30,7 @@ export default class Checkbox extends Field {
         return Checkbox.schema();
     }
 
-    render(){
+    render() {
         return super.render(Template.renderTemplate('checkbox', this));
     }
 }

@@ -17,6 +17,14 @@ export default class Tabs extends NestedComponent {
         }, ...extend);
     }
 
+    static get builderInfo(){
+        return {
+            title: 'Tabs',
+            group: 'layout',
+            icon: 'tbd',
+            schema: Tabs.schema()
+        };
+    }
 
     constructor(component, options, data) {
         super(component, options, data);

@@ -1,89 +1,40 @@
 import '../formbuilder.css';
+import _ from 'lodash';
 /**
  * renders form builder sidebar template
+ * @param {object} ctx holds component builder information
  * @returns {string} the html template
  */
-export default function () {
+export default function (ctx) {
     return `
         <div class="formcomponents">
             <input placeholder="Search field(s)" type="search" name="searchcomponent" id="searchcomponent" class="form-control builder-sidebar-search">
             <div class="sidebar-groups accordion" id="formBuilderSidebar">
-                  <div class="sidebar-group-basic accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBasic">Basic</button>
-                    </h2>
-                    <div id="collapseBasic" class="accordion-collapse collapse show" data-bs-parent="#formBuilderSidebar">
-                        <div class="accordion-body no-drop">
-                            <span class="btn btn-primary form-component d-block drag-copy" data-type="textfield">
-                                Text Field
-                            </span>
-                            <span class="btn btn-primary form-component d-block drag-copy" data-type="textarea">
-                                Text Area
-                            </span>
-                            <span class="btn btn-primary form-component d-block drag-copy" data-type="number">
-                                Number
-                            </span>
-                            <span class="btn btn-primary form-component d-block drag-copy" data-type="password">
-                                Password
-                            </span>
-                            <span class="btn btn-primary form-component d-block drag-copy" data-type="checkbox">
-                                Checkbox
-                            </span>
-                            <span class="btn btn-primary form-component d-block drag-copy" data-type="selectboxes">
-                                Select Boxes
-                            </span>
-                            <span class="btn btn-primary form-component d-block drag-copy" data-type="select">
-                                Select
-                            </span>
-                            <span class="btn btn-primary form-component d-block drag-copy" data-type="radio">
-                                Radio
-                            </span>
-                            <span class="btn btn-primary form-component d-block drag-copy" data-type="button">
-                                Button
-                            </span>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="sidebar-group-advanced accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdvanced">Advanced</button>
-                    </h2>
-                    <div id="collapseAdvanced" class="accordion-collapse collapse" data-bs-parent="#formBuilderSidebar">
-                        <div class="accordion-body">
-                            <span>Test</span>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="sidebar-group-layout accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLayout">Layout</button>
-                    </h2>
-                    <div id="collapseLayout" class="accordion-collapse collapse" data-bs-parent="#formBuilderSidebar">
-                        <div class="accordion-body no-drop">
-                            <span class="btn btn-primary form-component d-block drag-copy" data-type="tabs">Tabs</span>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="sidebar-group-data accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseData">Data</button>
-                    </h2>
-                    <div id="collapseData" class="accordion-collapse collapse" data-bs-parent="#formBuilderSidebar">
-                        <div class="accordion-body">
-                            <span>Test</span>
-                        </div>
-                    </div>
-                  </div>
-                  <div class="sidebar-group-premium accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePremium">Premium</button>
-                    </h2>
-                    <div id="collapsePremium" class="accordion-collapse collapse" data-bs-parent="#formBuilderSidebar">
-                        <div class="accordion-body">
-                            <span>Test</span>
-                        </div>
-                    </div>
-                  </div>
+                  ${(function (){
+                        let theHTML = '';
+                        let index = 0;
+                        for (const group in ctx) {
+                            theHTML += `<div class="sidebar-group-${group} accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button ${index ? 'collapsed' : ''}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${group}">${_.capitalize(group)}</button>
+                                            </h2>
+                                            <div id="collapse${group}" class="accordion-collapse collapse ${!index ? 'show' : ''}" data-bs-parent="#formBuilderSidebar">
+                                                <div class="accordion-body ${!index ? 'no-drop' : ''}">
+                                                    ${(function(){
+                                                        let theHTML = '';
+                                                        for(const component in ctx[group]){
+                                                            const componentClass = ctx[group][component];
+                                                            theHTML += `<span class="btn btn-primary form-component d-block drag-copy" data-type="${componentClass.builderInfo.schema.type}">${componentClass.builderInfo.title}</span>`;
+                                                        }
+                                                        return theHTML;
+                                                    })()}
+                                                </div>
+                                            </div>
+                                        </div>`;
+                            index += 1;
+                        }
+                        return theHTML;
+                  })()}
             </div>
         </div>
     `;

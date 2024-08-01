@@ -10,9 +10,19 @@ export default class Number extends Input {
             key: 'number',
             label: 'Number',
             inputMask: '[0-9].*'
-        },...extend);
+        }, ...extend);
     }
-    static builderInfo = NumberForm;
+
+    static get builderInfo() {
+        return {
+            title: 'Number',
+            group: 'basic',
+            icon: 'tbd',
+            schema: Number.schema()
+        };
+    }
+
+    static editInfo = NumberForm;
 
     get defaultSchema() {
         return Number.schema();

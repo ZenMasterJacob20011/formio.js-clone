@@ -13,7 +13,16 @@ export default class Selectboxes extends Field {
         }, ...extend);
     }
 
-    static builderInfo = SelectboxesForm;
+    static editInfo = SelectboxesForm;
+
+    static get builderInfo(){
+        return {
+            title: 'Select Boxes',
+            group: 'basic',
+            icon: 'tbd',
+            schema: Selectboxes.schema()
+        };
+    }
 
     constructor(component, data, options) {
         super(component, data, options);

@@ -12,7 +12,16 @@ export default class TextArea extends Input {
         }, ...extend);
     }
 
-    static builderInfo = TextAreaForm;
+    static get builderInfo(){
+        return {
+            title: 'Text Area',
+            group: 'basic',
+            icon: 'tbd',
+            schema: TextArea.schema()
+        };
+    }
+
+    static editInfo = TextAreaForm;
 
     constructor(component, options, data) {
         super(component, options, data);

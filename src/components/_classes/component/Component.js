@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import {getRandomComponentId} from '../../../utils/utils';
-import builderInfo from './Component.form';
+import editInfo from './Component.form';
 
 export default class Component {
 
@@ -10,7 +10,7 @@ export default class Component {
         }, ...sources);
     }
 
-    static builderInfo = builderInfo;
+    static editInfo = editInfo;
 
     /**
      * creates a new component
