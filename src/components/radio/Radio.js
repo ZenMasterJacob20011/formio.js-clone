@@ -22,7 +22,16 @@ export default class Radio extends Field {
         }, ...extend);
     }
 
-    static builderInfo = RadioForm;
+    static get builderInfo(){
+        return {
+            title: 'Radio',
+            group: 'basic',
+            icon: 'tbd',
+            schema: Radio.schema()
+        };
+    }
+
+    static editInfo = RadioForm;
 
     constructor(component, data, options) {
         super(component, data, options);

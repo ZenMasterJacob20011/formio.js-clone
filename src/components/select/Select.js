@@ -23,7 +23,16 @@ export default class Select extends Field {
         }, ...extend);
     }
 
-    static builderInfo = SelectForm;
+    static get builderInfo() {
+        return {
+            title: 'Select',
+            group: 'basic',
+            icon: 'tbd',
+            schema: Select.schema()
+        };
+    }
+
+    static editInfo = SelectForm;
 
     constructor(component, data, options) {
         super(component, data, options);
@@ -33,7 +42,7 @@ export default class Select extends Field {
         return Select.schema();
     }
 
-    render(){
+    render() {
         return super.render(Template.renderTemplate('select', this));
     }
 }

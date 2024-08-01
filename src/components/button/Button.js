@@ -11,7 +11,17 @@ export default class Button extends Component {
             key: 'button',
         },...extend);
     }
-    static builderInfo = ButtonForm;
+
+    static get builderInfo(){
+        return {
+            title: 'Button',
+            group: 'basic',
+            icon: 'tbd',
+            schema: Button.schema()
+        };
+    }
+
+    static editInfo = ButtonForm;
 
     constructor(component, options, data) {
         super(component, options, data);

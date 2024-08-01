@@ -4,6 +4,7 @@ import dragula from 'dragula';
 import Form from './Form';
 import Component from './components/_classes/component/Component';
 import Components from './components/_classes/components/Components';
+import _ from 'lodash';
 
 export default class FormBuilder extends Component {
     /**
@@ -90,9 +91,18 @@ export default class FormBuilder extends Component {
      */
     render() {
         return Template.renderTemplate('formbuilder', {
-            formbuildersidebar: Template.renderTemplate('formbuildersidebar', {}),
+            formbuildersidebar: Template.renderTemplate('formbuildersidebar', this.sideBarComponents()),
             form: this.form.render()
         });
+    }
+
+    sideBarComponents() {
+        let groups = {};
+        for (let componentsKey in Components.components) {
+            const component = Components.components[componentsKey];
+            _.set(groups, `${component.builderInfo.group}.${componentsKey}`, component);
+        }
+        return groups;
     }
 
     redraw() {
@@ -118,7 +128,7 @@ export default class FormBuilder extends Component {
         if (component.refs.editComponent) {
             component.refs.editComponent.addEventListener('click', () => {
                 console.log('edit button has been clicked');
-                const editForm = new Form(document.createElement('div'), Components.builderInfo(component.component.type).components, {});
+                const editForm = new Form(document.createElement('div'), Components.editInfo(component.component.type).components, {});
                 const editFormContents = Template.renderTemplate('dialog', {
                     dialogContents: Template.renderTemplate('buildereditform', {
                         form: editForm.render(),

@@ -10,7 +10,18 @@ export default class Password extends TextField {
             label: 'Password'
         }, ...extend);
     }
-    static builderInfo = PasswordForm;
+
+    static get builderInfo() {
+        return {
+            title: 'Password',
+            group: 'basic',
+            icon: 'tbd',
+            schema: Password.schema()
+        };
+    }
+
+    static editInfo = PasswordForm;
+
     constructor(component, data, options) {
         super(component, data, options);
     }
