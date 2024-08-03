@@ -126,7 +126,6 @@ export default class FormBuilder extends Component {
         }
         if (component.refs.editComponent) {
             component.refs.editComponent.addEventListener('click', () => {
-                console.log('edit button has been clicked');
                 const editForm = new Form(document.createElement('div'), Components.editInfo(component.component.type).components, {});
                 const editFormContents = Template.renderTemplate('dialog', {
                     dialogContents: Template.renderTemplate('buildereditform', {
@@ -194,10 +193,9 @@ export default class FormBuilder extends Component {
      */
     attachEditForm(element, component, editForm) {
         element.querySelector('[ref="saveButton"]').addEventListener('click', () => {
-            component.component = component.mergeSchema(editForm.submission.data);
+            _.assign(component.component, component.mergeSchema(editForm.submission.data));
             this.createBuilder();
             this.closeModal(element);
-            console.log('I just ran');
         });
         element.querySelector('[ref="cancelButton"]').addEventListener('click', () => {
 
