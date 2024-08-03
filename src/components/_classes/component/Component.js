@@ -64,7 +64,6 @@ export default class Component {
     attach(element) {
         this.loadRefs(element, {
             messageContainer: 'single',
-            input: 'single'
         });
         this.hook('attachComponent', element, this);
 

@@ -19,6 +19,11 @@ export default class Input extends Field {
         super(component, options, data);
     }
 
+    attach(element){
+        this.loadRefs(element, {
+            'input': 'single'
+        });
+    }
 
     render() {
         return super.render(Template.renderTemplate('input', this));
