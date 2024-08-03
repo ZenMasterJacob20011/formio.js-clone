@@ -7,6 +7,7 @@ export default class Tabs extends NestedComponent {
         return NestedComponent.schema({
             type: 'tabs',
             key: 'tabs',
+            label: 'Tabs',
             components: [
                 {
                     key: 'tab1',
@@ -49,6 +50,7 @@ export default class Tabs extends NestedComponent {
      * @param {HTMLElement} element the parent container
      */
     attach(element) {
+        super.attach(element);
         this.loadRefs(element, {
             [this.nestedKey]: 'single',
             'tabsContainer': 'multiple'

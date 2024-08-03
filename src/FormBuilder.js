@@ -54,7 +54,6 @@ export default class FormBuilder extends Component {
                 return el.classList.contains('drag-copy');
             },
             accepts: (el, target) => {
-                console.log(target);
                 return !el.contains(target) && !target.classList.contains('no-drop');
             }
         });
