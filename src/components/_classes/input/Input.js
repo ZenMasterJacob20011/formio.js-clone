@@ -23,6 +23,7 @@ export default class Input extends Field {
         this.loadRefs(element, {
             'input': 'single'
         });
+        super.attach(element);
     }
 
     render() {
