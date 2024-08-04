@@ -1,8 +1,9 @@
 import Inputmask from 'inputmask/lib/inputmask.js';
 import Components from './components/_classes/components/Components';
 import _ from 'lodash';
+import Template from './templates/Template';
 
-export default class Form{
+export default class Form {
     /**
      * @param {HTMLElement} htmlContainer the container the form will go into
      * @param {object[]} components the components of the form
@@ -17,7 +18,7 @@ export default class Form{
         this.init();
     }
 
-    init(){
+    init() {
         this.components = Components.convertComponentArrayToClassArray(this._form.components, this.options);
     }
 
@@ -111,28 +112,33 @@ export default class Form{
      * @param {HTMLElement} parentContainer the parent container
      */
     attach(parentContainer) {
-        this.htmlContainer = parentContainer.querySelector('[ref="form"]');
-        this.htmlContainer.formioContainer = this._form.components;
+        this.htmlContainer = parentContainer.querySelector('[ref="form"]') || this.htmlContainer;
+        let componentsContainer = this.htmlContainer.querySelector('[ref="-container"]');
+        componentsContainer.formioContainer = this._form.components;
         this.components.forEach((classComponent, index) => {
-            if (this.options.builderMode && this.components.length <= 1){
+            if (this.options.builderMode && this.components.length <= 1) {
                 index++;
             }
-            classComponent.attach(this.htmlContainer.children.item(index));
+            classComponent.attach(componentsContainer.children.item(index));
         });
     }
 
     redraw() {
-        this.createForm(this.components);
+        this.init();
+        this.htmlContainer.innerHTML = Template.renderTemplate('components', {
+            children: this.components.map((component) => component.render()),
+            containerType: ''
+        });
+        this.attach(this.htmlContainer);
     }
 
     render() {
         this.init();
         let formContainer = '<div ref="form" class="form">';
-        if (this.options.builderMode && this.components.length <= 1) {
-            formContainer += '<div class="drag-and-drop-alert no-drag">Drag and Drop a form component</div>';
-        }
-        this.components.forEach((classComponent) => {
-            formContainer += classComponent.render();
+        formContainer += Template.renderTemplate('components', {
+            children: this.components.map((component) => component.render()),
+            containerType: '',
+            builderMode: this.options.builderMode
         });
         formContainer += '</div>';
         return formContainer;
