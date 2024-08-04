@@ -41,8 +41,20 @@ export default class FormBuilder extends Component {
         this.attach();
     }
 
+    sidebarSearch(event) {
+        const input = event.target.value;
+        this.refs['sidebarGroups'].innerHTML = Template.renderTemplate('formbuildersidebargroups', this.sideBarComponents(input));
+        this.attach();
+    }
+
     attach(element) {
         element = element || this.htmlContainer;
+        this.loadRefs(element, {
+            'sidebarSearch': 'single',
+            'sidebarGroups': 'single'
+        });
+
+        this.refs['sidebarSearch'].addEventListener('input', this.sidebarSearch.bind(this));
         this.form.attach(element);
         let currentDragComponent = undefined;
         let currentDragComponentPosition = undefined;
@@ -90,16 +102,23 @@ export default class FormBuilder extends Component {
      */
     render() {
         return Template.renderTemplate('formbuilder', {
-            formbuildersidebar: Template.renderTemplate('formbuildersidebar', this.sideBarComponents()),
+            formbuildersidebar: Template.renderTemplate('formbuildersidebar', {sidebarGroups: Template.renderTemplate('formbuildersidebargroups', this.sideBarComponents(''))}),
             form: this.form.render()
         });
     }
 
-    sideBarComponents() {
+    /**
+     * Gets the sidebar components based on a filter value
+     * @param {string} value the value to filter
+     * @returns {object} an object of groups and components in those groups
+     */
+    sideBarComponents(value) {
         let groups = {};
         for (let componentsKey in Components.components) {
             const component = Components.components[componentsKey];
-            _.set(groups, `${component.builderInfo.group}.${componentsKey}`, component);
+            if (componentsKey.toLowerCase().includes(value.toLowerCase())) {
+                _.set(groups, `${component.builderInfo.group}.${componentsKey}`, component);
+            }
         }
         return groups;
     }

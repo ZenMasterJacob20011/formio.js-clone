@@ -12,6 +12,7 @@ import dialog from './dialog';
 import buildereditform from './builderEditForm';
 import components from './components';
 import tabs from './tabs';
+import formbuildersidebargroups from './formbuildersidebargroups';
 
 export default {
     button,
@@ -22,6 +23,7 @@ export default {
     select,
     radio,
     formbuildersidebar,
+    formbuildersidebargroups,
     formbuilder,
     builderComponent,
     dialog,
