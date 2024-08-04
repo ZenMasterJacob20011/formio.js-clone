@@ -249,6 +249,8 @@ export default class FormBuilder extends Component {
      * @param {Component} component the component to remove
      */
     removeComponent(component) {
-        this.form.removeComponent(this.getComponentPosition(component));
+        const parentContainer = component.element.parentElement.formioContainer;
+        const componentPosition = parentContainer.findIndex((element) => component.component === element);
+        parentContainer.splice(componentPosition, 1);
     }
 }
