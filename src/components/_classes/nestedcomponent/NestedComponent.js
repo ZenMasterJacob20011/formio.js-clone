@@ -29,7 +29,8 @@ export default class NestedComponent extends Component {
         });
         return Template.renderTemplate('components', {
             children: children,
-            components: components
+            components: components,
+            builderMode: this.options.builderMode
         });
     }
 

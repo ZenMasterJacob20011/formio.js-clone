@@ -73,9 +73,7 @@ export default class FormBuilder extends Component {
             drake.containers.push(element);
         });
         drake.containers.push(document.querySelector('.form').querySelector('[ref="-container"]'));
-        this.containers.forEach((container) => {
-            drake.containers.push(container);
-        });
+        this.containers = drake.containers;
         drake.on('drop', (el, target, source) => {
             if (target) {
                 const component = el.getAttribute('data-type') ? {
