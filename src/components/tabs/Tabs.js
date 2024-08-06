@@ -39,7 +39,7 @@ export default class Tabs extends NestedComponent {
     render() {
         return super.render(Template.renderTemplate('tabs', {
             tabKey: this.component.key,
-            tabComponents: this.tabs.map(tab => this.renderComponents(Components.convertComponentArrayToClassArray(tab.components))),
+            tabComponents: this.tabs.map(tab => this.renderComponents(Components.convertComponentArrayToClassArray(tab.components, this.options))),
             componentContext: this
         }));
     }
