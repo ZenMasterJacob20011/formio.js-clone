@@ -53,9 +53,9 @@ export default class Tabs extends NestedComponent {
         super.attach(element);
         this.loadRefs(element, {
             [this.nestedKey]: 'single',
-            'tabsContainer': 'multiple'
+            'tabs-container': 'multiple'
         });
-        this.refs['tabsContainer'].forEach((container, index) => {
+        this.refs['tabs-container'].forEach((container, index) => {
             container.formioContainer = this.tabs[index].components;
             this.hook('attachDragula', container);
         });
