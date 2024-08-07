@@ -30,6 +30,7 @@ export default class NestedComponent extends Component {
         return Template.renderTemplate('components', {
             children: children,
             components: components,
+            containerType: this.component.type,
             builderMode: this.options.builderMode
         });
     }

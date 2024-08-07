@@ -72,7 +72,7 @@ export default class FormBuilder extends Component {
         document.querySelectorAll('.accordion-body').forEach((element) => {
             drake.containers.push(element);
         });
-        drake.containers.push(document.querySelector('.form').querySelector('[ref="-container"]'));
+        drake.containers.push(document.querySelector('.form').querySelector('[ref="form-container"]'));
         this.containers = drake.containers;
         drake.on('drop', (el, target, source) => {
             if (target) {
@@ -85,7 +85,7 @@ export default class FormBuilder extends Component {
                 let componentPosition = this.getComponentPosition(el, target);
                 target.formioContainer.splice(componentPosition, 0, component || currentDragComponent);
                 this.form.redraw();
-                drake.containers.push(document.querySelector('.form').querySelector('[ref="-container"]'));
+                drake.containers.push(document.querySelector('.form').querySelector('[ref="form-container"]'));
             }
         }).on('drag', (el, source) => {
             if (el.classList.contains('component') || el.classList.contains('builder-component')) {

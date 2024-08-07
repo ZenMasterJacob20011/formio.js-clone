@@ -113,7 +113,7 @@ export default class Form {
      */
     attach(parentContainer) {
         this.htmlContainer = parentContainer.querySelector('[ref="form"]') || this.htmlContainer;
-        let componentsContainer = this.htmlContainer.querySelector('[ref="-container"]');
+        let componentsContainer = this.htmlContainer.querySelector('[ref="form-container"]');
         componentsContainer.formioContainer = this._form.components;
         this.components.forEach((classComponent, index) => {
             if (this.options.builderMode && this.components.length <= 1) {
@@ -127,7 +127,9 @@ export default class Form {
         this.init();
         this.htmlContainer.innerHTML = Template.renderTemplate('components', {
             children: this.components.map((component) => component.render()),
-            containerType: ''
+            components: this.components,
+            containerType: 'form',
+            builderMode: this.options.builderMode
         });
         this.attach(this.htmlContainer);
     }
@@ -137,7 +139,8 @@ export default class Form {
         let formContainer = '<div ref="form" class="form">';
         formContainer += Template.renderTemplate('components', {
             children: this.components.map((component) => component.render()),
-            containerType: '',
+            components: this.components,
+            containerType: 'form',
             builderMode: this.options.builderMode
         });
         formContainer += '</div>';
