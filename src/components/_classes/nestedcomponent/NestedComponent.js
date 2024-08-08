@@ -40,9 +40,6 @@ export default class NestedComponent extends Component {
         this.loadRefs(element, {
             [this.nestedKey]: 'single'
         });
-        if(this.options.builderMode){
-            this.hook('attachDragula', element, this.component.components);
-        }
     }
 
     addComponent(component, position) {
