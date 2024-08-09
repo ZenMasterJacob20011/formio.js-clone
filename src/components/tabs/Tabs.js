@@ -27,9 +27,13 @@ export default class Tabs extends NestedComponent {
         };
     }
 
+    init(){
+        this.tabs = this._tabs.map((tab) => Components.convertComponentArrayToClassArray(tab.components, this.options));
+    }
+
     constructor(component, options, data) {
         super(component, options, data);
-        this.tabs = this.component.components || [];
+        this._tabs = this.component.components || [];
     }
 
     get defaultSchema() {
@@ -37,9 +41,10 @@ export default class Tabs extends NestedComponent {
     }
 
     render() {
+        this.init();
         return super.render(Template.renderTemplate('tabs', {
             tabKey: this.component.key,
-            tabComponents: this.tabs.map(tab => this.renderComponents(Components.convertComponentArrayToClassArray(tab.components, this.options))),
+            tabComponents: this.tabs.map(tab => this.renderComponents(tab)),
             componentContext: this
         }));
     }
@@ -56,8 +61,11 @@ export default class Tabs extends NestedComponent {
             'tabs-container': 'multiple'
         });
         this.refs['tabs-container'].forEach((container, index) => {
-            container.formioContainer = this.tabs[index].components;
+            container.formioContainer = this._tabs[index].components;
             this.hook('attachDragula', container);
+        });
+        this.tabs.forEach((tab) => {
+            this.attachComponents(element, tab);
         });
     }
 

@@ -42,6 +42,18 @@ export default class NestedComponent extends Component {
         });
     }
 
+    /**
+     * Calls attach on an array of components
+     * @param {HTMLElement} element the parent container
+     * @param {Component[]} components the components to call attach on
+     */
+    attachComponents(element, components) {
+        const dragComponents = element.querySelectorAll('[ref="dragComponent"]');
+        components.forEach((component, index) => {
+            component.attach(dragComponents.item(index));
+        });
+    }
+
     addComponent(component, position) {
         if (Object.getPrototypeOf(component) === Object.prototype) {
             this.components.splice(position, 0, Components.createComponent(component, this.options));
