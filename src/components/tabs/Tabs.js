@@ -13,6 +13,11 @@ export default class Tabs extends NestedComponent {
                     key: 'tab1',
                     label: 'Tab 1',
                     components: []
+                },
+                {
+                    key: 'tab2',
+                    label: 'Tab 2',
+                    components: []
                 }
             ]
         }, ...extend);
