@@ -58,7 +58,7 @@ export default class FormBuilder extends Component {
         this.form.attach(element);
         let currentDragComponent = undefined;
         let currentDragComponentPosition = undefined;
-        let drake = dragula({
+        this.drake = dragula({
             moves: (el) => {
                 return !el.classList.contains('no-drag');
             },
@@ -70,11 +70,11 @@ export default class FormBuilder extends Component {
             }
         });
         document.querySelectorAll('.accordion-body').forEach((element) => {
-            drake.containers.push(element);
+            this.drake.containers.push(element);
         });
-        drake.containers.push(document.querySelector('.form').querySelector('[ref="form-container"]'));
-        this.containers = drake.containers;
-        drake.on('drop', (el, target, source) => {
+        this.drake.containers.push(document.querySelector('.form').querySelector('[ref="form-container"]'));
+        this.containers = this.drake.containers;
+        this.drake.on('drop', (el, target, source) => {
             if (target) {
                 const component = el.getAttribute('data-type') ? {
                     type: el.getAttribute('data-type')
@@ -84,8 +84,7 @@ export default class FormBuilder extends Component {
                 }
                 let componentPosition = this.getComponentPosition(el, target);
                 target.formioContainer.splice(componentPosition, 0, component || currentDragComponent);
-                this.form.redraw();
-                drake.containers.push(document.querySelector('.form').querySelector('[ref="form-container"]'));
+                this.redrawForm();
             }
         }).on('drag', (el, source) => {
             if (el.classList.contains('component') || el.classList.contains('builder-component')) {
@@ -211,8 +210,8 @@ export default class FormBuilder extends Component {
      */
     attachEditForm(element, component, editForm) {
         element.querySelector('[ref="saveButton"]').addEventListener('click', () => {
-            _.assign(component.component, component.mergeSchema(editForm.submission.data));
-            this.createBuilder();
+            _.assign(component.component, editForm.submission.data);
+            this.redrawForm();
             this.closeModal(element);
         });
         element.querySelector('[ref="cancelButton"]').addEventListener('click', () => {
@@ -270,5 +269,13 @@ export default class FormBuilder extends Component {
         const parentContainer = component.element.parentElement.formioContainer;
         const componentPosition = parentContainer.findIndex((element) => component.component === element);
         parentContainer.splice(componentPosition, 1);
+    }
+
+    /**
+     * redraws the builders form
+     */
+    redrawForm(){
+        this.form.redraw();
+        this.drake.containers.push(document.querySelector('.form').querySelector('[ref="form-container"]'));
     }
 }
