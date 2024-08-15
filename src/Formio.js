@@ -7,10 +7,12 @@ export default class Formio {
      * @param {HTMLElement} htmlElement the container to put the form into
      * @param {{components: object[]}} form the components of the form
      * @param {object?} options options for the form
+     * @returns {Promise<Form>} a form promise
      */
-    static createForm(htmlElement, form, options) {
+    static async createForm(htmlElement, form, options) {
         const formClass = new Form(htmlElement, form.components, options);
         formClass.createForm();
+        return formClass;
     }
 
     /**
