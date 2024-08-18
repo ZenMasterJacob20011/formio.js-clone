@@ -16,7 +16,7 @@ export default function (ctx) {
                                                 <button class="accordion-button ${index ? 'collapsed' : ''}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${group}">${_.capitalize(group)}</button>
                                             </h2>
                                             <div id="collapse${group}" class="accordion-collapse collapse ${!index ? 'show' : ''}" data-bs-parent="#formBuilderSidebar">
-                                                <div class="accordion-body ${!index ? 'no-drop' : ''}">
+                                                <div class="accordion-body no-drop">
                                                     ${(function () {
                 let theHTML = '';
                 for (const component in ctx[group]) {
