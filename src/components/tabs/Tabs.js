@@ -23,7 +23,7 @@ export default class Tabs extends NestedComponent {
         }, ...extend);
     }
 
-    static get builderInfo(){
+    static get builderInfo() {
         return {
             title: 'Tabs',
             group: 'layout',
@@ -32,13 +32,14 @@ export default class Tabs extends NestedComponent {
         };
     }
 
-    init(){
+    init() {
         this.tabs = this._tabs.map((tab) => Components.convertComponentArrayToClassArray(tab.components, this.options));
     }
 
     constructor(component, options, data) {
         super(component, options, data);
         this._tabs = this.component.components || [];
+        this.currentTab = 0;
     }
 
     get defaultSchema() {
@@ -50,7 +51,8 @@ export default class Tabs extends NestedComponent {
         return super.render(Template.renderTemplate('tabs', {
             tabKey: this.component.key,
             tabComponents: this.tabs.map(tab => this.renderComponents(tab)),
-            componentContext: this
+            componentContext: this,
+            currentTab: this.currentTab
         }));
     }
 
@@ -63,11 +65,16 @@ export default class Tabs extends NestedComponent {
         super.attach(element);
         this.loadRefs(element, {
             [this.nestedKey]: 'single',
-            'tabs-container': 'multiple'
+            'tabs-container': 'multiple',
+            'tab-link': 'multiple'
         });
         this.refs['tabs-container'].forEach((container, index) => {
             container.formioContainer = this._tabs[index].components;
+            container.component = this;
             this.hook('attachDragula', container);
+        });
+        this.refs['tab-link'].forEach((element, index) => {
+            element.addEventListener('click', this.setCurrentTab.bind(this, index));
         });
         this.tabs.forEach((tab) => {
             this.attachComponents(element, tab);
@@ -76,5 +83,13 @@ export default class Tabs extends NestedComponent {
 
     get templateName() {
         return 'tabs';
+    }
+
+    /**
+     * sets the current tab
+     * @param {number} index the index
+     */
+    setCurrentTab(index){
+        this.currentTab = index;
     }
 }

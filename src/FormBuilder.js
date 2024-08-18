@@ -84,7 +84,7 @@ export default class FormBuilder extends Component {
                 }
                 let componentPosition = this.getComponentPosition(el, target);
                 target.formioContainer.splice(componentPosition, 0, component || currentDragComponent);
-                this.redrawForm();
+                this.redrawContainer(target);
             }
         }).on('drag', (el, source) => {
             if (el.classList.contains('component') || el.classList.contains('builder-component')) {
@@ -211,7 +211,7 @@ export default class FormBuilder extends Component {
     attachEditForm(element, component, editForm) {
         element.querySelector('[ref="saveButton"]').addEventListener('click', () => {
             _.assign(component.component, editForm.submission.data);
-            this.redrawForm();
+            this.redrawContainer(component.parent);
             this.closeModal(element);
         });
         element.querySelector('[ref="cancelButton"]').addEventListener('click', () => {
@@ -273,12 +273,12 @@ export default class FormBuilder extends Component {
 
     /**
      * redraws the builders form
+     * @param {HTMLElement} container the container element to redraw
      */
-    redrawForm(){
-        this.form.htmlContainer.querySelectorAll('[ref*="-container"]').forEach((element) => {
+    redrawContainer(container){
+        container.querySelectorAll('[ref*="-container"]').forEach((element) => {
             this.drake.containers.splice(this.drake.containers.indexOf(element), 1);
         });
-        this.form.redraw();
-        this.drake.containers.push(document.querySelector('.form').querySelector('[ref="form-container"]'));
+        container.component.redraw();
     }
 }

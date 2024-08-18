@@ -65,4 +65,11 @@ export default class NestedComponent extends Component {
     get nestedKey() {
         return `nested-${this.component.key}`;
     }
+
+    redraw() {
+        const index = Array.prototype.indexOf.call(this.parent.children, this.element);
+        this.element.outerHTML = this.render();
+        this.element = this.parent.children.item(index);
+        this.attach(this.element);
+    }
 }
