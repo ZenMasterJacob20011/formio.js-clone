@@ -2,16 +2,17 @@ import Inputmask from 'inputmask/lib/inputmask.js';
 import Components from './components/_classes/components/Components';
 import _ from 'lodash';
 import Template from './templates/Template';
+import NestedComponent from './components/_classes/nestedcomponent/NestedComponent';
 
-export default class Form {
+export default class Form extends NestedComponent{
     /**
      * @param {HTMLElement} htmlContainer the container the form will go into
      * @param {object[]} components the components of the form
      * @param {object?} options options for the form
      */
     constructor(htmlContainer, components, options) {
+        super(null, options, null);
         this.htmlContainer = htmlContainer;
-        this.options = options || {};
         delete this.options.attachComponent;
         this._form = {};
         this._form.components = components;
@@ -115,6 +116,8 @@ export default class Form {
         this.htmlContainer = parentContainer.querySelector('[ref="form"]') || this.htmlContainer;
         let componentsContainer = this.htmlContainer.querySelector('[ref="form-container"]');
         componentsContainer.formioContainer = this._form.components;
+        componentsContainer.component = this;
+        this.hook('attachDragula', componentsContainer);
         this.components.forEach((classComponent, index) => {
             if (this.options.builderMode && this.components.length <= 1) {
                 index++;

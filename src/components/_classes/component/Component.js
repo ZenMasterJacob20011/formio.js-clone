@@ -52,11 +52,6 @@ export default class Component {
         return this.hook('renderComponent', `<div class="component formio-component-${this.component.type}" id="${this.id}">${html}</div>`, this);
     }
 
-    redraw() {
-        this.render();
-        this.attach(this.element);
-    }
-
     /**
      * attaches functions to component element
      * @param {HTMLElement} element the element to attach to
@@ -65,6 +60,7 @@ export default class Component {
         this.loadRefs(element, {
             messageContainer: 'single',
         });
+        this.parent = element.parentElement;
         this.hook('attachComponent', element, this);
 
         this.element = element;

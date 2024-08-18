@@ -12,7 +12,7 @@ export default function(ctx){
                        let theHTML = '';
                        ctx.componentContext.component.components.forEach((component, index) => {
                            theHTML += `<li ref="${component.key}" class="nav-item" role="presentation">
-                                            <button class="nav-link ${!index ? 'active' : ''}" data-bs-toggle="tab" data-bs-target="#${component.key}" type="button" role="tab" aria-selected="${!index ? 'true' : 'false'}">${component.label}</button>
+                                            <button ref="tab-link" class="nav-link ${index === ctx.currentTab ? 'active' : ''}" data-bs-toggle="tab" data-bs-target="#${component.key}" type="button" role="tab" aria-selected="${!index ? 'true' : 'false'}">${component.label}</button>
                                         </li>`;
                        });
                        return theHTML;
@@ -24,7 +24,7 @@ export default function(ctx){
                     ${(function (){
                         let theHTML = '';
                         ctx.componentContext.component.components.forEach((component, index) => {
-                            theHTML += `<div ref='tabsContainer' class="tab-pane ${index === 0 ? 'show active' : ''}" id="${component.key}" role="tabpanel">${ctx.tabComponents[index]}</div>`;
+                            theHTML += `<div ref='tabsContainer' class="tab-pane ${index === ctx.currentTab ? 'show active' : ''}" id="${component.key}" role="tabpanel">${ctx.tabComponents[index]}</div>`;
                         });
                         return theHTML;
                     }())}
