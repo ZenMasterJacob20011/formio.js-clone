@@ -275,6 +275,9 @@ export default class FormBuilder extends Component {
      * redraws the builders form
      */
     redrawForm(){
+        this.form.htmlContainer.querySelectorAll('[ref*="-container"]').forEach((element) => {
+            this.drake.containers.splice(this.drake.containers.indexOf(element), 1);
+        });
         this.form.redraw();
         this.drake.containers.push(document.querySelector('.form').querySelector('[ref="form-container"]'));
     }
