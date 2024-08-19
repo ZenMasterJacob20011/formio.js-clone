@@ -76,8 +76,8 @@ export default class Tabs extends NestedComponent {
         this.refs['tab-link'].forEach((element, index) => {
             element.addEventListener('click', this.setCurrentTab.bind(this, index));
         });
-        this.tabs.forEach((tab) => {
-            this.attachComponents(element, tab);
+        this.tabs.forEach((tab, index) => {
+            this.attachComponents(this.refs['tabs-container'][index], tab);
         });
     }
 
