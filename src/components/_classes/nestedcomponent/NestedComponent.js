@@ -66,6 +66,10 @@ export default class NestedComponent extends Component {
         return `nested-${this.component.key}`;
     }
 
+    get components(){
+        return this._components;
+    }
+
     redraw() {
         const index = Array.prototype.indexOf.call(this.parent.children, this.element);
         this.element.outerHTML = this.render();

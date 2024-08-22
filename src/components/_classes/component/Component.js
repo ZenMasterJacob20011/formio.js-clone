@@ -22,7 +22,7 @@ export default class Component {
         this.options = options || {};
         this.data = data;
         this.component = this.mergeSchema(component || {});
-        this.component._id = getRandomComponentId();
+        this.component._id = this.component.id || getRandomComponentId();
         this.refs = {};
     }
 

@@ -36,6 +36,10 @@ export default class Tabs extends NestedComponent {
         this.tabs = this._tabs.map((tab) => Components.convertComponentArrayToClassArray(tab.components, this.options));
     }
 
+    get components(){
+        return this.tabs.flat();
+    }
+
     constructor(component, options, data) {
         super(component, options, data);
         this._tabs = this.component.components || [];
