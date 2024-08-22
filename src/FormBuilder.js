@@ -5,6 +5,7 @@ import Form from './Form';
 import Component from './components/_classes/component/Component';
 import Components from './components/_classes/components/Components';
 import _ from 'lodash';
+import {getRandomComponentId} from './utils/utils';
 
 export default class FormBuilder extends Component {
     /**
@@ -77,7 +78,8 @@ export default class FormBuilder extends Component {
         this.drake.on('drop', (el, target, source) => {
             if (target) {
                 const component = el.getAttribute('data-type') ? {
-                    type: el.getAttribute('data-type')
+                    type: el.getAttribute('data-type'),
+                    id: getRandomComponentId()
                 } : undefined;
                 if (el.classList.contains('component') || el.classList.contains('builder-component')) {
                     source.formioContainer.splice(currentDragComponentPosition, 1);
@@ -85,6 +87,12 @@ export default class FormBuilder extends Component {
                 let componentPosition = this.getComponentPosition(el, target);
                 target.formioContainer.splice(componentPosition, 0, component || currentDragComponent);
                 this.redrawContainer(target);
+                if (component) {
+                    let classComponent = target.component.components.find((classComponent) => {
+                        return component.id === classComponent.id;
+                    });
+                    this.editModal(classComponent);
+                }
             }
         }).on('drag', (el, source) => {
             if (el.classList.contains('component') || el.classList.contains('builder-component')) {
@@ -125,6 +133,11 @@ export default class FormBuilder extends Component {
         this.htmlContainer.innerHTML = this.render();
     }
 
+    /**
+     *
+     * @param {HTMLElement} element the element to attach listeners to
+     * @param {Component} component the component being modified by listeners
+     */
     attachComponent(element, component) {
         component.loadRefs(element, {
             removeComponent: 'single',
@@ -143,19 +156,7 @@ export default class FormBuilder extends Component {
         }
         if (component.refs.editComponent) {
             component.refs.editComponent.addEventListener('click', () => {
-                const editForm = new Form(document.createElement('div'), Components.editInfo(component.component.type).components, {});
-                const editFormContents = Template.renderTemplate('dialog', {
-                    dialogContents: Template.renderTemplate('buildereditform', {
-                        form: editForm.render(),
-                        label: component.component.label
-                    })
-                });
-                const modal = this.createModal(editFormContents);
-                editForm.attach(modal);
-                editForm.submission = {
-                    data: component.component
-                };
-                this.attachEditForm(modal, component, editForm);
+                this.editModal(component);
             });
         }
         if (component.refs.moveComponent) {
@@ -224,6 +225,26 @@ export default class FormBuilder extends Component {
         });
     }
 
+    /**
+     *
+     * @param {Component} component the component of the edit modal
+     */
+    editModal(component) {
+        const editForm = new Form(document.createElement('div'), Components.editInfo(component.component.type).components, {});
+        const editFormContents = Template.renderTemplate('dialog', {
+            dialogContents: Template.renderTemplate('buildereditform', {
+                form: editForm.render(),
+                label: component.component.label
+            })
+        });
+        const modal = this.createModal(editFormContents);
+        editForm.attach(modal);
+        editForm.submission = {
+            data: component.component
+        };
+        this.attachEditForm(modal, component, editForm);
+    }
+
     attachModal(modal) {
         window.addEventListener('click', (e) => {
             if (e.target.getAttribute('ref') === 'dialog' || e.target.getAttribute('ref') === 'dialogClose') {
@@ -275,7 +296,7 @@ export default class FormBuilder extends Component {
      * redraws the builders form
      * @param {HTMLElement} container the container element to redraw
      */
-    redrawContainer(container){
+    redrawContainer(container) {
         container.querySelectorAll('[ref*="-container"]').forEach((element) => {
             this.drake.containers.splice(this.drake.containers.indexOf(element), 1);
         });
