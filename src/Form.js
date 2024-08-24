@@ -1,10 +1,10 @@
 import Inputmask from 'inputmask/lib/inputmask.js';
 import Components from './components/_classes/components/Components';
-import _ from 'lodash';
 import Template from './templates/Template';
 import NestedComponent from './components/_classes/nestedcomponent/NestedComponent';
+import _ from 'lodash';
 
-export default class Form extends NestedComponent{
+export default class Form extends NestedComponent {
     /**
      * @param {HTMLElement} htmlContainer the container the form will go into
      * @param {object[]} components the components of the form
@@ -17,6 +17,26 @@ export default class Form extends NestedComponent{
         this._form = {};
         this._form.components = components;
         this.init();
+    }
+
+    /**
+     * gets components
+     * @returns {object[]} gets components
+     */
+    get components() {
+        return this._components;
+    }
+
+    set components(value) {
+        this._components = value;
+    }
+
+    get submission() {
+        return this.getSubmission();
+    }
+
+    set submission(data) {
+        this.setSubmission(data.data);
     }
 
     init() {
@@ -62,26 +82,6 @@ export default class Form extends NestedComponent{
         this._form.components.splice(position, 1);
     }
 
-    /**
-     * gets components
-     * @returns {object[]} gets components
-     */
-    get components() {
-        return this._components;
-    }
-
-
-    set components(value) {
-        this._components = value;
-    }
-
-    set submission(data) {
-        this.setSubmission(data);
-    }
-
-    get submission() {
-        return this.getSubmission();
-    }
 
     /**
      * Go through each of the components and call set submission on each of them passing in the value/values as well
@@ -90,8 +90,7 @@ export default class Form extends NestedComponent{
     setSubmission(submission) {
         this._submission = submission;
         this.components.forEach((component) => {
-            const value = _.get(submission.data, component.component.key);
-            component.setValue(value);
+            component.submission = submission;
         });
     }
 
@@ -103,7 +102,7 @@ export default class Form extends NestedComponent{
     getSubmission() {
         let value = {data: {}, metadata: {}};
         this.components.forEach((component) => {
-            value.data[component.component.key] = component.dataValue;
+            _.merge(value.data, component.submission);
         });
         return value;
     }

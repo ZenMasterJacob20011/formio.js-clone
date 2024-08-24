@@ -32,19 +32,42 @@ export default class Tabs extends NestedComponent {
         };
     }
 
-    init() {
-        this.tabs = this._tabs.map((tab) => Components.convertComponentArrayToClassArray(tab.components, this.options));
-    }
-
-    get components(){
-        return this.tabs.flat();
-    }
-
     constructor(component, options, data) {
         super(component, options, data);
         this._tabs = this.component.components || [];
         this.currentTab = 0;
     }
+
+    get submission() {
+        let submission = {};
+        this.tabs.forEach((tab) => {
+            tab.forEach((component) => {
+                submission[component.component.key] = component.submission;
+            });
+        });
+        return submission;
+    }
+
+    /**
+     * Sets the submission for tabs component
+     * @param {object} submissionData the submission data
+     */
+    set submission(submissionData) {
+        this.tabs.forEach((tab) => {
+            tab.forEach((component) => {
+                component.submission = submissionData;
+            });
+        });
+    }
+
+    init() {
+        this.tabs = this._tabs.map((tab) => Components.convertComponentArrayToClassArray(tab.components, this.options));
+    }
+
+    get components() {
+        return this.tabs.flat();
+    }
+
 
     get defaultSchema() {
         return Tabs.schema();
@@ -93,7 +116,9 @@ export default class Tabs extends NestedComponent {
      * sets the current tab
      * @param {number} index the index
      */
-    setCurrentTab(index){
+    setCurrentTab(index) {
         this.currentTab = index;
     }
+
+
 }

@@ -3,6 +3,8 @@ import Template from '../../templates/Template';
 import SelectForm from './Select.form';
 
 export default class Select extends Field {
+    static editInfo = SelectForm;
+
     static schema(...extend) {
         return Field.schema({
             label: 'Select',
@@ -32,7 +34,6 @@ export default class Select extends Field {
         };
     }
 
-    static editInfo = SelectForm;
 
     constructor(component, data, options) {
         super(component, data, options);

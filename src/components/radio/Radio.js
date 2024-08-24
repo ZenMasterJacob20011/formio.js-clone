@@ -4,6 +4,8 @@ import RadioForm from './Radio.form';
 
 
 export default class Radio extends Field {
+    static editInfo = RadioForm;
+
     static schema(...extend) {
         return Field.schema({
             type: 'radio',
@@ -22,7 +24,7 @@ export default class Radio extends Field {
         }, ...extend);
     }
 
-    static get builderInfo(){
+    static get builderInfo() {
         return {
             title: 'Radio',
             group: 'basic',
@@ -31,17 +33,16 @@ export default class Radio extends Field {
         };
     }
 
-    static editInfo = RadioForm;
 
     constructor(component, data, options) {
         super(component, data, options);
     }
 
-    render(){
+    render() {
         return super.render(Template.renderTemplate('radio', this));
     }
 
-    get defaultSchema(){
+    get defaultSchema() {
         return Radio.schema();
     }
 }

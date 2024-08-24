@@ -4,13 +4,14 @@ import editInfo from './Component.form';
 
 export default class Component {
 
+    static editInfo = editInfo;
+
     static schema(...sources) {
         return _.merge({
             placeholder: ''
         }, ...sources);
     }
 
-    static editInfo = editInfo;
 
     /**
      * creates a new component
@@ -24,6 +25,28 @@ export default class Component {
         this.component = this.mergeSchema(component || {});
         this.component._id = this.component.id || getRandomComponentId();
         this.refs = {};
+    }
+
+    get dataValue() {
+        this._dataValue = this.refs.input.value;
+        return this._dataValue;
+    }
+
+    set dataValue(value) {
+        this._dataValue = value;
+    }
+
+    get submission() {
+        return this.dataValue;
+    }
+
+    /**
+     * sets the submission for the component
+     * @param {object} submissionData the submission data
+     */
+    set submission(submissionData) {
+        const value = submissionData[this.component.key];
+        this.setValue(value);
     }
 
     get defaultSchema() {
@@ -49,7 +72,7 @@ export default class Component {
      * @returns {string} the html to be rendered
      */
     render(html) {
-        return this.hook('renderComponent', `<div class="component formio-component-${this.component.type}" id="${this.id}">${html}</div>`, this);
+        return this.hook('renderComponent', `<div ref="component" class="component formio-component-${this.component.type}" id="${this.id}">${html}</div>`, this);
     }
 
     /**
@@ -76,15 +99,6 @@ export default class Component {
         this.refs.input.value = value;
     }
 
-    get dataValue() {
-        this._dataValue = this.refs.input.value;
-        return this._dataValue;
-    }
-
-    set dataValue(value) {
-        this._dataValue = value;
-    }
-
     hook() {
         const name = arguments[0];
         if (this.options &&
@@ -108,7 +122,7 @@ export default class Component {
                     htmlCollection.push(item);
                 });
                 this.refs[ref] = htmlCollection;
-            }else {
+            } else {
                 this.refs[ref] = element.querySelector(`[ref='${ref}']`);
             }
         }

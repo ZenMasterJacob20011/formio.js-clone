@@ -48,7 +48,7 @@ export default class NestedComponent extends Component {
      * @param {Component[]} components the components to call attach on
      */
     attachComponents(element, components) {
-        const dragComponents = element.querySelectorAll('[ref="dragComponent"]');
+        const dragComponents = element.querySelectorAll('[ref="component"]');
         components.forEach((component, index) => {
             component.attach(dragComponents.item(index));
         });
@@ -68,6 +68,16 @@ export default class NestedComponent extends Component {
 
     get components(){
         return this._components;
+    }
+
+    /**
+     * sets the submission for each component based on the submission data
+     * @param {object} submissionData the key value pairs to set the submission to
+     */
+    set submission(submissionData){
+        this.components.forEach((component) => {
+           component.submission = submissionData;
+        });
     }
 
     redraw() {

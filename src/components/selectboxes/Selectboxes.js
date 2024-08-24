@@ -4,6 +4,8 @@ import SelectboxesForm from './Selectboxes.form';
 
 
 export default class Selectboxes extends Field {
+    static editInfo = SelectboxesForm;
+
     static schema(...extend) {
         return Field.schema({
             type: 'selectboxes',
@@ -13,9 +15,8 @@ export default class Selectboxes extends Field {
         }, ...extend);
     }
 
-    static editInfo = SelectboxesForm;
 
-    static get builderInfo(){
+    static get builderInfo() {
         return {
             title: 'Select Boxes',
             group: 'basic',

@@ -4,7 +4,8 @@ import ButtonForm from './Button.form';
 
 export default class Button extends Component {
 
-    static schema(...extend){
+    static editInfo = ButtonForm;
+static schema(...extend){
         return Component.schema({
             label: 'Button',
             type: 'button',
@@ -21,7 +22,7 @@ export default class Button extends Component {
         };
     }
 
-    static editInfo = ButtonForm;
+    
 
     constructor(component, options, data) {
         super(component, options, data);

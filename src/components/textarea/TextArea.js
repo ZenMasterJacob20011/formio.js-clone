@@ -4,7 +4,8 @@ import Input from '../_classes/input/Input';
 
 export default class TextArea extends Input {
 
-    static schema(...extend) {
+    static editInfo = TextAreaForm;
+static schema(...extend) {
         return Input.schema({
             label: 'Text Area',
             key: 'textArea',
@@ -21,7 +22,7 @@ export default class TextArea extends Input {
         };
     }
 
-    static editInfo = TextAreaForm;
+    
 
     constructor(component, options, data) {
         super(component, options, data);
