@@ -3,6 +3,8 @@ import Input from '../_classes/input/Input';
 
 export default class TextField extends Input {
 
+    static editInfo = TextFieldForm;
+
     static schema(...extend) {
         return Input.schema({
             label: 'Text Field',
@@ -11,7 +13,6 @@ export default class TextField extends Input {
         }, ...extend);
     }
 
-    static editInfo = TextFieldForm;
 
     static get builderInfo() {
         return {

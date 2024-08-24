@@ -2,25 +2,68 @@
  * creates the base edit form for components
  * @returns {object} the json of the edit form
  */
-export default function (){
+export default function () {
     return {
         components: [
             {
-                type: 'textfield',
-                key: 'label',
-                label: 'Label',
+                type: 'tabs',
+                key: 'editFormTabs',
+                components: [
+                    {
+                        key: 'display',
+                        label: 'display',
+                        components: [
+                            {
+                                type: 'textfield',
+                                key: 'label',
+                                label: 'label'
+                            },
+                            {
+                                type: 'textfield',
+                                key: 'placeholder',
+                                placeholder: 'Placeholder',
+                                label: 'placeholder'
+                            }
+                        ]
+                    },
+                    {
+                        key: 'data',
+                        label: 'Data',
+                        components: []
+                    },
+                    {
+                        key: 'validation',
+                        label: 'Validation',
+                        components: []
+                    },
+                    {
+                        key: 'API',
+                        label: 'API',
+                        components: [
+                            {
+                                type: 'textfield',
+                                key: 'key',
+                                label: 'property Name',
+                            }
+                        ]
+                    },
+                    {
+                        key: 'conditional',
+                        label: 'Conditional',
+                        components: []
+                    },
+                    {
+                        key: 'logic',
+                        label: 'Logic',
+                        components: []
+                    },
+                    {
+                        key: 'layout',
+                        label: 'Layout',
+                        components: []
+                    }
+                ]
             },
-            {
-                type: 'textfield',
-                key: 'placeholder',
-                label: 'Placeholder',
-                placeholder: 'Placeholder'
-            },
-            {
-                type: 'textfield',
-                key: 'key',
-                label: 'Property Name'
-            }
         ]
     };
 }

@@ -12,8 +12,6 @@ import baseEditForm from '../component/Component.form';
 
 export default class Components {
 
-    static _baseEditForm = baseEditForm;
-
     static components = {
         'textfield': TextField,
         'button': Button,
@@ -26,7 +24,7 @@ export default class Components {
         'radio': Radio,
         'tabs': Tabs
     };
-
+    static _baseEditForm = baseEditForm;
 
     /**
      * creates a new class given a component schema (factory for creating components)

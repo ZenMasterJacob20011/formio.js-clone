@@ -3,6 +3,8 @@ import PasswordForm from './Password.form';
 
 
 export default class Password extends TextField {
+    static editInfo = PasswordForm;
+
     static schema(...extend) {
         return TextField.schema({
             type: 'password',
@@ -20,7 +22,6 @@ export default class Password extends TextField {
         };
     }
 
-    static editInfo = PasswordForm;
 
     constructor(component, data, options) {
         super(component, data, options);
