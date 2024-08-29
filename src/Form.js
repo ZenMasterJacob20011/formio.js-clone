@@ -39,8 +39,35 @@ export default class Form extends NestedComponent {
         this.setSubmission(data.data);
     }
 
-    init() {
-        this.components = Components.convertComponentArrayToClassArray(this._form.components, this.options);
+    /**
+     * Adds a component to the form
+     * @param {object | import('./components/_classes/component/Component.js').Component} component the component to be added
+     * @param {number} position the position to add it to
+     */
+    addComponent(component, position) {
+        if (Object.getPrototypeOf(component) === Object.prototype) {
+            this.components.splice(position, 0, Components.createComponent(component, this.options));
+            return;
+        }
+        this.components.splice(position, 0, component);
+    }
+
+    /**
+     * attaches event listeners to the form
+     * @param {HTMLElement} parentContainer the parent container
+     */
+    attach(parentContainer) {
+        this.htmlContainer = parentContainer.querySelector('[ref="form"]') || this.htmlContainer;
+        let componentsContainer = this.htmlContainer.querySelector('[ref="form-container"]');
+        componentsContainer.formioContainer = this._form.components;
+        componentsContainer.component = this;
+        this.hook('attachDragula', componentsContainer);
+        this.components.forEach((classComponent, index) => {
+            if (this.options.builderMode && this.components.length <= 1) {
+                index++;
+            }
+            classComponent.attach(componentsContainer.children.item(index));
+        });
     }
 
     /**
@@ -62,39 +89,6 @@ export default class Form extends NestedComponent {
     }
 
     /**
-     * Adds a component to the form
-     * @param {object | import('./components/_classes/component/Component.js').Component} component the component to be added
-     * @param {number} position the position to add it to
-     */
-    addComponent(component, position) {
-        if (Object.getPrototypeOf(component) === Object.prototype) {
-            this.components.splice(position, 0, Components.createComponent(component, this.options));
-            return;
-        }
-        this.components.splice(position, 0, component);
-    }
-
-    /**
-     * Removes a component at a position
-     * @param {number} position the position of the component to remove
-     */
-    removeComponent(position) {
-        this._form.components.splice(position, 1);
-    }
-
-
-    /**
-     * Go through each of the components and call set submission on each of them passing in the value/values as well
-     * @param {object} submission the submission object
-     */
-    setSubmission(submission) {
-        this._submission = submission;
-        this.components.forEach((component) => {
-            component.submission = submission;
-        });
-    }
-
-    /**
      * Go through each of the components and create an object containing components property as key and components value
      * as the value
      * @returns {object} the submission value
@@ -107,23 +101,10 @@ export default class Form extends NestedComponent {
         return value;
     }
 
-    /**
-     * attaches event listeners to the form
-     * @param {HTMLElement} parentContainer the parent container
-     */
-    attach(parentContainer) {
-        this.htmlContainer = parentContainer.querySelector('[ref="form"]') || this.htmlContainer;
-        let componentsContainer = this.htmlContainer.querySelector('[ref="form-container"]');
-        componentsContainer.formioContainer = this._form.components;
-        componentsContainer.component = this;
-        this.hook('attachDragula', componentsContainer);
-        this.components.forEach((classComponent, index) => {
-            if (this.options.builderMode && this.components.length <= 1) {
-                index++;
-            }
-            classComponent.attach(componentsContainer.children.item(index));
-        });
+    init() {
+        this.components = Components.convertComponentArrayToClassArray(this._form.components, this.options);
     }
+
 
     redraw() {
         this.init();
@@ -135,6 +116,15 @@ export default class Form extends NestedComponent {
         });
         this.attach(this.htmlContainer);
     }
+
+    /**
+     * Removes a component at a position
+     * @param {number} position the position of the component to remove
+     */
+    removeComponent(position) {
+        this._form.components.splice(position, 1);
+    }
+
 
     render() {
         this.init();
@@ -148,4 +138,17 @@ export default class Form extends NestedComponent {
         formContainer += '</div>';
         return formContainer;
     }
+
+    /**
+     * Go through each of the components and call set submission on each of them passing in the value/values as well
+     * @param {object} submission the submission object
+     */
+    setSubmission(submission) {
+        this._submission = submission;
+        this.components.forEach((component) => {
+            component.submission = submission;
+        });
+    }
+
+
 }

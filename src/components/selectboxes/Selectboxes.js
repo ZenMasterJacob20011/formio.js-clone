@@ -29,11 +29,13 @@ export default class Selectboxes extends Field {
         super(component, data, options);
     }
 
+    get defaultSchema() {
+        return Selectboxes.schema();
+    }
+
     render() {
         return super.render(Template.renderTemplate('selectboxes', this));
     }
 
-    get defaultSchema() {
-        return Selectboxes.schema();
-    }
+
 }
