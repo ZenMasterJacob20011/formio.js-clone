@@ -29,9 +29,14 @@ export default [
                         "[static-methods]",
                         "constructor",
                         "[accessor-pairs]",
-                        "[methods]",
+                        "[alphaMethods]",
                         "[everything-else]"
                     ],
+                    "groups": {
+                        "alphaMethods": [
+                            {"type": "method", "sort": "alphabetical"},
+                        ]
+                    },
                     "accessorPairPositioning": "getThenSet",
                 }
             ]

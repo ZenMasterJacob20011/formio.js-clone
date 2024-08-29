@@ -38,11 +38,11 @@ export default class Radio extends Field {
         super(component, data, options);
     }
 
-    render() {
-        return super.render(Template.renderTemplate('radio', this));
-    }
-
     get defaultSchema() {
         return Radio.schema();
+    }
+
+    render() {
+        return super.render(Template.renderTemplate('radio', this));
     }
 }

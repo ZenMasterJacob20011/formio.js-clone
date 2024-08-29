@@ -32,22 +32,6 @@ export default class FormBuilder extends Component {
     }
 
 
-    set setBuilder(data) {
-        this.createBuilder();
-    }
-
-    createBuilder() {
-        this.containers = [];
-        this.redraw();
-        this.attach();
-    }
-
-    sidebarSearch(event) {
-        const input = event.target.value;
-        this.refs['sidebarGroups'].innerHTML = Template.renderTemplate('formbuildersidebargroups', this.sideBarComponents(input));
-        this.attach();
-    }
-
     attach(element) {
         element = element || this.htmlContainer;
         this.loadRefs(element, {
@@ -100,37 +84,6 @@ export default class FormBuilder extends Component {
                 currentDragComponent = source.formioContainer[currentDragComponentPosition];
             }
         });
-    }
-
-    /**
-     * renders the form builder
-     * @returns {string} the html of the form builder
-     */
-    render() {
-        return Template.renderTemplate('formbuilder', {
-            formbuildersidebar: Template.renderTemplate('formbuildersidebar', {sidebarGroups: Template.renderTemplate('formbuildersidebargroups', this.sideBarComponents(''))}),
-            form: this.form.render()
-        });
-    }
-
-    /**
-     * Gets the sidebar components based on a filter value
-     * @param {string} value the value to filter
-     * @returns {object} an object of groups and components in those groups
-     */
-    sideBarComponents(value) {
-        let groups = {};
-        for (let componentsKey in Components.components) {
-            const component = Components.components[componentsKey];
-            if (componentsKey.toLowerCase().includes(value.toLowerCase())) {
-                _.set(groups, `${component.builderInfo.group}.${componentsKey}`, component);
-            }
-        }
-        return groups;
-    }
-
-    redraw() {
-        this.htmlContainer.innerHTML = this.render();
     }
 
     /**
@@ -190,6 +143,62 @@ export default class FormBuilder extends Component {
     }
 
     /**
+     * attaches event listeners to edit form
+     * @param {HTMLElement} element parent container for edit form
+     * @param {Component} component the component being edited
+     * @param {Form} editForm the edit form
+     */
+    attachEditForm(element, component, editForm) {
+        element.querySelector('[ref="saveButton"]').addEventListener('click', () => {
+            _.assign(component.component, editForm.submission.data);
+            this.redrawContainer(component.parent);
+            this.closeModal(element);
+        });
+        element.querySelector('[ref="cancelButton"]').addEventListener('click', () => {
+            this.closeModal(element);
+        });
+        element.querySelector('[ref="removeButton"]').addEventListener('click', () => {
+            this.removeComponent(component);
+            this.createBuilder();
+            this.closeModal(element);
+        });
+    }
+
+    attachEditJSONForm(element, component, editForm) {
+        element.querySelector('[ref="saveButton"]').addEventListener('click', () => {
+            _.assign(component.component, JSON.parse(editForm.components[0].refs.input.value));
+            this.redrawContainer(component.parent);
+            this.closeModal(element);
+        });
+        element.querySelector('[ref="cancelButton"]').addEventListener('click', () => {
+            this.closeModal(element);
+        });
+        element.querySelector('[ref="removeButton"]').addEventListener('click', () => {
+            this.removeComponent(component);
+            this.createBuilder();
+            this.closeModal(element);
+        });
+    }
+
+    attachModal(modal) {
+        window.addEventListener('click', (e) => {
+            if (e.target.getAttribute('ref') === 'dialog' || e.target.getAttribute('ref') === 'dialogClose') {
+                this.closeModal(modal);
+            }
+        });
+    }
+
+    closeModal(modal) {
+        modal.remove();
+    }
+
+    createBuilder() {
+        this.containers = [];
+        this.redraw();
+        this.attach();
+    }
+
+    /**
      * Creates a modal edit form that will render edit form, attach listeners, and modify the component object, and then rerender on save
      * @param {string} modalContents the content to be inserted into the modal
      * @returns {HTMLElement} the modal element
@@ -203,26 +212,27 @@ export default class FormBuilder extends Component {
         return modal;
     }
 
-    /**
-     * attaches event listeners to edit form
-     * @param {HTMLElement} element parent container for edit form
-     * @param {Component} component the component being edited
-     * @param {Form} editForm the edit form
-     */
-    attachEditForm(element, component, editForm) {
-        element.querySelector('[ref="saveButton"]').addEventListener('click', () => {
-            _.assign(component.component, editForm.submission.data);
-            this.redrawContainer(component.parent);
-            this.closeModal(element);
+    editJSON(component) {
+        const editJSONForm = new Form(document.createElement('div'), [
+                {
+                    type: 'textarea',
+                    label: 'Component JSON',
+                    key: 'component'
+                }
+            ]
+            , {});
+        const editJSONContents = Template.renderTemplate('dialog', {
+            dialogContents: Template.renderTemplate('buildereditform', {
+                form: editJSONForm.render(),
+                label: `${component.component.key} Component`
+            })
         });
-        element.querySelector('[ref="cancelButton"]').addEventListener('click', () => {
-
-        });
-        element.querySelector('[ref="removeButton"]').addEventListener('click', () => {
-            this.removeComponent(component);
-            this.createBuilder();
-            this.closeModal(element);
-        });
+        const modal = this.createModal(editJSONContents);
+        editJSONForm.attach(modal);
+        editJSONForm.submission = {
+            data: component
+        };
+        this.attachEditJSONForm(modal, component, editJSONForm);
     }
 
     /**
@@ -234,7 +244,7 @@ export default class FormBuilder extends Component {
         const editFormContents = Template.renderTemplate('dialog', {
             dialogContents: Template.renderTemplate('buildereditform', {
                 form: editForm.render(),
-                label: component.component.label
+                label: `${component.component.key} Component`
             })
         });
         const modal = this.createModal(editFormContents);
@@ -243,18 +253,6 @@ export default class FormBuilder extends Component {
             data: component.component
         };
         this.attachEditForm(modal, component, editForm);
-    }
-
-    attachModal(modal) {
-        window.addEventListener('click', (e) => {
-            if (e.target.getAttribute('ref') === 'dialog' || e.target.getAttribute('ref') === 'dialogClose') {
-                this.closeModal(modal);
-            }
-        });
-    }
-
-    closeModal(modal) {
-        modal.remove();
     }
 
     /**
@@ -282,14 +280,8 @@ export default class FormBuilder extends Component {
         throw Error('Could not find component position');
     }
 
-    /**
-     * removes component from form
-     * @param {Component} component the component to remove
-     */
-    removeComponent(component) {
-        const parentContainer = component.element.parentElement.formioContainer;
-        const componentPosition = parentContainer.findIndex((element) => component.component === element);
-        parentContainer.splice(componentPosition, 1);
+    redraw() {
+        this.htmlContainer.innerHTML = this.render();
     }
 
     /**
@@ -302,4 +294,55 @@ export default class FormBuilder extends Component {
         });
         container.component.redraw();
     }
+
+    /**
+     * removes component from form
+     * @param {Component} component the component to remove
+     */
+    removeComponent(component) {
+        const parentContainer = component.element.parentElement.formioContainer;
+        const componentPosition = parentContainer.findIndex((element) => component.component === element);
+        parentContainer.splice(componentPosition, 1);
+    }
+
+    /**
+     * renders the form builder
+     * @returns {string} the html of the form builder
+     */
+    render() {
+        return Template.renderTemplate('formbuilder', {
+            formbuildersidebar: Template.renderTemplate('formbuildersidebar', {sidebarGroups: Template.renderTemplate('formbuildersidebargroups', this.sideBarComponents(''))}),
+            form: this.form.render()
+        });
+    }
+
+    set setBuilder(data) {
+        this.createBuilder();
+    }
+
+
+    /**
+     * Gets the sidebar components based on a filter value
+     * @param {string} value the value to filter
+     * @returns {object} an object of groups and components in those groups
+     */
+    sideBarComponents(value) {
+        let groups = {};
+        for (let componentsKey in Components.components) {
+            const component = Components.components[componentsKey];
+            if (componentsKey.toLowerCase().includes(value.toLowerCase())) {
+                _.set(groups, `${component.builderInfo.group}.${componentsKey}`, component);
+            }
+        }
+        return groups;
+    }
+
+
+    sidebarSearch(event) {
+        const input = event.target.value;
+        this.refs['sidebarGroups'].innerHTML = Template.renderTemplate('formbuildersidebargroups', this.sideBarComponents(input));
+        this.attach();
+    }
+
+
 }

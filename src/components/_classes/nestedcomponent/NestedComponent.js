@@ -1,6 +1,5 @@
 import Component from '../component/Component';
 import Template from '../../../templates/Template';
-import Components from '../components/Components';
 
 export default class NestedComponent extends Component {
 
@@ -10,6 +9,40 @@ export default class NestedComponent extends Component {
 
     constructor(component, options, data) {
         super(component, options, data);
+    }
+
+    attach(element) {
+        super.attach(element);
+        this.loadRefs(element, {
+            [this.nestedKey]: 'single'
+        });
+    }
+
+    /**
+     * Calls attach on an array of components
+     * @param {HTMLElement} element the parent container
+     * @param {Component[]} components the components to call attach on
+     */
+    attachComponents(element, components) {
+        const dragComponents = element.querySelectorAll('[ref="component"]');
+        components.forEach((component, index) => {
+            component.attach(dragComponents.item(index));
+        });
+    }
+
+    get components() {
+        return this._components;
+    }
+
+    get nestedKey() {
+        return `nested-${this.component.key}`;
+    }
+
+    redraw() {
+        const index = Array.prototype.indexOf.call(this.parent.children, this.element);
+        this.element.outerHTML = this.render();
+        this.element = this.parent.children.item(index);
+        this.attach(this.element);
     }
 
     render(html) {
@@ -35,55 +68,16 @@ export default class NestedComponent extends Component {
         });
     }
 
-    attach(element) {
-        super.attach(element);
-        this.loadRefs(element, {
-            [this.nestedKey]: 'single'
-        });
-    }
-
-    /**
-     * Calls attach on an array of components
-     * @param {HTMLElement} element the parent container
-     * @param {Component[]} components the components to call attach on
-     */
-    attachComponents(element, components) {
-        const dragComponents = element.querySelectorAll('[ref="component"]');
-        components.forEach((component, index) => {
-            component.attach(dragComponents.item(index));
-        });
-    }
-
-    addComponent(component, position) {
-        if (Object.getPrototypeOf(component) === Object.prototype) {
-            this.components.splice(position, 0, Components.createComponent(component, this.options));
-            return;
-        }
-        this.components.splice(position, 0, component);
-    }
-
-    get nestedKey() {
-        return `nested-${this.component.key}`;
-    }
-
-    get components(){
-        return this._components;
-    }
 
     /**
      * sets the submission for each component based on the submission data
      * @param {object} submissionData the key value pairs to set the submission to
      */
-    set submission(submissionData){
+    set submission(submissionData) {
         this.components.forEach((component) => {
-           component.submission = submissionData;
+            component.submission = submissionData;
         });
     }
 
-    redraw() {
-        const index = Array.prototype.indexOf.call(this.parent.children, this.element);
-        this.element.outerHTML = this.render();
-        this.element = this.parent.children.item(index);
-        this.attach(this.element);
-    }
+
 }

@@ -49,32 +49,6 @@ export default class Component {
         this.setValue(value);
     }
 
-    get defaultSchema() {
-        return Component.schema();
-    }
-
-    get id() {
-        return this.component._id;
-    }
-
-    /**
-     * f
-     * @param {object} component the component to merge
-     * @returns {object} the merged component object
-     */
-    mergeSchema(component) {
-        return _.defaultsDeep(component, this.defaultSchema);
-    }
-
-    /**
-     * return the html of a component
-     * @param {string} html the html to be wrapped
-     * @returns {string} the html to be rendered
-     */
-    render(html) {
-        return this.hook('renderComponent', `<div ref="component" class="component formio-component-${this.component.type}" id="${this.id}">${html}</div>`, this);
-    }
-
     /**
      * attaches functions to component element
      * @param {HTMLElement} element the element to attach to
@@ -89,14 +63,8 @@ export default class Component {
         this.element = element;
     }
 
-    /**
-     * sets the value for the component
-     * @param {number | string | object} value the value to be set
-     */
-    setValue(value) {
-        this.dataValue = value;
-
-        this.refs.input.value = value;
+    get defaultSchema() {
+        return Component.schema();
     }
 
     hook() {
@@ -107,6 +75,10 @@ export default class Component {
             return this.options.hooks[name].apply(this, Array.prototype.slice.call(arguments, 1));
         }
         return arguments[1];
+    }
+
+    get id() {
+        return this.component._id;
     }
 
     /**
@@ -127,4 +99,37 @@ export default class Component {
             }
         }
     }
+
+    /**
+     * merges the static schemas with the component json
+     * @param {object} component the component to merge
+     * @returns {object} the merged component object
+     */
+    mergeSchema(component) {
+        return _.defaultsDeep(component, this.defaultSchema);
+    }
+
+    /**
+     * return the html of a component
+     * @param {string} html the html to be wrapped
+     * @returns {string} the html to be rendered
+     */
+    render(html) {
+        return this.hook('renderComponent', `<div ref="component" class="component formio-component-${this.component.type}" id="${this.id}">${html}</div>`, this);
+    }
+
+
+    /**
+     * sets the value for the component
+     * @param {number | string | object} value the value to be set
+     */
+    setValue(value) {
+        this.dataValue = value;
+        if(typeof value === 'object'){
+            value = JSON.stringify(value, null, 2);
+        }
+        this.refs.input.value = value;
+    }
+
+
 }

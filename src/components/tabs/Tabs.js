@@ -60,29 +60,6 @@ export default class Tabs extends NestedComponent {
         });
     }
 
-    init() {
-        this.tabs = this._tabs.map((tab) => Components.convertComponentArrayToClassArray(tab.components, this.options));
-    }
-
-    get components() {
-        return this.tabs.flat();
-    }
-
-
-    get defaultSchema() {
-        return Tabs.schema();
-    }
-
-    render() {
-        this.init();
-        return super.render(Template.renderTemplate('tabs', {
-            tabKey: this.component.key,
-            tabComponents: this.tabs.map(tab => this.renderComponents(tab)),
-            componentContext: this,
-            currentTab: this.currentTab
-        }));
-    }
-
     /**
      * Takes the parent container as element and attaches this.nestedKey and then loops through each tab and calls
      * attach components on each of the of
@@ -108,8 +85,27 @@ export default class Tabs extends NestedComponent {
         });
     }
 
-    get templateName() {
-        return 'tabs';
+    get components() {
+        return this.tabs.flat();
+    }
+
+    get defaultSchema() {
+        return Tabs.schema();
+    }
+
+    init() {
+        this.tabs = this._tabs.map((tab) => Components.convertComponentArrayToClassArray(tab.components, this.options));
+    }
+
+
+    render() {
+        this.init();
+        return super.render(Template.renderTemplate('tabs', {
+            tabKey: this.component.key,
+            tabComponents: this.tabs.map(tab => this.renderComponents(tab)),
+            componentContext: this,
+            currentTab: this.currentTab
+        }));
     }
 
     /**
@@ -120,5 +116,7 @@ export default class Tabs extends NestedComponent {
         this.currentTab = index;
     }
 
-
+    get templateName() {
+        return 'tabs';
+    }
 }
