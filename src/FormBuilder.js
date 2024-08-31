@@ -204,7 +204,6 @@ export default class FormBuilder extends Component {
      * @returns {HTMLElement} the modal element
      */
     createModal(modalContents) {
-        // render the edit form
         let modal = document.createElement('div');
         modal.innerHTML = modalContents;
         document.body.appendChild(modal);
@@ -224,7 +223,7 @@ export default class FormBuilder extends Component {
         const editJSONContents = Template.renderTemplate('dialog', {
             dialogContents: Template.renderTemplate('buildereditform', {
                 form: editJSONForm.render(),
-                label: `${component.component.key} Component`
+                label: `${component.defaultSchema.label} Component`
             })
         });
         const modal = this.createModal(editJSONContents);
@@ -244,7 +243,7 @@ export default class FormBuilder extends Component {
         const editFormContents = Template.renderTemplate('dialog', {
             dialogContents: Template.renderTemplate('buildereditform', {
                 form: editForm.render(),
-                label: `${component.component.key} Component`
+                label: `${component.defaultSchema.label} Component`
             })
         });
         const modal = this.createModal(editFormContents);

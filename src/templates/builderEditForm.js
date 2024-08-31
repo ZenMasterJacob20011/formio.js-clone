@@ -6,7 +6,7 @@
 export default function(ctx){
     return `
         <div class="component-edit-container">
-            <div class="row">${ctx.label} Component</div>
+            <div class="row">${ctx.label}</div>
             <div class="row">
                 <div class="col">
                     ${ctx.form}

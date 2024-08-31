@@ -11,7 +11,7 @@ export default function () {
                 components: [
                     {
                         key: 'display',
-                        label: 'display',
+                        label: 'Display',
                         components: [
                             {
                                 type: 'textfield',
