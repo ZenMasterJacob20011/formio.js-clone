@@ -61,6 +61,7 @@ export default class FormBuilder extends Component {
         this.containers = this.drake.containers;
         this.drake.on('drop', (el, target, source) => {
             if (target) {
+                const originalContainerSchema = _.cloneDeep(target.formioContainer);
                 const component = el.getAttribute('data-type') ? {
                     type: el.getAttribute('data-type'),
                     id: getRandomComponentId()
@@ -75,7 +76,7 @@ export default class FormBuilder extends Component {
                     let classComponent = target.component.components.find((classComponent) => {
                         return component.id === classComponent.id;
                     });
-                    this.editModal(classComponent);
+                    this.editModal(classComponent, originalContainerSchema);
                 }
             }
         }).on('drag', (el, source) => {
@@ -147,24 +148,50 @@ export default class FormBuilder extends Component {
      * @param {HTMLElement} element parent container for edit form
      * @param {Component} component the component being edited
      * @param {Form} editForm the edit form
+     * @param {object} originalContainerSchema the original schema of the component parent container
      */
-    attachEditForm(element, component, editForm) {
+    attachEditForm(element, component, editForm, originalContainerSchema) {
+        if (originalContainerSchema == null) {
+            originalContainerSchema = _.cloneDeep(component.parent.formioContainer);
+        }
+        window.addEventListener('click', (e) => {
+            if (e.target.getAttribute('ref') === 'dialog' || e.target.getAttribute('ref') === 'dialogClose') {
+                component.parent.formioContainer.splice(0, component.parent.formioContainer.length);
+                _.assign(component.parent.formioContainer, originalContainerSchema);
+                this.redrawContainer(component.parent);
+                this.closeModal(element);
+            }
+        });
         element.querySelector('[ref="saveButton"]').addEventListener('click', () => {
             _.assign(component.component, editForm.submission.data);
             this.redrawContainer(component.parent);
             this.closeModal(element);
         });
         element.querySelector('[ref="cancelButton"]').addEventListener('click', () => {
+            component.parent.formioContainer.splice(0, component.parent.formioContainer.length);
+            _.assign(component.parent.formioContainer, originalContainerSchema);
+            this.redrawContainer(component.parent);
             this.closeModal(element);
         });
         element.querySelector('[ref="removeButton"]').addEventListener('click', () => {
             this.removeComponent(component);
-            this.createBuilder();
+            this.redrawContainer(component.parent);
             this.closeModal(element);
         });
     }
 
-    attachEditJSONForm(element, component, editForm) {
+    attachEditJSONForm(element, component, editForm, originalContainerSchema) {
+        if (originalContainerSchema == null) {
+            originalContainerSchema = _.cloneDeep(component.parent.formioContainer);
+        }
+        window.addEventListener('click', (e) => {
+            if (e.target.getAttribute('ref') === 'dialog' || e.target.getAttribute('ref') === 'dialogClose') {
+                component.parent.formioContainer.splice(0, component.parent.formioContainer.length);
+                _.assign(component.parent.formioContainer, originalContainerSchema);
+                this.redrawContainer(component.parent);
+                this.closeModal(element);
+            }
+        });
         element.querySelector('[ref="saveButton"]').addEventListener('click', () => {
             _.assign(component.component, JSON.parse(editForm.components[0].refs.input.value));
             this.redrawContainer(component.parent);
@@ -177,14 +204,6 @@ export default class FormBuilder extends Component {
             this.removeComponent(component);
             this.createBuilder();
             this.closeModal(element);
-        });
-    }
-
-    attachModal(modal) {
-        window.addEventListener('click', (e) => {
-            if (e.target.getAttribute('ref') === 'dialog' || e.target.getAttribute('ref') === 'dialogClose') {
-                this.closeModal(modal);
-            }
         });
     }
 
@@ -207,7 +226,6 @@ export default class FormBuilder extends Component {
         let modal = document.createElement('div');
         modal.innerHTML = modalContents;
         document.body.appendChild(modal);
-        this.attachModal(modal);
         return modal;
     }
 
@@ -235,10 +253,11 @@ export default class FormBuilder extends Component {
     }
 
     /**
-     *
+     * attaches listeners to the edit modal
      * @param {Component} component the component of the edit modal
+     * @param {object} originalContainerSchema the original parent container of the component
      */
-    editModal(component) {
+    editModal(component, originalContainerSchema) {
         const editForm = new Form(document.createElement('div'), Components.editInfo(component.component.type).components, {});
         const editFormContents = Template.renderTemplate('dialog', {
             dialogContents: Template.renderTemplate('buildereditform', {
@@ -251,7 +270,7 @@ export default class FormBuilder extends Component {
         editForm.submission = {
             data: component.component
         };
-        this.attachEditForm(modal, component, editForm);
+        this.attachEditForm(modal, component, editForm, originalContainerSchema);
     }
 
     /**
