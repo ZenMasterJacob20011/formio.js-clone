@@ -28,7 +28,7 @@ export default class FormBuilder extends Component {
         this.options.hooks.attachComponent = this.attachComponent.bind(this);
         this.options.hooks.attachDragula = this.attachDragula.bind(this);
         this.containers = [];
-        this.form = new Form(document.createElement('div'), [{type: 'button', label: 'submit'}], this.options);
+        this.form = new Form(document.createElement('div'), [{type: 'button'}], this.options);
     }
 
 
