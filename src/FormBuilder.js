@@ -105,7 +105,7 @@ export default class FormBuilder extends Component {
         if (component.refs.removeComponent) {
             component.refs.removeComponent.addEventListener('click', () => {
                 this.removeComponent(component);
-                this.createBuilder();
+                this.redrawContainer(component.parent);
             });
         }
         if (component.refs.editComponent) {
