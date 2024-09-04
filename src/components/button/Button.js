@@ -5,15 +5,16 @@ import ButtonForm from './Button.form';
 export default class Button extends Component {
 
     static editInfo = ButtonForm;
-static schema(...extend){
+
+    static schema(...extend) {
         return Component.schema({
-            label: 'Button',
+            label: 'Submit',
             type: 'button',
             key: 'button',
-        },...extend);
+        }, ...extend);
     }
 
-    static get builderInfo(){
+    static get builderInfo() {
         return {
             title: 'Button',
             group: 'basic',
@@ -22,7 +23,6 @@ static schema(...extend){
         };
     }
 
-    
 
     constructor(component, options, data) {
         super(component, options, data);
