@@ -7,7 +7,7 @@ export default function (ctx) {
     let showDragAndDropAlert = false;
     if (ctx.containerType === 'form' && ctx.components.some(component => component.component.type === 'button') && ctx.children.length <= 1) {
         showDragAndDropAlert = true;
-    }else if(ctx.containerType !== 'form' && ctx.children.length <= 0){
+    }else if(ctx.children.length <= 0){
         showDragAndDropAlert = true;
     }
     return `<div ref="${ctx.containerType}-container">

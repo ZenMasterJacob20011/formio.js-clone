@@ -63,7 +63,7 @@ export default class Form extends NestedComponent {
         componentsContainer.component = this;
         this.hook('attachDragula', componentsContainer);
         this.components.forEach((classComponent, index) => {
-            if (this.options.builderMode && this.components.length <= 1) {
+            if (this.options.builderMode && this.components.length <= 1 && this.components[0].component.type === 'button') {
                 index++;
             }
             classComponent.attach(componentsContainer.children.item(index));
