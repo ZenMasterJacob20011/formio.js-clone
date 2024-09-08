@@ -193,7 +193,7 @@ export default class FormBuilder extends Component {
             }
         });
         element.querySelector('[ref="saveButton"]').addEventListener('click', () => {
-            _.assign(component.component, JSON.parse(editForm.components[0].refs.input.value));
+            _.assign(component.component, JSON.parse(editForm.components[0].getValue()));
             this.redrawContainer(component.parent);
             this.closeModal(element);
         });
@@ -234,7 +234,10 @@ export default class FormBuilder extends Component {
                 {
                     type: 'textarea',
                     label: 'Component JSON',
-                    key: 'component'
+                    key: 'component',
+                    editor: 'ace',
+                    width: '730px',
+                    height: '200px'
                 }
             ]
             , {});
