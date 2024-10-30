@@ -1,5 +1,5 @@
-import TextField from '../textfield/TextField';
-import PasswordForm from './Password.form';
+import TextField from '../textfield/TextField.js';
+import PasswordForm from './Password.form.js';
 
 
 export default class Password extends TextField {

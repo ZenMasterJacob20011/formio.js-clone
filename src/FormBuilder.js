@@ -1,11 +1,11 @@
-import Template from './templates/Template';
+import Template from './templates/Template.js';
 import 'dragula/dist/dragula.min.css';
 import dragula from 'dragula';
-import Form from './Form';
-import Component from './components/_classes/component/Component';
-import Components from './components/_classes/components/Components';
+import Form from './Form.js';
+import Component from './components/_classes/component/Component.js';
+import Components from './components/_classes/components/Components.js';
 import _ from 'lodash';
-import {getRandomComponentId} from './utils/utils';
+import {getRandomComponentId} from './utils/utils.js';
 
 export default class FormBuilder extends Component {
     /**

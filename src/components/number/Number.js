@@ -1,5 +1,5 @@
-import NumberForm from './Number.form';
-import Input from '../_classes/input/Input';
+import NumberForm from './Number.form.js';
+import Input from '../_classes/input/Input.js';
 
 
 export default class Number extends Input {

@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import {getRandomComponentId} from '../../../utils/utils';
-import editInfo from './Component.form';
+import {getRandomComponentId} from '../../../utils/utils.js';
+import editInfo from './Component.form.js';
 
 export default class Component {
 

@@ -1,4 +1,4 @@
-import checkboxTemplate from './checkbox';
+import checkboxTemplate from './checkbox.js';
 import _ from 'lodash';
 
 /**

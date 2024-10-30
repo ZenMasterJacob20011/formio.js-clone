@@ -1,6 +1,6 @@
-import Field from '../_classes/field/Field';
-import Template from '../../templates/Template';
-import RadioForm from './Radio.form';
+import Field from '../_classes/field/Field.js';
+import Template from '../../templates/Template.js';
+import RadioForm from './Radio.form.js';
 
 
 export default class Radio extends Field {

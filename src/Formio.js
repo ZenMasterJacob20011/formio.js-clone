@@ -1,5 +1,5 @@
-import Form from './Form';
-import FormBuilder from './FormBuilder';
+import Form from './Form.js';
+import FormBuilder from './FormBuilder.js';
 
 export default class Formio {
     /**

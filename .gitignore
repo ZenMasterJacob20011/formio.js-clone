@@ -130,7 +130,3 @@ dist
 .pnp.*
 
 .idea
-
-src/index.js
-
-index.html

@@ -1,14 +1,14 @@
-import TextField from '../../textfield/TextField';
-import Button from '../../button/Button';
-import TextArea from '../../textarea/TextArea';
-import Number from '../../number/Number';
-import Password from '../../password/Password';
-import Checkbox from '../../checkbox/Checkbox';
-import Selectboxes from '../../selectboxes/Selectboxes';
-import Select from '../../select/Select';
-import Radio from '../../radio/Radio';
-import Tabs from '../../tabs/Tabs';
-import baseEditForm from '../component/Component.form';
+import TextField from '../../textfield/TextField.js';
+import Button from '../../button/Button.js';
+import TextArea from '../../textarea/TextArea.js';
+import Number from '../../number/Number.js';
+import Password from '../../password/Password.js';
+import Checkbox from '../../checkbox/Checkbox.js';
+import Selectboxes from '../../selectboxes/Selectboxes.js';
+import Select from '../../select/Select.js';
+import Radio from '../../radio/Radio.js';
+import Tabs from '../../tabs/Tabs.js';
+import baseEditForm from '../component/Component.form.js';
 
 export default class Components {
 

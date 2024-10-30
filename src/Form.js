@@ -1,7 +1,7 @@
 import Inputmask from 'inputmask/lib/inputmask.js';
-import Components from './components/_classes/components/Components';
-import Template from './templates/Template';
-import NestedComponent from './components/_classes/nestedcomponent/NestedComponent';
+import Components from './components/_classes/components/Components.js';
+import Template from './templates/Template.js';
+import NestedComponent from './components/_classes/nestedcomponent/NestedComponent.js';
 import _ from 'lodash';
 
 export default class Form extends NestedComponent {

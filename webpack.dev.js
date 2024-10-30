@@ -1,5 +1,4 @@
 import path from 'path'
-import HtmlWebpackPlugin from "html-webpack-plugin";
 const __dirname = import.meta.dirname
 export default {
     entry: {
@@ -7,18 +6,9 @@ export default {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js'
+        filename: 'formio.js'
     },
     devtool: 'inline-source-map',
-    devServer: {
-        static: path.resolve(__dirname, 'dist'),
-    },
-    plugins: [
-        new HtmlWebpackPlugin({
-            title: 'Development',
-            template: path.resolve(__dirname, 'index.html')
-        })
-    ],
     module: {
         rules: [
             {

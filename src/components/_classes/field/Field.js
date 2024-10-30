@@ -1,4 +1,4 @@
-import Component from '../component/Component';
+import Component from '../component/Component.js';
 
 export default class Field extends Component {
 
