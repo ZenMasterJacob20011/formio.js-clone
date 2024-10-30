@@ -1,6 +1,6 @@
-import Field from '../_classes/field/Field';
-import Template from '../../templates/Template';
-import SelectboxesForm from './Selectboxes.form';
+import Field from '../_classes/field/Field.js';
+import Template from '../../templates/Template.js';
+import SelectboxesForm from './Selectboxes.form.js';
 
 
 export default class Selectboxes extends Field {

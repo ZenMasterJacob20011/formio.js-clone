@@ -1,6 +1,6 @@
-import NestedComponent from '../_classes/nestedcomponent/NestedComponent';
-import Template from '../../templates/Template';
-import Components from '../_classes/components/Components';
+import NestedComponent from '../_classes/nestedcomponent/NestedComponent.js';
+import Template from '../../templates/Template.js';
+import Components from '../_classes/components/Components.js';
 
 export default class Tabs extends NestedComponent {
     static schema(...extend) {

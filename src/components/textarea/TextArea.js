@@ -1,6 +1,6 @@
-import TextAreaForm from './TextArea.form';
-import Input from '../_classes/input/Input';
-import {requireLibrary} from '../../utils/utils';
+import TextAreaForm from './TextArea.form.js';
+import Input from '../_classes/input/Input.js';
+import {requireLibrary} from '../../utils/utils.js';
 
 export default class TextArea extends Input {
 

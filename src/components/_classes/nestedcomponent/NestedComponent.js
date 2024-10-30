@@ -1,5 +1,5 @@
-import Component from '../component/Component';
-import Template from '../../../templates/Template';
+import Component from '../component/Component.js';
+import Template from '../../../templates/Template.js';
 
 export default class NestedComponent extends Component {
 

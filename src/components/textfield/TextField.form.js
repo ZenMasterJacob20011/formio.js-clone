@@ -1,4 +1,4 @@
-import Components from '../_classes/components/Components';
+import Components from '../_classes/components/Components.js';
 
 /**
  * edit form function for textfield

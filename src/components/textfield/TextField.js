@@ -1,5 +1,5 @@
-import TextFieldForm from './TextField.form';
-import Input from '../_classes/input/Input';
+import TextFieldForm from './TextField.form.js';
+import Input from '../_classes/input/Input.js';
 
 export default class TextField extends Input {
 

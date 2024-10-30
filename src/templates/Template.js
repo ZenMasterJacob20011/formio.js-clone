@@ -1,4 +1,4 @@
-import templates from './index';
+import templates from './index.js';
 
 export default class Template {
     /**

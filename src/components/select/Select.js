@@ -1,6 +1,6 @@
-import Field from '../_classes/field/Field';
-import Template from '../../templates/Template';
-import SelectForm from './Select.form';
+import Field from '../_classes/field/Field.js';
+import Template from '../../templates/Template.js';
+import SelectForm from './Select.form.js';
 
 export default class Select extends Field {
     static editInfo = SelectForm;

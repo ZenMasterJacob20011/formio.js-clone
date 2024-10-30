@@ -1,6 +1,6 @@
-import Template from '../../templates/Template';
-import Field from '../_classes/field/Field';
-import CheckboxForm from './Checkbox.form';
+import Template from '../../templates/Template.js';
+import Field from '../_classes/field/Field.js';
+import CheckboxForm from './Checkbox.form.js';
 
 export default class Checkbox extends Field {
     static editInfo = CheckboxForm;

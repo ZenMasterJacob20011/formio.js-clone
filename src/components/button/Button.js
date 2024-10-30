@@ -1,6 +1,6 @@
-import Component from '../_classes/component/Component';
-import Template from '../../templates/Template';
-import ButtonForm from './Button.form';
+import Component from '../_classes/component/Component.js';
+import Template from '../../templates/Template.js';
+import ButtonForm from './Button.form.js';
 
 export default class Button extends Component {
 

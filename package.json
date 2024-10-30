@@ -1,8 +1,9 @@
 {
   "name": "formio.js-clone",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "A clone of the open source form renderer [formio.js](https://github.com/formio/formio.js)",
-  "main": "index.js",
+  "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "echo \"Running eslinter\" && eslint"
@@ -25,7 +26,6 @@
     "eslint": "9.x",
     "eslint-plugin-jsdoc": "^48.5.0",
     "globals": "^15.3.0",
-    "html-webpack-plugin": "^5.6.0",
     "lodash": "^4.17.21",
     "pre-commit": "^1.2.2",
     "style-loader": "^4.0.0",
