@@ -12,6 +12,7 @@ export default class Form extends NestedComponent {
      */
     constructor(htmlContainer, components, options) {
         super(null, options, null);
+        this.component.components = components;
         this.htmlContainer = htmlContainer;
         delete this.options.attachComponent;
         this._form = {};
