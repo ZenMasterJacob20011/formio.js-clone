@@ -337,7 +337,14 @@ export default class FormBuilder extends Component {
         });
     }
 
-    set setBuilder(data) {
+    /**
+     * sets and creates the builder
+     * @param {object} form the form definition
+     */
+    set setBuilder(form) {
+        if(!_.isEmpty(form)){
+            this.form = new Form(document.createElement('div'), form.components, this.options);
+        }
         this.createBuilder();
     }
 
