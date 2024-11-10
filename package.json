@@ -1,6 +1,6 @@
 {
   "name": "formio.js-clone",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A clone of the open source form renderer [formio.js](https://github.com/formio/formio.js)",
   "main": "src/index.js",
   "type": "module",

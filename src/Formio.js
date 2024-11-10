@@ -21,15 +21,15 @@ export default class Formio {
     /**
      * creates a form builder
      * @param {HTMLElement} htmlElement the container element for the form builder
-     * @param {object} data the data for the form builder
+     * @param {object} form the form for the form builder
      * @param {object} options options for the form builder
      * @returns {Promise<FormBuilder>} The form builder object
      */
-    static async builder(htmlElement, data, options) {
-        Formio._data = data;
+    static async builder(htmlElement, form, options) {
+        Formio._form = form;
         Formio._options = options;
         const formBuilder = new FormBuilder(htmlElement, options);
-        formBuilder.setBuilder = data;
+        formBuilder.setBuilder = form;
         Formio.form[formBuilder.form.id] = formBuilder.form;
         return formBuilder;
     }
