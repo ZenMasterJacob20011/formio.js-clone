@@ -8,22 +8,22 @@ export default function (ctx) {
         <div ref="component" class="builder-component dragComponent">
             <div class="component-button-group">
                 <div ref="removeComponent" class="component-settings-button component-settings-button-remove btn btn-danger">
-                    <i class="fa fa-remove"></i>
+                    <i class="bi bi-x-lg"></i>
                 </div>
                 <div ref="copyComponent" class="component-settings-button component-settings-button-copy btn">
-                    <i class="fa fa-copy"></i>
+                    <i class="bi bi-clipboard"></i>
                 </div>
                 <div ref="pasteComponent" class="component-settings-button component-settings-button-paste btn">
-                    <i class="fa fa-save"></i>
+                    <i class="bi bi-save"></i>
                 </div>
                 <div ref="editJSON" class="component-settings-button component-settings-button-edit-json btn">
-                    <i class="fa fa-wrench"></i>
+                    <i class="bi bi-pencil"></i>
                 </div>
                 <div ref="moveComponent" class="component-settings-button component-settings-button-move btn">
-                    <i class="fa-solid fa-up-down-left-right"></i>
+                    <i class="bi bi-arrow-down-up"></i>
                 </div>
                 <div ref="editComponent" class="component-settings-button component-settings-button-edit btn btn-secondary">
-                    <i class="fa fa-cog"></i>
+                    <i class="bi bi-gear-fill"></i>
                 </div>
             </div>
             ${ctx.html}
