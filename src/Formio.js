@@ -3,7 +3,7 @@ import FormBuilder from './FormBuilder.js';
 
 export default class Formio {
     // Keeps track of all forms in Formio object
-    static form = {};
+    static forms = {};
 
     /**
      * creates a form and displays renders it in the htmlElement
