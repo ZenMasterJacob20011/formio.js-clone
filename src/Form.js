@@ -3,6 +3,7 @@ import Components from './components/_classes/components/Components.js';
 import Template from './templates/Template.js';
 import NestedComponent from './components/_classes/nestedcomponent/NestedComponent.js';
 import _ from 'lodash';
+import Formio from './Formio.js';
 
 export default class Form extends NestedComponent {
     /**
@@ -17,6 +18,7 @@ export default class Form extends NestedComponent {
         delete this.options.attachComponent;
         this._form = {};
         this._form.components = components;
+        Formio.forms[this.component._id] = this;
         this.init();
     }
 
