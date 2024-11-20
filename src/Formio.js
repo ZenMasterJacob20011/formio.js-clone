@@ -3,7 +3,7 @@ import FormBuilder from './FormBuilder.js';
 
 export default class Formio {
     // Keeps track of all forms in Formio object
-    static form = {};
+    static forms = {};
 
     /**
      * creates a form and displays renders it in the htmlElement
@@ -26,11 +26,8 @@ export default class Formio {
      * @returns {Promise<FormBuilder>} The form builder object
      */
     static async builder(htmlElement, form, options) {
-        Formio._form = form;
-        Formio._options = options;
         const formBuilder = new FormBuilder(htmlElement, options);
         formBuilder.setBuilder = form;
-        Formio.form[formBuilder.form.id] = formBuilder.form;
         return formBuilder;
     }
 }
