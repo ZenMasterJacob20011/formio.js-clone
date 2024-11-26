@@ -8,16 +8,19 @@ import Formio from './Formio.js';
 export default class Form extends NestedComponent {
     /**
      * @param {HTMLElement} htmlContainer the container the form will go into
-     * @param {object[]} components the components of the form
+     * @param {object} form the form json
      * @param {object?} options options for the form
      */
-    constructor(htmlContainer, components, options) {
+    constructor(htmlContainer, form, options) {
         super(null, options, null);
-        this.component.components = components;
+        this.component.components = form.components;
         this.htmlContainer = htmlContainer;
         delete this.options.attachComponent;
         this._form = {};
-        this._form.components = components;
+        this._form.components = form.components;
+        this.name = '';
+        this.title = '';
+        this.path = '';
         Formio.forms[this.component._id] = this;
         this.init();
     }
