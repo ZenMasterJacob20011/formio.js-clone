@@ -13,7 +13,7 @@ export default class Formio {
      * @returns {Promise<Form>} a form promise
      */
     static async createForm(htmlElement, form, options) {
-        const formClass = new Form(htmlElement, form.components, options);
+        const formClass = new Form(htmlElement, form, options);
         formClass.createForm();
         return formClass;
     }

@@ -6,6 +6,7 @@ import Component from './components/_classes/component/Component.js';
 import Components from './components/_classes/components/Components.js';
 import _ from 'lodash';
 import {getRandomComponentId} from './utils/utils.js';
+import Formio from './Formio.js';
 
 export default class FormBuilder extends Component {
     /**
@@ -28,7 +29,7 @@ export default class FormBuilder extends Component {
         this.options.hooks.attachComponent = this.attachComponent.bind(this);
         this.options.hooks.attachDragula = this.attachDragula.bind(this);
         this.containers = [];
-        this.form = new Form(document.createElement('div'), [{type: 'button'}], this.options);
+        this.form = new Form(document.createElement('div'), {components: [{type: 'button'}]}, this.options);
     }
 
 
@@ -158,18 +159,21 @@ export default class FormBuilder extends Component {
             if (e.target.getAttribute('ref') === 'dialog' || e.target.getAttribute('ref') === 'dialogClose') {
                 component.parent.formioContainer.splice(0, component.parent.formioContainer.length);
                 _.assign(component.parent.formioContainer, originalContainerSchema);
+                delete Formio.forms[editForm.component._id];
                 this.redrawContainer(component.parent);
                 this.closeModal(element);
             }
         });
         element.querySelector('[ref="saveButton"]').addEventListener('click', () => {
             _.assign(component.component, editForm.submission.data);
+            delete Formio.forms[editForm.component._id];
             this.redrawContainer(component.parent);
             this.closeModal(element);
         });
         element.querySelector('[ref="cancelButton"]').addEventListener('click', () => {
             component.parent.formioContainer.splice(0, component.parent.formioContainer.length);
             _.assign(component.parent.formioContainer, originalContainerSchema);
+            delete Formio.forms[editForm.component._id];
             this.redrawContainer(component.parent);
             this.closeModal(element);
         });
@@ -230,16 +234,18 @@ export default class FormBuilder extends Component {
     }
 
     editJSON(component) {
-        const editJSONForm = new Form(document.createElement('div'), [
-                {
-                    type: 'textarea',
-                    label: 'Component JSON',
-                    key: 'component',
-                    editor: 'ace',
-                    width: '730px',
-                    height: '200px'
-                }
-            ]
+        const editJSONForm = new Form(document.createElement('div'), {
+                components: [
+                    {
+                        type: 'textarea',
+                        label: 'Component JSON',
+                        key: 'component',
+                        editor: 'ace',
+                        width: '730px',
+                        height: '200px'
+                    }
+                ]
+            }
             , {});
         const editJSONContents = Template.renderTemplate('dialog', {
             dialogContents: Template.renderTemplate('buildereditform', {
@@ -261,7 +267,7 @@ export default class FormBuilder extends Component {
      * @param {object} originalContainerSchema the original parent container of the component
      */
     editModal(component, originalContainerSchema) {
-        const editForm = new Form(document.createElement('div'), Components.editInfo(component.component.type).components, {});
+        const editForm = new Form(document.createElement('div'), {components: Components.editInfo(component.component.type).components}, {});
         const editFormContents = Template.renderTemplate('dialog', {
             dialogContents: Template.renderTemplate('buildereditform', {
                 form: editForm.render(),
@@ -342,8 +348,8 @@ export default class FormBuilder extends Component {
      * @param {object} form the form definition
      */
     set setBuilder(form) {
-        if(!_.isEmpty(form)){
-            this.form = new Form(document.createElement('div'), form.components, this.options);
+        if (!_.isEmpty(form)) {
+            this.form = new Form(document.createElement('div'), form, this.options);
         }
         this.createBuilder();
     }
