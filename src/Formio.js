@@ -13,6 +13,14 @@ export default class Formio {
      * @returns {Promise<Form>} a form promise
      */
     static async createForm(htmlElement, form, options) {
+        if(typeof form === 'string'){
+            try {
+                const response = await fetch(form);
+                form = await response.json();
+            }catch (err) {
+                throw Error(err);
+            }
+        }
         const formClass = new Form(htmlElement, form, options);
         formClass.createForm();
         return formClass;
