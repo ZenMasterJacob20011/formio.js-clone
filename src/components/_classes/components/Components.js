@@ -1,3 +1,4 @@
+import Component from '../component/Component.js';
 import TextField from '../../textfield/TextField.js';
 import Button from '../../button/Button.js';
 import TextArea from '../../textarea/TextArea.js';
@@ -22,7 +23,8 @@ export default class Components {
         'selectboxes': Selectboxes,
         'select': Select,
         'radio': Radio,
-        'tabs': Tabs
+        'tabs': Tabs,
+        'component': Component
     };
     static _baseEditForm = baseEditForm;
 

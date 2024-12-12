@@ -1,5 +1,7 @@
 import Form from './Form.js';
 import FormBuilder from './FormBuilder.js';
+import Components from './components/_classes/components/Components.js';
+import Template from './templates/Template.js';
 
 export default class Formio {
     // Keeps track of all forms in Formio object
@@ -13,11 +15,11 @@ export default class Formio {
      * @returns {Promise<Form>} a form promise
      */
     static async createForm(htmlElement, form, options) {
-        if(typeof form === 'string'){
+        if (typeof form === 'string') {
             try {
                 const response = await fetch(form);
                 form = await response.json();
-            }catch (err) {
+            } catch (err) {
                 throw Error(err);
             }
         }
@@ -37,5 +39,18 @@ export default class Formio {
         const formBuilder = new FormBuilder(htmlElement, options);
         formBuilder.setBuilder = form;
         return formBuilder;
+    }
+
+    /**
+     * adds plugin to formio
+     * @param {{components: any, providers: any, templates: any}} plugin the plugin to be used
+     */
+    static use(plugin) {
+        for (const component in plugin.components){
+            Components.components[component] = plugin.components[component];
+        }
+        for (const template in plugin.templates){
+            Template.templates[template] = plugin.templates[template];
+        }
     }
 }
