@@ -1,19 +1,22 @@
-import templates from './index.js';
+import itemplates from './index.js';
 
 export default class Template {
+
+    static templates = itemplates;
+
     /**
      * Gets a template from templates directory based on its name
      * @param {string} templateName the template name to lookup
      * @returns {(ctx:object)=>string} a function to render template
      */
     static getTemplate(templateName) {
-        if (!templates[`${templateName}`]){
+        if (!Template.templates[`${templateName}`]){
             console.warn(`Template: ${templateName} not found`);
             return ()=>{
               return '';
             };
         }
-        return templates[`${templateName}`];
+        return Template.templates[`${templateName}`];
     }
 
     /**
