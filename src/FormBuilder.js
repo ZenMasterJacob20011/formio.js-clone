@@ -94,7 +94,11 @@ export default class FormBuilder extends Component {
      * @param {Component} component the component being modified by listeners
      */
     attachComponent(element, component) {
-        component.loadRefs(element, {
+        if(component.component.type === 'form'){
+            return;
+        }
+        const buttonsRef = element.previousElementSibling;
+        component.loadRefs(buttonsRef, {
             removeComponent: 'single',
             editComponent: 'single',
             moveComponent: 'single',

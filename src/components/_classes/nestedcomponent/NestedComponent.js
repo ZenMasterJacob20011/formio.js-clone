@@ -26,9 +26,9 @@ export default class NestedComponent extends Component {
      * @param {Component[]} components the components to call attach on
      */
     attachComponents(element, components) {
-        const dragComponents = element.querySelectorAll('[ref="component"]');
+        const refComponents = element.querySelectorAll('[ref="component"]');
         components.forEach((component, index) => {
-            component.attach(dragComponents.item(index));
+            component.attach(refComponents.item(index));
         });
     }
 
