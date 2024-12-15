@@ -6,6 +6,13 @@ import _ from 'lodash';
 import Formio from './Formio.js';
 
 export default class Form extends NestedComponent {
+
+    static schema(...extend) {
+        return NestedComponent.schema({
+            type: 'form'
+        }, ...extend);
+    }
+
     /**
      * @param {HTMLElement} htmlContainer the container the form will go into
      * @param {object} form the form json
@@ -15,7 +22,6 @@ export default class Form extends NestedComponent {
         super(null, options, null);
         this.component.components = form.components;
         this.htmlContainer = htmlContainer;
-        delete this.options.attachComponent;
         this._form = {};
         this._form.components = form.components;
         this.name = '';
@@ -89,6 +95,12 @@ export default class Form extends NestedComponent {
             inputMask.mask(document.getElementById(component.id));
         });
     }
+
+
+    get defaultSchema() {
+        return Form.schema();
+    }
+
 
     /**
      * Go through each of the components and create an object containing components property as key and components value
