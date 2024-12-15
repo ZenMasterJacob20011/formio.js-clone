@@ -27,11 +27,30 @@ export default class Checkbox extends Field {
         super(component, data, options);
     }
 
+    get dataValue() {
+        this._dataValue = this.refs.input.checked;
+        return this._dataValue;
+    }
+
+    set dataValue(value) {
+        super.dataValue = value;
+    }
+
+    attach(element) {
+        this.loadRefs(element, {'input': 'single'});
+        super.attach(element);
+    }
+
     get defaultSchema() {
         return Checkbox.schema();
     }
 
+
     render() {
         return super.render(Template.renderTemplate('checkbox', this));
+    }
+
+    setValue(value) {
+        super.setValue(value);
     }
 }

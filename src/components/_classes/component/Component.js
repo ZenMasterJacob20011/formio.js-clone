@@ -57,7 +57,7 @@ export default class Component {
         this.loadRefs(element, {
             messageContainer: 'single',
         });
-        this.parent = element.parentElement;
+        this.parent = this.parent || this.options.parent;
         this.hook('attachComponent', element, this);
 
         this.element = element;
@@ -65,6 +65,25 @@ export default class Component {
 
     get defaultSchema() {
         return Component.schema();
+    }
+
+    /**
+     * Gets components index in its parent container
+     * @returns {number} index of the component
+     */
+    getComponentIndex() {
+        const parentChildrenElements = this.parent.element.querySelector('[ref*="-container"]').children;
+        let index = Array.prototype.indexOf.call(parentChildrenElements, this.element);
+        if (index === -1) {
+            const componentElements = Array.prototype.map.call(parentChildrenElements, (element) => {
+                return element.querySelector('[ref="component"]');
+            });
+            index = componentElements.indexOf(this.element);
+        }
+        if (index >= 0) {
+            return index;
+        }
+        throw Error('Could not find the index of the component');
     }
 
     hook() {
@@ -76,6 +95,7 @@ export default class Component {
         }
         return arguments[1];
     }
+
 
     get id() {
         return this.component._id;
@@ -125,7 +145,7 @@ export default class Component {
      */
     setValue(value) {
         this.dataValue = value;
-        if(typeof value === 'object'){
+        if (typeof value === 'object') {
             value = JSON.stringify(value, null, 2);
         }
         this.refs.input.value = value;

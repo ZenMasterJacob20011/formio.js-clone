@@ -16,6 +16,8 @@ export default class NestedComponent extends Component {
         this.loadRefs(element, {
             [this.nestedKey]: 'single'
         });
+        this.options.parent = this;
+        this.attachComponents(this.element, this.components);
     }
 
     /**
@@ -39,9 +41,11 @@ export default class NestedComponent extends Component {
     }
 
     redraw() {
-        const index = Array.prototype.indexOf.call(this.parent.children, this.element);
+        const index = this.getComponentIndex();
+        // Redrawing of the form
         this.element.outerHTML = this.render();
-        this.element = this.parent.children.item(index);
+        // Reattach this.element
+        this.element = this.parent.element.querySelector('[ref*="-container"]').children.item(index);
         this.attach(this.element);
     }
 
@@ -78,6 +82,7 @@ export default class NestedComponent extends Component {
             component.submission = submissionData;
         });
     }
+
 
 
 }
