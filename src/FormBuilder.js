@@ -72,7 +72,7 @@ export default class FormBuilder extends Component {
                 }
                 let componentPosition = this.getComponentPosition(el, target);
                 target.formioContainer.splice(componentPosition, 0, component || currentDragComponent);
-                this.redrawContainer(target);
+                this.redrawContainer(target.component);
                 if (component) {
                     let classComponent = target.component.components.find((classComponent) => {
                         return component.id === classComponent.id;
@@ -267,7 +267,14 @@ export default class FormBuilder extends Component {
      * @param {object} originalContainerSchema the original parent container of the component
      */
     editModal(component, originalContainerSchema) {
-        const editForm = new Form(document.createElement('div'), {components: Components.editInfo(component.component.type).components}, {});
+        const editForm = new Form(document.createElement('div'), {
+            components:
+                [{
+                    type: 'tabs',
+                    key: 'editFormTabs',
+                    components: Components.editInfo(component.component.type)
+                }]
+        }, {});
         const editFormContents = Template.renderTemplate('dialog', {
             dialogContents: Template.renderTemplate('buildereditform', {
                 form: editForm.render(),
@@ -313,13 +320,13 @@ export default class FormBuilder extends Component {
 
     /**
      * redraws the builders form
-     * @param {HTMLElement} container the container element to redraw
+     * @param {import('./components/_classes/nestedcomponent/NestedComponent.js').NestedComponent} container the container element to redraw
      */
     redrawContainer(container) {
-        container.querySelectorAll('[ref*="-container"]').forEach((element) => {
+        container.element.querySelectorAll('[ref*="-container"]').forEach((element) => {
             this.drake.containers.splice(this.drake.containers.indexOf(element), 1);
         });
-        container.component.redraw();
+        container.redraw();
     }
 
     /**
@@ -364,7 +371,7 @@ export default class FormBuilder extends Component {
         let groups = {};
         for (let componentsKey in Components.components) {
             const component = Components.components[componentsKey];
-            if (componentsKey.toLowerCase().includes(value.toLowerCase())) {
+            if (componentsKey.toLowerCase().includes(value.toLowerCase()) && component?.builderInfo?.group) {
                 _.set(groups, `${component.builderInfo.group}.${componentsKey}`, component);
             }
         }

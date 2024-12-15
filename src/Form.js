@@ -63,17 +63,13 @@ export default class Form extends NestedComponent {
      * @param {HTMLElement} parentContainer the parent container
      */
     attach(parentContainer) {
+        super.attach(parentContainer);
+        this.parent = null;
         this.htmlContainer = parentContainer.querySelector('[ref="form"]') || this.htmlContainer;
         let componentsContainer = this.htmlContainer.querySelector('[ref="form-container"]');
         componentsContainer.formioContainer = this._form.components;
         componentsContainer.component = this;
         this.hook('attachDragula', componentsContainer);
-        this.components.forEach((classComponent, index) => {
-            if (this.options.builderMode && this.components.length <= 1 && this.components[0].component.type === 'button') {
-                index++;
-            }
-            classComponent.attach(componentsContainer.children.item(index));
-        });
     }
 
     /**

@@ -1,13 +1,18 @@
 import NestedComponent from '../_classes/nestedcomponent/NestedComponent.js';
 import Template from '../../templates/Template.js';
 import Components from '../_classes/components/Components.js';
+import TabsForm from './Tabs.form.js';
 
 export default class Tabs extends NestedComponent {
+
+    static editInfo = TabsForm;
+
     static schema(...extend) {
         return NestedComponent.schema({
             type: 'tabs',
             key: 'tabs',
             label: 'Tabs',
+            verticalLayout: false,
             components: [
                 {
                     key: 'tab1',

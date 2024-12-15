@@ -10,6 +10,7 @@ import Select from '../../select/Select.js';
 import Radio from '../../radio/Radio.js';
 import Tabs from '../../tabs/Tabs.js';
 import baseEditForm from '../component/Component.form.js';
+import _ from 'lodash';
 
 export default class Components {
 
@@ -26,7 +27,8 @@ export default class Components {
         'tabs': Tabs,
         'component': Component
     };
-    static _baseEditForm = baseEditForm;
+
+    static _baseEditForm = baseEditForm();
 
     /**
      * creates a new class given a component schema (factory for creating components)
@@ -54,8 +56,8 @@ export default class Components {
         });
     }
 
-    static get baseEditForm() {
-        return this._baseEditForm;
+    static baseEditForm(extend) {
+        return _.merge(this._baseEditForm, extend);
     }
 
     /**
