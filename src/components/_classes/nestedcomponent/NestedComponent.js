@@ -36,9 +36,14 @@ export default class NestedComponent extends Component {
         return this._components;
     }
 
+    get formioContainer() {
+        return this.element.querySelector('[ref*="-container"]').formioContainer;
+    }
+
     get nestedKey() {
         return `nested-${this.component.key}`;
     }
+
 
     redraw() {
         const index = this.getComponentIndex();
@@ -82,7 +87,6 @@ export default class NestedComponent extends Component {
             component.submission = submissionData;
         });
     }
-
 
 
 }
