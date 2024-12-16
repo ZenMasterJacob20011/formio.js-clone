@@ -94,7 +94,7 @@ export default class FormBuilder extends Component {
      * @param {Component} component the component being modified by listeners
      */
     attachComponent(element, component) {
-        if(component.component.type === 'form'){
+        if (component.component.type === 'form') {
             return;
         }
         component.loadRefs(element, {
@@ -237,6 +237,7 @@ export default class FormBuilder extends Component {
     }
 
     editJSON(component) {
+        const componentsClass = Components.components[component.component.type];
         const editJSONForm = new Form(document.createElement('div'), {
                 components: [
                     {
@@ -253,7 +254,7 @@ export default class FormBuilder extends Component {
         const editJSONContents = Template.renderTemplate('dialog', {
             dialogContents: Template.renderTemplate('buildereditform', {
                 form: editJSONForm.render(),
-                label: `${component.defaultSchema.label} Component`
+                label: `${componentsClass.builderInfo.title} Component`
             })
         });
         const modal = this.createModal(editJSONContents);
@@ -270,6 +271,7 @@ export default class FormBuilder extends Component {
      * @param {object} originalContainerSchema the original parent container of the component
      */
     editModal(component, originalContainerSchema) {
+        const componentsClass = Components.components[component.component.type];
         const editForm = new Form(document.createElement('div'), {
             components:
                 [{
@@ -281,7 +283,7 @@ export default class FormBuilder extends Component {
         const editFormContents = Template.renderTemplate('dialog', {
             dialogContents: Template.renderTemplate('buildereditform', {
                 form: editForm.render(),
-                label: `${component.defaultSchema.label} Component`
+                label: `${componentsClass.builderInfo.title} Component`
             })
         });
         const modal = this.createModal(editFormContents);
