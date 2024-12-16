@@ -97,8 +97,7 @@ export default class FormBuilder extends Component {
         if(component.component.type === 'form'){
             return;
         }
-        const buttonsRef = element.previousElementSibling;
-        component.loadRefs(buttonsRef, {
+        component.loadRefs(element, {
             removeComponent: 'single',
             editComponent: 'single',
             moveComponent: 'single',

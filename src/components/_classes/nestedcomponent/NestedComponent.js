@@ -17,7 +17,6 @@ export default class NestedComponent extends Component {
             [this.nestedKey]: 'single'
         });
         this.options.parent = this;
-        this.attachComponents(this.element, this.components);
     }
 
     /**
@@ -26,9 +25,11 @@ export default class NestedComponent extends Component {
      * @param {Component[]} components the components to call attach on
      */
     attachComponents(element, components) {
-        const refComponents = element.querySelectorAll('[ref="component"]');
-        components.forEach((component, index) => {
-            component.attach(refComponents.item(index));
+        components.forEach((classComponent, index) => {
+            if (this.options.builderMode && this.components.length <= 1 && this.components[0].component.type === 'button') {
+                index++;
+            }
+            classComponent.attach(element.children.item(index));
         });
     }
 
