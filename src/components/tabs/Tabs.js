@@ -66,14 +66,13 @@ export default class Tabs extends NestedComponent {
     }
 
     /**
-     * Takes the parent container as element and attaches this.nestedKey and then loops through each tab and calls
-     * attach components on each of the of
+     * Takes the parent container as element and then loops through each tab and calls
+     * attach components on each of the tabs
      * @param {HTMLElement} element the parent container
      */
     attach(element) {
         super.attach(element);
         this.loadRefs(element, {
-            [this.nestedKey]: 'single',
             'tabs-container': 'multiple',
             'tab-link': 'multiple'
         });

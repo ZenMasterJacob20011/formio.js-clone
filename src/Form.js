@@ -9,7 +9,8 @@ export default class Form extends NestedComponent {
 
     static schema(...extend) {
         return NestedComponent.schema({
-            type: 'form'
+            type: 'form',
+            key: 'form'
         }, ...extend);
     }
 
@@ -76,6 +77,7 @@ export default class Form extends NestedComponent {
         componentsContainer.formioContainer = this._form.components;
         componentsContainer.component = this;
         this.hook('attachDragula', componentsContainer);
+        this.attachComponents(componentsContainer, this.components);
     }
 
     /**
