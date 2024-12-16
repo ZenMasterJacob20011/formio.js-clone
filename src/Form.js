@@ -34,7 +34,7 @@ export default class Form extends NestedComponent {
 
     /**
      * gets components
-     * @returns {object[]} gets components
+     * @returns {import('./components/_classes/component/Component.js').Component[]} gets components
      */
     get components() {
         return this._components;
