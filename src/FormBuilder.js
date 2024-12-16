@@ -10,6 +10,38 @@ import Formio from './Formio.js';
 
 export default class FormBuilder extends Component {
     /**
+     * Static class to hold edit form creation
+     * @param {string} componentType The type of the component
+     * @returns {Form} the edit form
+     */
+    static createEditForm = (componentType) => {
+        return new Form(document.createElement('div'), {
+            components:
+                [{
+                    type: 'tabs',
+                    key: 'editFormTabs',
+                    components: Components.editInfo(componentType)
+                }]
+        }, {});
+    };
+
+    static createEditJSONForm = () => {
+        return new Form(document.createElement('div'), {
+                components: [
+                    {
+                        type: 'textarea',
+                        label: 'Component JSON',
+                        key: 'component',
+                        editor: 'ace',
+                        width: '730px',
+                        height: '200px'
+                    }
+                ]
+            }
+            , {});
+    };
+
+    /**
      * Constructor for form builder
      * @param {HTMLElement} htmlContainer the container for the form builder
      * @param {object} options options for the builder
@@ -77,7 +109,7 @@ export default class FormBuilder extends Component {
                     let classComponent = target.component.components.find((classComponent) => {
                         return component.id === classComponent.id;
                     });
-                    this.editModal(classComponent, originalContainerSchema);
+                    this.editModal(classComponent, FormBuilder.createEditForm(component.type), component, originalContainerSchema);
                 }
             }
         }).on('drag', (el, source) => {
@@ -114,7 +146,7 @@ export default class FormBuilder extends Component {
         }
         if (component.refs.editComponent) {
             component.refs.editComponent.addEventListener('click', () => {
-                this.editModal(component);
+                this.editModal(component, FormBuilder.createEditForm(component.component.type), component.component);
             });
         }
         if (component.refs.moveComponent) {
@@ -134,7 +166,7 @@ export default class FormBuilder extends Component {
         }
         if (component.refs.editJSON) {
             component.refs.editJSON.addEventListener('click', () => {
-                this.editJSON(component);
+                this.editModal(component, FormBuilder.createEditJSONForm(), component);
             });
         }
     }
@@ -236,50 +268,15 @@ export default class FormBuilder extends Component {
         return modal;
     }
 
-    editJSON(component) {
-        const componentsClass = Components.components[component.component.type];
-        const editJSONForm = new Form(document.createElement('div'), {
-                components: [
-                    {
-                        type: 'textarea',
-                        label: 'Component JSON',
-                        key: 'component',
-                        editor: 'ace',
-                        width: '730px',
-                        height: '200px'
-                    }
-                ]
-            }
-            , {});
-        const editJSONContents = Template.renderTemplate('dialog', {
-            dialogContents: Template.renderTemplate('buildereditform', {
-                form: editJSONForm.render(),
-                label: `${componentsClass.builderInfo.title} Component`
-            })
-        });
-        const modal = this.createModal(editJSONContents);
-        editJSONForm.attach(modal);
-        editJSONForm.submission = {
-            data: component
-        };
-        this.attachEditJSONForm(modal, component, editJSONForm);
-    }
-
     /**
      * attaches listeners to the edit modal
      * @param {Component} component the component of the edit modal
-     * @param {object} originalContainerSchema the original parent container of the component
+     * @param {Form} editForm The form to edit the component properties
+     * @param {object} data The data to fill the edit form
+     * @param {object=} originalContainerSchema the original parent container of the component
      */
-    editModal(component, originalContainerSchema) {
+    editModal(component, editForm, data, originalContainerSchema) {
         const componentsClass = Components.components[component.component.type];
-        const editForm = new Form(document.createElement('div'), {
-            components:
-                [{
-                    type: 'tabs',
-                    key: 'editFormTabs',
-                    components: Components.editInfo(component.component.type)
-                }]
-        }, {});
         const editFormContents = Template.renderTemplate('dialog', {
             dialogContents: Template.renderTemplate('buildereditform', {
                 form: editForm.render(),
@@ -289,7 +286,7 @@ export default class FormBuilder extends Component {
         const modal = this.createModal(editFormContents);
         editForm.attach(modal);
         editForm.submission = {
-            data: component.component
+            data: data
         };
         this.attachEditForm(modal, component, editForm, originalContainerSchema);
     }
