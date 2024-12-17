@@ -45,16 +45,17 @@ export default class TextArea extends Input {
         }
     }
 
+    get dataValue() {
+        if (this.component.editor === 'ace') {
+            return JSON.parse(this.editor.getValue());
+        }
+        return super.dataValue;
+    }
+
     get defaultSchema() {
         return TextArea.schema();
     }
 
-    getValue() {
-        if (this.component.editor === 'ace') {
-            return this.editor.getValue();
-        }
-        return super.getValue();
-    }
 
     normalizeValue(value) {
         if (typeof value === 'object') {
