@@ -13,6 +13,8 @@ import buildereditform from './builderEditForm.js';
 import components from './components.js';
 import tabs from './tabs.js';
 import formbuildersidebargroups from './formbuildersidebargroups.js';
+import datagrid from './datagrid.js';
+import builderplaceholder from './builderplaceholder.js';
 
 export default {
     button,
@@ -29,5 +31,7 @@ export default {
     dialog,
     buildereditform,
     components,
-    tabs
+    tabs,
+    datagrid,
+    builderplaceholder
 };

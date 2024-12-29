@@ -11,6 +11,18 @@ export default class NestedComponent extends Component {
         super(component, options, data);
     }
 
+    get components() {
+        return this._components;
+    }
+
+    /**
+     * Sets the components of the nested component
+     * @param {Component[]} components components to be set
+     */
+    set components(components) {
+        this._components = components;
+    }
+
     attach(element) {
         super.attach(element);
         this.loadRefs(element, {
@@ -33,9 +45,6 @@ export default class NestedComponent extends Component {
         });
     }
 
-    get components() {
-        return this._components;
-    }
 
     get formioContainer() {
         return this.element.querySelector('[ref*="-container"]').formioContainer;
