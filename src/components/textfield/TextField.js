@@ -37,4 +37,8 @@ export default class TextField extends Input {
     get defaultSchema() {
         return TextField.schema();
     }
+
+    get emptyValue() {
+        return '';
+    }
 }

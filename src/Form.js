@@ -84,7 +84,6 @@ export default class Form extends NestedComponent {
      * sets the inner html for the container htmlElement
      */
     createForm() {
-        this.init();
         let componentsWithInputMasks = [];
         this.components.forEach((classComponent) => {
             if (classComponent.component.inputMask) {
@@ -92,6 +91,7 @@ export default class Form extends NestedComponent {
             }
         });
         this.htmlContainer.innerHTML = this.render();
+        this.attach(this.htmlContainer);
         componentsWithInputMasks.forEach((component) => {
             let inputMask = new Inputmask(component.component.inputMask);
             inputMask.mask(document.getElementById(component.id));
@@ -123,7 +123,6 @@ export default class Form extends NestedComponent {
 
 
     redraw() {
-        this.init();
         this.htmlContainer.innerHTML = Template.renderTemplate('components', {
             children: this.components.map((component) => component.render()),
             components: this.components,
@@ -143,7 +142,6 @@ export default class Form extends NestedComponent {
 
 
     render() {
-        this.init();
         let formContainer = '<div ref="form" class="form">';
         formContainer += Template.renderTemplate('components', {
             children: this.components.map((component) => component.render()),

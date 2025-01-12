@@ -25,12 +25,26 @@ export default class DataGrid extends NestedArrayComponent {
         if (!this.component.components) {
             this.component.components = [];
         }
+        this.init();
+    }
+
+    /**
+     * Adds a row to the data grid
+     */
+    addRow() {
+        this.rows.push({});
+        this.components.forEach((component) => {
+            this.rows[this.rows.length - 1][component.component.key] = Components.createComponent(component.component, component.options, null, this.components);
+        });
+        this.redraw();
     }
 
     attach(element) {
         super.attach(element);
         this.loadRefs(element, {
-            'datagrid-container': 'multiple'
+            'datagrid-container': 'multiple',
+            'add-another': 'single',
+            'remove-row': 'multiple'
         });
         const containers = this.refs['datagrid-container'];
         containers.forEach((container) => {
@@ -38,9 +52,16 @@ export default class DataGrid extends NestedArrayComponent {
             container.component = this;
             this.hook('attachDragula', container);
         });
-        this.rows.forEach(() => {
-            this.getColumns().forEach((column, columnIndex) => {
-                this.attachComponents(containers[columnIndex], [this.components[columnIndex]]);
+        if (!this.options.builderMode) {
+            this.refs['add-another'].addEventListener('click', this.addRow.bind(this));
+            this.refs['remove-row'].forEach((row, rowIndex) => {
+                row.addEventListener('click', this.removeRow.bind(this, rowIndex));
+            });
+        }
+        const columns = this.getColumns();
+        this.rows.forEach((row, rowIndex) => {
+            columns.forEach((column, columnIndex) => {
+                this.attachComponents(containers[rowIndex * columns.length + columnIndex], [this.rows[rowIndex][column.key]]);
             });
         });
     }
@@ -83,9 +104,19 @@ export default class DataGrid extends NestedArrayComponent {
         this.columns = [...this.component.components];
     }
 
+    /**
+     * Removes row from this.rows
+     * @param {number} rowIndex the row index to be removed
+     */
+    removeRow(rowIndex) {
+        if (this.rows.length === 1) {
+            return;
+        }
+        this.rows.splice(rowIndex, 1);
+        this.redraw();
+    }
 
     render() {
-        this.init();
         return super.render(Template.renderTemplate('datagrid', {
             rows: this.getRows(),
             columns: this.getColumns(),
@@ -97,4 +128,6 @@ export default class DataGrid extends NestedArrayComponent {
             })
         }));
     }
+
+
 }

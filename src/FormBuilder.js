@@ -195,7 +195,7 @@ export default class FormBuilder extends Component {
         if (originalContainerSchema == null) {
             originalContainerSchema = _.cloneDeep(component.parent.formioContainer);
         }
-        window.addEventListener('click', (e) => {
+        document.querySelector('[ref="dialog"]').addEventListener('click', (e) => {
             if (e.target.getAttribute('ref') === 'dialog' || e.target.getAttribute('ref') === 'dialogClose') {
                 component.parent.formioContainer.splice(0, component.parent.formioContainer.length);
                 _.assign(component.parent.formioContainer, originalContainerSchema);
@@ -318,6 +318,7 @@ export default class FormBuilder extends Component {
         container.element.querySelectorAll('[ref*="-container"]').forEach((element) => {
             this.drake.containers.splice(this.drake.containers.indexOf(element), 1);
         });
+        container.init();
         container.redraw();
     }
 
