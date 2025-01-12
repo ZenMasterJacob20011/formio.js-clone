@@ -19,7 +19,7 @@ export default class Input extends Field {
         super(component, options, data);
     }
 
-    attach(element){
+    attach(element) {
         this.loadRefs(element, {
             'input': 'single'
         });
@@ -27,6 +27,9 @@ export default class Input extends Field {
     }
 
     render() {
-        return super.render(Template.renderTemplate('input', this));
+        return super.render(Template.renderTemplate('input', {
+            ...this,
+            value: this.dataValue
+        }));
     }
 }

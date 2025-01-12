@@ -74,8 +74,6 @@ export default class FormBuilder extends Component {
 
         this.refs['sidebarSearch'].addEventListener('input', this.sidebarSearch.bind(this));
         this.form.attach(element);
-        let currentDragComponent = undefined;
-        let currentDragComponentPosition = undefined;
         this.drake = dragula({
             moves: (el) => {
                 return !el.classList.contains('no-drag');
@@ -92,7 +90,7 @@ export default class FormBuilder extends Component {
         });
         this.drake.containers.push(document.querySelector('.form').querySelector('[ref="form-container"]'));
         this.containers = this.drake.containers;
-        this.drake.on('drop', (el, target, source) => {
+        this.drake.on('drop', (el, target, source, sibling) => {
             if (target) {
                 const originalContainerSchema = _.cloneDeep(target.formioContainer);
                 const component = el.getAttribute('data-type') ? {
@@ -100,10 +98,20 @@ export default class FormBuilder extends Component {
                     id: getRandomComponentId()
                 } : undefined;
                 if (el.classList.contains('component') || el.classList.contains('builder-component')) {
-                    source.formioContainer.splice(currentDragComponentPosition, 1);
+                    source.formioContainer.splice(this.getComponentPosition(target.formioContainer, el.formioComponent.component), 1);
                 }
-                let componentPosition = this.getComponentPosition(el, target);
-                target.formioContainer.splice(componentPosition, 0, component || currentDragComponent);
+                let componentPosition = -1;
+                if (sibling) {
+                    if (sibling.getAttribute('data-position') !== null) {
+                        componentPosition = Number(sibling.getAttribute('data-position'));
+                    } else {
+                        componentPosition = this.getComponentPosition(target.formioContainer, sibling.formioComponent.component);
+                    }
+                }
+                if (componentPosition === -1) {
+                    componentPosition = target.formioContainer.length;
+                }
+                target.formioContainer.splice(componentPosition, 0, component || el.formioComponent.component);
                 this.redrawContainer(target.component);
                 if (component) {
                     let classComponent = target.component.components.find((classComponent) => {
@@ -111,11 +119,6 @@ export default class FormBuilder extends Component {
                     });
                     this.editModal(classComponent, FormBuilder.createEditForm(component.type), component, originalContainerSchema);
                 }
-            }
-        }).on('drag', (el, source) => {
-            if (el.classList.contains('component') || el.classList.contains('builder-component')) {
-                currentDragComponentPosition = this.getComponentPosition(el, source);
-                currentDragComponent = source.formioContainer[currentDragComponentPosition];
             }
         });
     }
@@ -129,6 +132,8 @@ export default class FormBuilder extends Component {
         if (component.component.type === 'form') {
             return;
         }
+
+        element.formioComponent = component;
         component.loadRefs(element, {
             removeComponent: 'single',
             editComponent: 'single',
@@ -190,7 +195,7 @@ export default class FormBuilder extends Component {
         if (originalContainerSchema == null) {
             originalContainerSchema = _.cloneDeep(component.parent.formioContainer);
         }
-        window.addEventListener('click', (e) => {
+        document.querySelector('[ref="dialog"]').addEventListener('click', (e) => {
             if (e.target.getAttribute('ref') === 'dialog' || e.target.getAttribute('ref') === 'dialogClose') {
                 component.parent.formioContainer.splice(0, component.parent.formioContainer.length);
                 _.assign(component.parent.formioContainer, originalContainerSchema);
@@ -293,27 +298,12 @@ export default class FormBuilder extends Component {
 
     /**
      * get the position of a component in a container
-     * @param {HTMLElement | Component} el the html element or component to find
-     * @param {HTMLElement | Component[]} container the list of elements or list of components
+     * @param {Component[]} container the list of elements or list of components
+     * @param {object} component the sibling component in the container
      * @returns {number} the position of the component
      */
-    getComponentPosition(el, container) {
-        if (el instanceof Component) {
-            let componentPosition = container.indexOf(el);
-            if (componentPosition === -1) {
-                throw Error('Could not find component position');
-            }
-            return componentPosition;
-        } else {
-            let componentContainer = container.children;
-            const offset = componentContainer.item(0).classList.contains('drag-and-drop-alert') ? 1 : 0;
-            for (let i = 0; i < componentContainer.length; i++) {
-                if (componentContainer[i] === el) {
-                    return i - offset;
-                }
-            }
-        }
-        throw Error('Could not find component position');
+    getComponentPosition(container, component) {
+        return _.findIndex(container, {key: component.key});
     }
 
     redraw() {
@@ -328,6 +318,7 @@ export default class FormBuilder extends Component {
         container.element.querySelectorAll('[ref*="-container"]').forEach((element) => {
             this.drake.containers.splice(this.drake.containers.indexOf(element), 1);
         });
+        container.init();
         container.redraw();
     }
 

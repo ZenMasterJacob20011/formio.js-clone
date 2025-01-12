@@ -16,7 +16,8 @@ export default function (ctx) {
                           ref="input"
                           id="${ctx.component._id}-${ctx.component.type}"
                           type="${ctx.component.type}"
-                          placeholder="${ctx.component.placeholder}">${ctx.component.type === 'textarea' ? '</textarea>' : ''} 
+                          value="${ctx.value}"
+                          placeholder="${ctx.component.placeholder}">${ctx.component.type === 'textarea' ? `${ctx.value ? ctx.value : ''}</textarea>` : ''} 
                         `;
                 }
             })()}

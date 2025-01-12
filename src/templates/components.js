@@ -11,7 +11,7 @@ export default function (ctx) {
         showDragAndDropAlert = true;
     }
     return `<div ref="${ctx.containerType}-container">
-                ${ctx.builderMode && showDragAndDropAlert ? '<div class="drag-and-drop-alert no-drag">Drag and Drop a form component</div>' : ''}
+                ${ctx.builderMode && showDragAndDropAlert ? '<div class="drag-and-drop-alert no-drag" data-position="0">Drag and Drop a form component</div>' : ''}
                 ${ctx.children.join('')}
             </div>`;
 }

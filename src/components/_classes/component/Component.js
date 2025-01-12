@@ -28,7 +28,7 @@ export default class Component {
     }
 
     get dataValue() {
-        this._dataValue = this.refs.input.value;
+        this._dataValue = this?.refs?.input?.value || this.emptyValue;
         return this._dataValue;
     }
 
@@ -65,6 +65,10 @@ export default class Component {
 
     get defaultSchema() {
         return Component.schema();
+    }
+
+    get emptyValue() {
+        return null;
     }
 
     /**
