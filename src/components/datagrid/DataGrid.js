@@ -28,6 +28,25 @@ export default class DataGrid extends NestedArrayComponent {
         this.init();
     }
 
+    get submission() {
+        return this.rows.map((row) => {
+            const rowObject = {};
+            for (const rowKey in row) {
+                rowObject[rowKey] = row[rowKey].submission;
+            }
+            return rowObject;
+        });
+    }
+
+    set submission(submissionData) {
+        if(!submissionData[this.component.key]) return;
+        this.rows.forEach((row, rowIndex) => {
+            for (const rowKey in row) {
+                row[rowKey].submission = submissionData[this.component.key][rowIndex];
+            }
+        });
+    }
+
     /**
      * Adds a row to the data grid
      */
@@ -66,6 +85,7 @@ export default class DataGrid extends NestedArrayComponent {
         });
     }
 
+
     /**
      * Create an array representing the rows in the data grid
      * @returns {{[key: string]: import('../_classes/component/Component.js'), }[]} an array of objects with the key being the components key and the value being the component class
@@ -78,6 +98,7 @@ export default class DataGrid extends NestedArrayComponent {
         });
         return rows;
     }
+
 
     get defaultSchema() {
         return DataGrid.schema();

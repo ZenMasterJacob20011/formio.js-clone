@@ -23,6 +23,20 @@ export default class NestedComponent extends Component {
         this._components = components;
     }
 
+    get submission() {
+        return super.submission;
+    }
+
+    /**
+     * sets the submission for each component based on the submission data
+     * @param {object} submissionData the key value pairs to set the submission to
+     */
+    set submission(submissionData) {
+        this.components.forEach((component) => {
+            component.submission = submissionData;
+        });
+    }
+
     attach(element) {
         super.attach(element);
         this.loadRefs(element, {
@@ -30,6 +44,7 @@ export default class NestedComponent extends Component {
         });
         this.options.parent = this;
     }
+
 
     /**
      * Calls attach on an array of components
@@ -45,15 +60,14 @@ export default class NestedComponent extends Component {
         });
     }
 
-
     get formioContainer() {
         return this.element.querySelector('[ref*="-container"]').formioContainer;
     }
 
+
     get nestedKey() {
         return `nested-${this.component.key}`;
     }
-
 
     redraw() {
         const index = this.getComponentIndex();
@@ -70,6 +84,7 @@ export default class NestedComponent extends Component {
         }));
     }
 
+
     /**
      * renders a list of components wrapped in components template
      * @param {Component[]} components the components to be rendered
@@ -84,17 +99,6 @@ export default class NestedComponent extends Component {
             components: components,
             containerType: this.component.type,
             builderMode: this.options.builderMode
-        });
-    }
-
-
-    /**
-     * sets the submission for each component based on the submission data
-     * @param {object} submissionData the key value pairs to set the submission to
-     */
-    set submission(submissionData) {
-        this.components.forEach((component) => {
-            component.submission = submissionData;
         });
     }
 
