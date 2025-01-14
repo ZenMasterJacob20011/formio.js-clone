@@ -54,6 +54,7 @@ export default class Components {
      * @returns {import('../component/Component.js').Component[]} a list of class components
      */
     static convertComponentArrayToClassArray(components, options) {
+        components = components || [];
         return components.map((component) => {
             return Components.createComponent(component, options, undefined, components);
         });
