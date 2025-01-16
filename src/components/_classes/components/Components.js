@@ -61,7 +61,7 @@ export default class Components {
     }
 
     static baseEditForm(extend) {
-        return _.merge(this._baseEditForm, extend);
+        return _.merge(_.cloneDeep(this._baseEditForm), extend);
     }
 
     /**
