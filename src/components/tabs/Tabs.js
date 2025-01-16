@@ -34,6 +34,11 @@ export default class Tabs extends NestedComponent {
 
     constructor(component, options, data) {
         super(component, options, data);
+        this.component.components.forEach((_tab) => {
+            if (!_tab.components) {
+                _tab.components = [];
+            }
+        });
         this._tabs = this.component.components || [];
         this.currentTab = 0;
         this.init();
