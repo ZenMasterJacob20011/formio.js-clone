@@ -40,6 +40,9 @@ export default class DataGrid extends NestedArrayComponent {
 
     set submission(submissionData) {
         if(!submissionData[this.component.key]) return;
+        while(this.rows.length < submissionData[this.component.key].length){
+            this.addRow();
+        }
         this.rows.forEach((row, rowIndex) => {
             for (const rowKey in row) {
                 row[rowKey].submission = submissionData[this.component.key][rowIndex];
