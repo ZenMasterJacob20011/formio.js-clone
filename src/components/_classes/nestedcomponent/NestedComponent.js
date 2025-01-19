@@ -53,10 +53,12 @@ export default class NestedComponent extends Component {
      */
     attachComponents(element, components) {
         components.forEach((classComponent, index) => {
+            const restoreParent = this.options.parent;
             if (this.options.builderMode && this.components.length <= 1 && this.components[0].component.type === 'button') {
                 index++;
             }
             classComponent.attach(element.children.item(index));
+            this.options.parent = restoreParent;
         });
     }
 
