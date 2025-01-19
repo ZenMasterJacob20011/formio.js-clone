@@ -60,8 +60,22 @@ export default class Components {
         });
     }
 
+    /**
+     * Creates an extended base edit form
+     * @param {object[]} extend An array of tabs
+     * @returns {object[]} an extended base edit form
+     */
     static baseEditForm(extend) {
-        return _.merge(_.cloneDeep(this._baseEditForm), extend);
+        const baseEditFormClone = _.cloneDeep(this._baseEditForm);
+        return baseEditFormClone.map((tab) => {
+            const extendTab = _.find(extend, (obj) => {
+                return obj.key === tab.key;
+            });
+            if(extendTab && extendTab.components) {
+                tab.components.push(...extendTab.components);
+            }
+            return tab;
+        });
     }
 
     /**

@@ -52,6 +52,6 @@ export default class Checkbox extends Field {
 
     setValue(value) {
         super.setValue(value);
-        this.refs.input.checked = true;
+        this.refs.input.checked = value;
     }
 }
