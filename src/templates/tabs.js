@@ -5,8 +5,8 @@
  */
 export default function(ctx){
     return `
-        <div class="card" ref="${ctx.componentContext.nestedKey}">
-            <div class="card-header ${ctx.componentContext.component.verticalLayout ? 'flex-column' : ''}">
+        <div class="card ${ctx.componentContext.component.verticalLayout ? 'flex-row' : ''}" ref="${ctx.componentContext.nestedKey}">
+            <div class="card-header">
                 <ul class="nav nav-tabs ${ctx.componentContext.component.verticalLayout ? 'flex-column' : ''}" role="tablist">
                     ${(function(){
                        let theHTML = '';
