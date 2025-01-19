@@ -1,5 +1,5 @@
 import Inputmask from 'inputmask/lib/inputmask.js';
-import Components from './components/_classes/components/Components.js';
+import Components from './components/Components.js';
 import Template from './templates/Template.js';
 import NestedComponent from './components/_classes/nestedcomponent/NestedComponent.js';
 import _ from 'lodash';

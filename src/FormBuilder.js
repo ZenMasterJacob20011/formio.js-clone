@@ -3,7 +3,7 @@ import 'dragula/dist/dragula.min.css';
 import dragula from 'dragula';
 import Form from './Form.js';
 import Component from './components/_classes/component/Component.js';
-import Components from './components/_classes/components/Components.js';
+import Components from './components/Components.js';
 import _ from 'lodash';
 import {getRandomComponentId} from './utils/utils.js';
 import Formio from './Formio.js';

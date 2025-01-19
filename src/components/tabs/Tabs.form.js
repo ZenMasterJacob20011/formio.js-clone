@@ -1,5 +1,5 @@
 import tabsEditDisplay from './editForm/Tabs.edit.display.js';
-import Components from '../_classes/components/Components.js';
+import Components from '../Components.js';
 
 /**
  * edit form for tabs components

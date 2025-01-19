@@ -1,4 +1,4 @@
-import Components from '../_classes/components/Components.js';
+import Components from '../Components.js';
 
 /**
  * edit form function for number
