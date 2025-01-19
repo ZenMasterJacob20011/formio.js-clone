@@ -97,9 +97,12 @@ export default class FormBuilder extends Component {
                     type: el.getAttribute('data-type'),
                     id: getRandomComponentId()
                 } : undefined;
+
+                // Remove previous component from the form
                 if (el.classList.contains('component') || el.classList.contains('builder-component')) {
-                    source.formioContainer.splice(this.getComponentPosition(target.formioContainer, el.formioComponent.component), 1);
+                    source.formioContainer.splice(this.getComponentPosition(source.formioContainer, el.formioComponent.component), 1);
                 }
+
                 let componentPosition = -1;
                 if (sibling) {
                     if (sibling.getAttribute('data-position') !== null) {
