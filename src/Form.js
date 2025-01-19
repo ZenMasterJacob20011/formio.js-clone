@@ -103,6 +103,10 @@ export default class Form extends NestedComponent {
         return Form.schema();
     }
 
+    destroy() {
+        delete Formio.forms[this.id];
+    }
+
 
     /**
      * Go through each of the components and create an object containing components property as key and components value
