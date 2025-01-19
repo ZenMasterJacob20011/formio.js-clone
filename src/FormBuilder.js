@@ -86,10 +86,9 @@ export default class FormBuilder extends Component {
             }
         });
         document.querySelectorAll('.accordion-body').forEach((element) => {
-            this.drake.containers.push(element);
+            this.containers.push(element);
         });
-        this.drake.containers.push(document.querySelector('.form').querySelector('[ref="form-container"]'));
-        this.containers = this.drake.containers;
+        this.drake.containers = this.containers;
         this.drake.on('drop', (el, target, source, sibling) => {
             if (target) {
                 const originalContainerSchema = _.cloneDeep(target.formioContainer);
