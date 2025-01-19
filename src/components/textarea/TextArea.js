@@ -46,7 +46,7 @@ export default class TextArea extends Input {
     }
 
     get dataValue() {
-        if (this.component.editor === 'ace') {
+        if (this.component.editor === 'ace' && this.editor) {
             return JSON.parse(this.editor.getValue());
         }
         return super.dataValue;
