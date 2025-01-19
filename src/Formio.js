@@ -1,6 +1,6 @@
 import Form from './Form.js';
 import FormBuilder from './FormBuilder.js';
-import Components from './components/_classes/components/Components.js';
+import Components from './components/Components.js';
 import Template from './templates/Template.js';
 
 export default class Formio {

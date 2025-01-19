@@ -1,6 +1,6 @@
 import NestedArrayComponent from '../_classes/nestedarray/NestedArrayComponent.js';
 import Template from '../../templates/Template.js';
-import Components from '../_classes/components/Components.js';
+import Components from '../Components.js';
 
 export default class DataGrid extends NestedArrayComponent {
     static schema(...extend) {
