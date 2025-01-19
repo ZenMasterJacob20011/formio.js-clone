@@ -351,6 +351,9 @@ export default class FormBuilder extends Component {
      */
     set setBuilder(form) {
         if (!_.isEmpty(form)) {
+            if(this.form){
+                this.form.destroy();
+            }
             this.form = new Form(document.createElement('div'), form, this.options);
         }
         this.createBuilder();
